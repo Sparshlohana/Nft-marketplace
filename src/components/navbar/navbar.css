@@ -1,0 +1,128 @@
+.navContainer {
+  display: flex;
+  padding: 10px;
+  background-color: #ffffff19;
+  align-items: center;
+  color: #fff;
+}
+
+.logoContainer {
+  flex: 0.7;
+}
+
+.logo {
+  font-size: 2rem;
+  margin-left: 20px;
+}
+
+.searchContainer {
+  flex: 1.3;
+  display: flex;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+}
+
+.searchBar {
+  padding: 8px 15px;
+  border-radius: 20px;
+  width: 100%;
+  font-size: 1.1rem;
+  border: none;
+}
+
+.searchBar:focus {
+  outline: none;
+}
+
+.searchIcon {
+  width: 5%;
+  position: absolute;
+  right: 10px;
+  cursor: pointer;
+}
+
+.navUl {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 2;
+}
+
+.navItems {
+  margin: 20px;
+  list-style: none;
+  /* text-decoration: underline; */
+  font-size: 1.3rem;
+  cursor: pointer;
+}
+
+.signInContainer {
+  flex: 1;
+  text-align: center;
+}
+
+.signIn {
+  /* color: #f1f1f1; */
+  /* border: 2px solid #fff; */
+  padding: 8px;
+  /* width: 90%; */
+  border-radius: 20px;
+  font-size: 1.1rem;
+  width: 40%;
+  cursor: pointer;
+  color: #fff;
+  background: hsla(0, 0%, 99%, 0.11);
+  border: 1px solid #ffffff11;
+}
+
+.navResponsiveBtn {
+  display: none;
+}
+
+@media (max-width: 1000px) {
+  .navResponsiveBtnContainer {
+    flex: 2;
+  }
+
+  .navResponsiveBtn {
+    display: inline-block;
+    margin-left: 20px;
+    font-size: 1.3rem;
+  }
+
+  .logoContainer {
+    flex: 5;
+  }
+
+  .logo {
+    font-size: 1.2rem;
+  }
+
+  .navUl {
+    display: none;
+  }
+
+  .searchContainer {
+    flex: 6.5;
+  }
+
+  .searchBar {
+    padding: 5px;
+    font-size: 0.9rem;
+  }
+
+  .signIn {
+    display: none;
+  }
+}
+
+@media (max-width: 550px) {
+  .signIn {
+    width: 80%;
+  }
+
+  .searchIcon {
+    width: 10%;
+  }
+}

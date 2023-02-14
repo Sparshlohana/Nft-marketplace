@@ -1,0 +1,71 @@
+.CollectionCardsContainerMain {
+  display: flex;
+  align-items: center;
+  overflow-x: scroll;
+}
+
+.CollectionCardsContainerMain::-webkit-scrollbar {
+  height: 4px;
+}
+
+.CollectionCardsContainerMain::-webkit-scrollbar-track {
+  background-color: rgb(23, 21, 21);
+}
+
+.CollectionCardsContainerMain::-webkit-scrollbar-thumb {
+  background: #ffffffab;
+  border-radius: 10px;
+}
+
+.collectionCardContainer {
+  position: relative;
+  margin: 20px;
+  height: 30vh;
+
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.collectionCardContainer:hover {
+  box-shadow: 0px 0px 10px #d3d0d0;
+}
+
+.collectionCardImageContainer {
+  width: 300px;
+  height: 200px;
+}
+
+.collectionCardImage {
+  /* height: 30vh; */
+  width: 100%;
+  border: none;
+  border-radius: 10px;
+  height: 200px;
+}
+
+.collectionCardOwnerLogoAndHeadingContainer {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  bottom: 0px;
+  border-radius: 10px;
+  backdrop-filter: blur(10px);
+  border: none;
+  padding: 5px 0;
+}
+
+.logoOwner {
+  border-radius: 50%;
+  width: 10%;
+  padding-left: 10px;
+}
+
+.ownerName {
+  color: #fff;
+  margin: 0 8px;
+  letter-spacing: 1px;
+}
+
+.verificationLogo {
+  width: 5%;
+}
