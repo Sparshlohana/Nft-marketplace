@@ -103,9 +103,11 @@
   align-items: center;
   pointer-events: none;
 }
+
 .nav:hover {
   pointer-events: auto;
 }
+
 .sm-header {
   font-size: 1.5rem;
   color: #fff;
@@ -167,4 +169,40 @@
 
 .nav-link:hover i.fa-linkedin-in {
   color: #0077b5;
+}
+
+@media (max-width: 1000px) {
+  .footer {
+    flex-direction: column;
+  }
+
+  .footerNewsLetterContainer {
+    margin-top: 70px;
+    width: 100%;
+  }
+
+  .footerNewsLetterHeading {
+    font-size: 1.5rem;
+  }
+
+  .footerNewsLetterContent {
+    font-size: 1.2rem;
+  }
+
+  .footerNewsletterInput {
+    width: 50%;
+    font-size: 1.1rem;
+  }
+
+  .footerNewsletterSubmitButton {
+    padding: 8px 15px;
+  }
+
+  .footerContent2 {
+    font-size: 1.1rem;
+  }
+
+  .nav {
+    display: none;
+  }
 }

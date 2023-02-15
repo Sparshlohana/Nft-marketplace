@@ -18,25 +18,24 @@
 }
 
 .collectionCardContainer {
-  position: relative;
+  /* position: relative; */
   margin: 20px;
-  height: 30vh;
-
   border-radius: 10px;
   cursor: pointer;
 }
 
 .collectionCardContainer:hover {
-  box-shadow: 0px 0px 10px #d3d0d0;
+  /* box-shadow: 0px 0px 10px #d3d0d0; */
+  margin-top: -1px;
+  transition: 0.5s;
 }
 
 .collectionCardImageContainer {
   width: 300px;
-  height: 200px;
+  /* height: 200px; */
 }
 
 .collectionCardImage {
-  /* height: 30vh; */
   width: 100%;
   border: none;
   border-radius: 10px;
@@ -46,12 +45,13 @@
 .collectionCardOwnerLogoAndHeadingContainer {
   display: flex;
   align-items: center;
-  position: absolute;
-  bottom: 0px;
-  border-radius: 10px;
+  /* position: absolute; */
+  /* bottom: 0px; */
+  /* border-radius: 10px; */
   backdrop-filter: blur(10px);
   border: none;
   padding: 5px 0;
+  transform: translateY(-30px);
 }
 
 .logoOwner {
@@ -68,4 +68,26 @@
 
 .verificationLogo {
   width: 5%;
+}
+
+@media (max-width: 1000px) {
+  .collectionCardContainer {
+    position: relative;
+    margin: 20px;
+    height: 22vh;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+  .collectionCardImageContainer {
+    width: 200px;
+    height: 150px;
+  }
+
+  .collectionCardImage {
+    height: 150px;
+  }
+
+  .collectionCardOwnerLogoAndHeadingContainer {
+    /* position: absolute; */
+  }
 }

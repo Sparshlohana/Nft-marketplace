@@ -82,17 +82,17 @@
 
 @media (max-width: 1000px) {
   .navResponsiveBtnContainer {
-    flex: 2;
+    flex: 1;
   }
 
   .navResponsiveBtn {
     display: inline-block;
-    margin-left: 20px;
+    margin-left: 10px;
     font-size: 1.3rem;
   }
 
   .logoContainer {
-    flex: 5;
+    flex: 2;
   }
 
   .logo {
@@ -104,7 +104,7 @@
   }
 
   .searchContainer {
-    flex: 6.5;
+    flex: 3;
   }
 
   .searchBar {

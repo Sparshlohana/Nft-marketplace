@@ -4,6 +4,7 @@ import FilterContainer from "../../components/filterContainer/FilterContainer";
 import FilterContainerMain from "../../components/filterContainerMain/FilterContainerMain";
 import NftCardsContainerMain from "../../components/nftCardsContainerMain/NftCardsContainerMain";
 import SortByContainer from "../../components/sortByContainer/SortByContainer";
+import "./shop.css";
 
 const Shop = () => {
   const [openSort, setOpenSort] = useState(false);
@@ -24,13 +25,7 @@ const Shop = () => {
             openFilter={openFilter}
             setOpenFilter={setOpenFilter}
           />
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              marginTop: "20px",
-            }}
-          >
+          <div className="shopContainerFlex">
             {openFilter && <FilterContainer />}
             <NftCardsContainerMain openFilter={openFilter} />
           </div>

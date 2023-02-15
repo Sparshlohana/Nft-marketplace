@@ -18,7 +18,6 @@
 }
 
 .nftCardImg {
-  height: 240px;
   width: 100%;
   /* object-fit: cover; */
 }
@@ -32,6 +31,7 @@
   display: flex;
   align-items: center;
   border-radius: 10px;
+  margin-top: 10px;
 }
 
 .nftCardAuthorName {
@@ -87,4 +87,57 @@
 .nftCardBuyBtn:hover {
   transition: 0.2s;
   background: #242424;
+}
+
+@media (max-width: 600px) {
+  .nftCardImgContainer {
+    height: 150px;
+    width: 150px;
+    cursor: pointer;
+  }
+}
+
+@media (max-width: 380px) {
+  .nftCardImgContainer {
+    height: 140px;
+    width: 140px;
+    cursor: pointer;
+  }
+
+  .nftCardBuyBtn {
+    margin-left: 5px;
+    padding: 3px 7px;
+    cursor: pointer;
+    color: #fff;
+    border-radius: 20px;
+    font-size: 0.7rem;
+  }
+  .nftCardNameContainer {
+    width: 98%;
+  }
+  .nftCardAuthorName {
+    font-size: 0.6rem;
+  }
+  .nftCardAuthorNameContainer {
+    width: 98%;
+  }
+
+  .nftCardPriceAndBuyContainer {
+  }
+  .nftCardName {
+    font-size: 0.8rem;
+  }
+
+  .nftCardPrice {
+    font-size: 0.7rem;
+  }
+
+  .nftAuthorVerificationImg {
+    color: #1da1f2;
+    border: 1px solid #1da1f2;
+    border-radius: 50%;
+    width: 12px;
+    height: 12px;
+    margin: 5px;
+  }
 }

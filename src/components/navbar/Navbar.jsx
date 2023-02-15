@@ -1,14 +1,21 @@
 import "./navbar.css";
-import { RiEqualizerLine } from "react-icons/ri";
+import { RiCloseLine, RiEqualizerLine } from "react-icons/ri";
 
 const Navbar = ({ openSidebar, setOpenSidebar }) => {
   return (
     <nav className="navContainer">
       <div className="navResponsiveBtnContainer">
-        <RiEqualizerLine
-          onClick={() => setOpenSidebar(!openSidebar)}
-          className="navResponsiveBtn"
-        />
+        {openSidebar ? (
+          <RiCloseLine
+            className="navResponsiveBtn"
+            onClick={() => setOpenSidebar(false)}
+          ></RiCloseLine>
+        ) : (
+          <RiEqualizerLine
+            onClick={() => setOpenSidebar(!openSidebar)}
+            className="navResponsiveBtn"
+          />
+        )}
       </div>
       <div className="logoContainer">
         {/* <img src="" alt="logo" /> */}
@@ -21,7 +28,7 @@ const Navbar = ({ openSidebar, setOpenSidebar }) => {
           name="search"
           id="search"
           className="searchBar"
-          placeholder="Search Here..."
+          placeholder="Search.."
         />
         <img
           src="https://cdn-icons-png.flaticon.com/512/3917/3917754.png"

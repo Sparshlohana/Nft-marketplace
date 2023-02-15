@@ -1,13 +1,13 @@
 .filterButtonContainer {
   margin-top: 20px;
   margin-left: 20px;
-  width: 30%;
+  /* width: 80%; */
 }
 
 .filterButton {
   padding: 8px;
   border-radius: 30px;
-  width: 40%;
+  width: 120px;
   font-size: 1.1rem;
   background: #16161690;
   border: 1px solid #fff;
@@ -24,4 +24,7 @@
 
 .funnelImage {
   width: 18%;
+}
+
+@media (max-width: 1000px) {
 }

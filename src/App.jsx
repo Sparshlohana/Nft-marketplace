@@ -3,7 +3,7 @@ import Navbar from "./components/navbar/Navbar";
 import Shop from "./Pages/shop/Shop";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import FooterContainer from "./components/footerContainer/FooterContainer";
-import NavSideBar from "./navSidebar/NavSideBar";
+import NavSideBar from "./components/navSidebar/NavSideBar";
 import { useState } from "react";
 function App() {
   const [openSidebar, setOpenSidebar] = useState(false);
@@ -11,12 +11,8 @@ function App() {
   return (
     <Router>
       <div className="App">
-        {openSidebar ? (
-          <NavSideBar />
-        ) : (
-          <Navbar openSidebar={openSidebar} setOpenSidebar={setOpenSidebar} />
-        )}
-
+        <Navbar openSidebar={openSidebar} setOpenSidebar={setOpenSidebar} />
+        {openSidebar && <NavSideBar />}
         <Routes>
           <Route path="/shop" element={<Shop />}></Route>
         </Routes>
