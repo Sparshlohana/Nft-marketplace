@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import FooterContainer from "./components/footerContainer/FooterContainer";
 import NavSideBar from "./components/navSidebar/NavSideBar";
 import { useState } from "react";
+import Details from "./Pages/nftDetails/Details";
 function App() {
   const [openSidebar, setOpenSidebar] = useState(false);
 
@@ -15,6 +16,9 @@ function App() {
         {openSidebar && <NavSideBar />}
         <Routes>
           <Route path="/shop" element={<Shop />}></Route>
+        </Routes>
+        <Routes>
+          <Route path="/detail" element={<Details />}></Route>
         </Routes>
         <FooterContainer />
       </div>

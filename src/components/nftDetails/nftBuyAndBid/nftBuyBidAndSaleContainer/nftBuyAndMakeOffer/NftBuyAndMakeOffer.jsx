@@ -1,0 +1,45 @@
+import { AiOutlineShoppingCart } from "react-icons/ai";
+import { FaRegHandshake } from "react-icons/fa";
+import { MdOutlineLocalOffer } from "react-icons/md";
+
+const NftBuyAndMakeOffer = () => {
+  return (
+    <div className="nftBuyAndMakeOfferContainer">
+      <div className="currentPriceContainer">
+        <p className="currentPrice">Current price</p>
+      </div>
+      <div className="nftPriceContainer">
+        <div className="ethereumPriceContainer">
+          <p className="ethereumPrice">0.045 ETH</p>
+        </div>
+        <div className="USDPriceContainer">
+          <p className="USDPrice">$0.045</p>
+        </div>
+        <div className="INRPriceContainer">
+          <p className="INRPrice">&#x20B9;0.045</p>
+        </div>
+      </div>
+      <div className="buyNowContainerMain">
+        <div className="addToCartContainer">
+          <button className="addToCartBtn">
+            <AiOutlineShoppingCart className="buyNowIcons" />
+            Add to Cart
+          </button>
+        </div>
+        <div className="buyNowContainer">
+          <button className="addToCartBtn">
+            <FaRegHandshake /> Buy Now
+          </button>
+        </div>
+        <div className="buyNowContainer">
+          <button className="addToCartBtn">
+            <MdOutlineLocalOffer />
+            Make Offer
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default NftBuyAndMakeOffer;
