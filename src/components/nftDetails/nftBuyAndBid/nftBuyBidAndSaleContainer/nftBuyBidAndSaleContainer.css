@@ -1,8 +1,13 @@
 .nftBuyBidAndSaleContainer {
   margin-top: 40px;
-  margin-left: 100px;
   border: 1px solid #fff;
-  width: 60%;
+  width: 80%;
   border-radius: 10px;
   padding: 10px;
+}
+
+@media (max-width: 665px) {
+  .nftBuyBidAndSaleContainer {
+    width: 100%;
+  }
 }

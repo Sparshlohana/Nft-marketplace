@@ -1,6 +1,7 @@
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { FaRegHandshake } from "react-icons/fa";
 import { MdOutlineLocalOffer } from "react-icons/md";
+import "./nftBuyAndMakeOffer.css";
 
 const NftBuyAndMakeOffer = () => {
   return (
@@ -20,21 +21,22 @@ const NftBuyAndMakeOffer = () => {
         </div>
       </div>
       <div className="buyNowContainerMain">
-        <div className="addToCartContainer">
+        <div className="buyNowContainer">
           <button className="addToCartBtn">
             <AiOutlineShoppingCart className="buyNowIcons" />
-            Add to Cart
+            <span className="buyNowSpan"> Add to Cart</span>
           </button>
         </div>
         <div className="buyNowContainer">
           <button className="addToCartBtn">
-            <FaRegHandshake /> Buy Now
+            <FaRegHandshake className="buyNowIcons" />
+            <span className="buyNowSpan"> Buy Now</span>
           </button>
         </div>
         <div className="buyNowContainer">
           <button className="addToCartBtn">
-            <MdOutlineLocalOffer />
-            Make Offer
+            <MdOutlineLocalOffer className="buyNowIcons" />
+            <span className="buyNowSpan"> Make Offer</span>
           </button>
         </div>
       </div>

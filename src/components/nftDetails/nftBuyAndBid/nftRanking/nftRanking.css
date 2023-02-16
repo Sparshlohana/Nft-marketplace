@@ -1,6 +1,5 @@
 .nftRankingContainer {
   display: flex;
-  margin-left: 100px;
   margin-top: 30px;
 }
 
@@ -38,4 +37,22 @@
   color: #fff;
   font-size: 1.1rem;
   margin-left: 5px;
+}
+
+@media (max-width: 620px) {
+  .rankingContainer {
+    width: 20%;
+  }
+  .favoritesContainer {
+    width: 30%;
+  }
+}
+
+@media (max-width: 410px) {
+  .rankingContainer {
+    width: 30%;
+  }
+  .favoritesContainer {
+    width: 40%;
+  }
 }

@@ -1,0 +1,108 @@
+.nftBuyAndMakeOfferContainer {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+
+.currentPriceContainer {
+  margin-top: 10px;
+}
+
+.currentPrice {
+  color: #fff;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.nftPriceContainer {
+  display: flex;
+  align-items: center;
+  margin: 10px 10px 0 0;
+}
+
+.ethereumPriceContainer {
+  flex: 1;
+}
+
+.ethereumPrice {
+  color: #fff;
+  font-size: 1.3rem;
+}
+
+.USDPriceContainer {
+  flex: 1;
+}
+
+.USDPrice {
+  color: #fff;
+  font-size: 1.3rem;
+}
+
+.INRPriceContainer {
+  flex: 1;
+}
+
+.INRPrice {
+  font-size: 1.3rem;
+  color: #fff;
+}
+
+.buyNowContainerMain {
+  display: flex;
+  margin: 10px 10px 0 0;
+}
+
+.buyNowContainer {
+  margin: 0 30px 0 0;
+}
+
+.addToCartBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 7px 15px;
+  cursor: pointer;
+  border-radius: 20px;
+  background: hsla(0, 0%, 99%, 0.107);
+  border: 1px solid #ffffff11;
+}
+
+.buyNowSpan {
+  color: #fff;
+}
+
+.buyNowIcons {
+  color: #fff;
+  margin-right: 5px;
+}
+
+@media (max-width: 535px) {
+  .buyNowContainerMain {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+
+  .addToCartBtn {
+    margin-top: 20px;
+    width: 100%;
+    padding: 10px 20px;
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 450px) {
+  .ethereumPrice {
+    font-size: 1.1rem;
+    padding: 5px;
+  }
+  .USDPrice {
+    font-size: 1.1rem;
+    padding: 5px;
+  }
+  .INRPrice {
+    font-size: 1.1rem;
+    padding: 5px;
+  }
+}

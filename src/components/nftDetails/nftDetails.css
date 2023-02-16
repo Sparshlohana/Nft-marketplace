@@ -1,3 +1,11 @@
 .NftDetailsMainContainer {
   display: flex;
 }
+
+@media (max-width: 1250px) {
+  .NftDetailsMainContainer {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+}
