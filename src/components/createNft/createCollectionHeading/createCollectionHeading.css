@@ -1,0 +1,15 @@
+.createCollectionHeadingAndDescriptionContainer {
+  margin-top: 30px;
+  width: 50%;
+}
+
+.createCollectionHeading {
+  padding: 5px;
+  color: #fff;
+}
+
+.createCollectionDescription {
+  padding: 5px;
+  color: #fff;
+  font-size: 1.2rem;
+}
