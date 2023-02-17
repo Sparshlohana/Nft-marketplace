@@ -109,27 +109,29 @@
   .createNftDataCollectionForm {
     width: 90%;
   }
-  .NftImgVidDisplayContainer {
-    /* width: 80vh; */
-  }
 }
 
 @media (max-width: 510px) {
   .dropYourFilePara {
     font-size: 1.2rem;
   }
+
   .dropFileIcon {
     font-size: 3rem;
   }
+
   .createNftDataCollectionFormPriceHeading {
     font-size: 1.4rem;
   }
+
   .createNftDataCollectionFormInput {
     font-size: 1.1rem;
   }
+
   .NftImgVidDisplayContainer {
     width: 50vh;
   }
+
   .createNftBtn {
     width: 40%;
   }
@@ -139,6 +141,7 @@
   .NftImgVidDisplayContainer {
     width: 40vh;
   }
+
   .createNftBtn {
     width: 50%;
   }
@@ -148,6 +151,7 @@
   .NftImgVidDisplayContainer {
     width: 30vh;
   }
+
   .createNftBtn {
     width: 60%;
   }
