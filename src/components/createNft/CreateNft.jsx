@@ -1,6 +1,6 @@
 import CreateCollectionHeading from "./createCollectionHeading/CreateCollectionHeading";
-import "./createNft.css";
 import CreateNftDataCollection from "./CreateNftDataCollection/CreateNftDataCollection";
+import "./createNft.css";
 
 const CreateNft = () => {
   return (
