@@ -10,7 +10,14 @@ const NftCard = ({ nft }) => {
           {nft.fileType === "image" && (
             <img src={nft.media} alt="" className="nftCardImg" />
           )}
-          {nft.fileType === "video" && <video src={nft.media} controls muted />}
+          {nft.fileType === "video" && (
+            <video
+              src={nft.media}
+              autoPlay
+              muted
+              className="nftCardImg nftVideoCard"
+            />
+          )}
           {nft.fileType === "audio" && (
             <audio controls muted>
               <source src={nft.media}></source>
