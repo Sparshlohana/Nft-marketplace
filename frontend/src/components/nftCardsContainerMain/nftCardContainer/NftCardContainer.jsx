@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import NftAudioCard from "./nftCard/NftAudioCard/NftAudioCard";
 import NftCard from "./nftCard/NftCard";
 import "./nftCardContainer.css";
