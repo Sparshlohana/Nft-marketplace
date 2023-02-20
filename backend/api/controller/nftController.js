@@ -57,13 +57,25 @@ export const getAllNFTs = async (req, res) => {
 
 export const createNFT = async (req, res) => {
   try {
-    const newNFT = await NFT.create(req.body);
-    res.status(200).json({
-      status: "success",
-      data: {
-        nft: newNFT,
-      },
-    });
+    const { name, tokenURI, tokenId, seller, owner, price, sold } = req.body;
+
+    if (name && tokenURI && tokenId && seller && owner && price && sold) {
+      const obj = { name, tokenURI, tokenId, seller, owner, price };
+      const exist = await NFT.findOne({ tokenId });
+      let newNFT;
+      if (exist) {
+        newNFT = await NFT.updateOne({ tokenId }, obj);
+      } else {
+        newNFT = await NFT.create(req.body);
+      }
+
+      res.status(200).json({
+        status: "success",
+        data: {
+          nft: newNFT,
+        },
+      });
+    }
   } catch (error) {
     console.log(error);
     res.status(400).json({

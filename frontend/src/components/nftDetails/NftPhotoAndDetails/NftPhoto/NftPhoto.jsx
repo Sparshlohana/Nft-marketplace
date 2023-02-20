@@ -16,7 +16,7 @@ const NftPhoto = ({ nft }) => {
         </audio>
       )}
       {nft?.fileType === "video" && (
-        <video src={nft.media} controls autoPlay muted />
+        <video src={nft?.media} className="nftPhoto" controls autoPlay muted />
       )}
     </div>
   );

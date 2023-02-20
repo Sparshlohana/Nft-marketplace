@@ -1,6 +1,5 @@
 .nftCard {
   margin: 0 10px 20px 10px;
-  /* width: 18vw; */
   background: #ffffff25;
   border-radius: 10px;
 }
@@ -19,7 +18,8 @@
 
 .nftCardImg {
   width: 100%;
-  /* object-fit: cover; */
+  height: 100%;
+  object-fit: cover;
 }
 
 .nftCardContent {
@@ -51,12 +51,13 @@
 
 .nftCardNameContainer {
   width: 100%;
+  margin-top: 5px;
 }
 
 .nftCardName {
   margin-left: 10px;
   color: #fff;
-  font-size: 1.1rem;
+  font-size: 1.3rem;
 }
 
 .nftCardPriceAndBuyContainer {
@@ -72,6 +73,7 @@
 
 .nftCardPrice {
   color: #fff;
+  font-size: 1.2rem;
 }
 
 .nftCardBuyBtn {
@@ -92,7 +94,7 @@
 @media (max-width: 600px) {
   .nftCardImgContainer {
     height: 150px;
-    width: 150px;
+    width: 200px;
     cursor: pointer;
   }
 }
@@ -100,7 +102,7 @@
 @media (max-width: 380px) {
   .nftCardImgContainer {
     height: 140px;
-    width: 140px;
+    width: 155px;
     cursor: pointer;
   }
 
@@ -122,8 +124,6 @@
     width: 98%;
   }
 
-  .nftCardPriceAndBuyContainer {
-  }
   .nftCardName {
     font-size: 0.8rem;
   }

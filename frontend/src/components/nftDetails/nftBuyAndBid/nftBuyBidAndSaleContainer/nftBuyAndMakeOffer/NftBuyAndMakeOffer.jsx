@@ -32,7 +32,7 @@ const NftBuyAndMakeOffer = ({ nft }) => {
 
   useEffect(() => {
     fetchCurrentPriceOfEth();
-  }, []);
+  });
 
   return (
     <div className="nftBuyAndMakeOfferContainer">
