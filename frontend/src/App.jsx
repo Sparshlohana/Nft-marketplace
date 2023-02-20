@@ -20,7 +20,7 @@ function App() {
 
   useEffect(() => {
     checkIfWalletIsConnected();
-  }, []);
+  });
 
   console.log(currentAccount);
 
