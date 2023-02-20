@@ -1,11 +1,12 @@
 import "./nftAuthorName.css";
 
-const NftAuthorName = () => {
+const NftAuthorName = ({ nft }) => {
   return (
     <div className="nftAuthorNameContainer">
       <div className="nftAuthorName">
         <a href="/" className="nftAuthorNameAnchor">
-          Author Name
+          {/* Author Name {} */}
+          {nft?.seller}
         </a>
         <img
           className="nftAuthorNameVerificationImage"

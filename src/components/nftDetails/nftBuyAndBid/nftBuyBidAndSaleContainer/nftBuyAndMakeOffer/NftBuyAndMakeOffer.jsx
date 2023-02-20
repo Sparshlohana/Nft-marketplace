@@ -3,7 +3,7 @@ import { FaRegHandshake } from "react-icons/fa";
 import { MdOutlineLocalOffer } from "react-icons/md";
 import "./nftBuyAndMakeOffer.css";
 
-const NftBuyAndMakeOffer = () => {
+const NftBuyAndMakeOffer = ({ nft }) => {
   return (
     <div className="nftBuyAndMakeOfferContainer">
       <div className="currentPriceContainer">
@@ -11,7 +11,7 @@ const NftBuyAndMakeOffer = () => {
       </div>
       <div className="nftPriceContainer">
         <div className="ethereumPriceContainer">
-          <p className="ethereumPrice">0.045 ETH</p>
+          <p className="ethereumPrice">{nft?.price} ETH</p>
         </div>
         <div className="USDPriceContainer">
           <p className="USDPrice">$0.045</p>

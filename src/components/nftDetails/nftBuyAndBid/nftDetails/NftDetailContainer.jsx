@@ -2,12 +2,12 @@ import "./nftDetailContainer.css";
 import NftDetailHeading from "./nftDetailHeading/NftDetailHeading";
 import NftDetailsContent from "./nftDetailsContent/NftDetailsContent";
 
-const NftDetailContainer = () => {
+const NftDetailContainer = ({ nft }) => {
   return (
     <div className="nftDetailContainer">
       <NftDetailHeading />
       <hr className="nftDetailContainerHr" />
-      <NftDetailsContent />
+      <NftDetailsContent nft={nft} />
     </div>
   );
 };

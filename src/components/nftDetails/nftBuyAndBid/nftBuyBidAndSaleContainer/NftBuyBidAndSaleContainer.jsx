@@ -2,12 +2,12 @@ import NftBuyAndMakeOffer from "./nftBuyAndMakeOffer/NftBuyAndMakeOffer";
 import "./nftBuyBidAndSaleContainer.css";
 import NftSaleTime from "./nftSaleTime/NftSaleTime";
 
-const NftBuyBidAndSaleContainer = () => {
+const NftBuyBidAndSaleContainer = ({ nft }) => {
   return (
     <div className="nftBuyBidAndSaleContainer">
       <NftSaleTime />
       <hr />
-      <NftBuyAndMakeOffer />
+      <NftBuyAndMakeOffer nft={nft} />
     </div>
   );
 };

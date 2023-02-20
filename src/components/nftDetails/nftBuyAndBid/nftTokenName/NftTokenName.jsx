@@ -1,9 +1,9 @@
 import "./nftTokenName.css";
 
-const NftTokenName = () => {
+const NftTokenName = ({ nft }) => {
   return (
     <div className="nftTokenNameContainer">
-      <h1 className="nftTokenName">#DeepPrajapati</h1>
+      <h1 className="nftTokenName">#{nft?.name}</h1>
     </div>
   );
 };

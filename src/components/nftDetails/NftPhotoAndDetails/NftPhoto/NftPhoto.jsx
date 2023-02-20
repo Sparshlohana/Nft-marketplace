@@ -16,6 +16,9 @@ const NftPhoto = ({ nft }) => {
           <source src={nft.media}></source>
         </audio>
       )}
+      {nft?.fileType === "video" && (
+        <video src={nft.media} controls autoPlay muted/>
+      )}
     </div>
   );
 };

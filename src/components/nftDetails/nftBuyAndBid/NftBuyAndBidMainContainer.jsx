@@ -5,14 +5,14 @@ import NftRanking from "./nftRanking/NftRanking";
 import NftBuyBidAndSaleContainer from "./nftBuyBidAndSaleContainer/NftBuyBidAndSaleContainer";
 import NftDetailContainer from "./nftDetails/NftDetailContainer";
 
-const NftBuyAndBidMainContainer = () => {
+const NftBuyAndBidMainContainer = ({ nft }) => {
   return (
     <div className="NftBuyAndBidMainContainer">
-      <NftAuthorName />
-      <NftTokenName />
-      <NftRanking />
-      <NftBuyBidAndSaleContainer />
-      <NftDetailContainer />
+      <NftAuthorName nft={nft} />
+      <NftTokenName nft={nft} />
+      <NftRanking nft={nft} />
+      <NftBuyBidAndSaleContainer nft={nft} />
+      <NftDetailContainer nft={nft} />
     </div>
   );
 };

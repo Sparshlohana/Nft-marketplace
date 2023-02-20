@@ -7,6 +7,10 @@ import NavSideBar from "./components/navSidebar/NavSideBar";
 import { useContext, useEffect, useState } from "react";
 import Details from "./Pages/nftDetails/Details";
 import CreateNftPage from "./Pages/createNftPage/CreateNftPage";
+import { NFTMarketplaceContext } from "./context/NFTMarketplaceContext";
+
+import UserDetailPage from "./Pages/userDetailPage/UserDetailPage";
+
 function App() {
   const [openSidebar, setOpenSidebar] = useState(false);
 
