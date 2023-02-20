@@ -7,6 +7,7 @@ import NavSideBar from "./components/navSidebar/NavSideBar";
 import { useState } from "react";
 import Details from "./Pages/nftDetails/Details";
 import CreateNftPage from "./Pages/createNftPage/CreateNftPage";
+import UserDetailPage from "./Pages/userDetailPage/UserDetailPage";
 function App() {
   const [openSidebar, setOpenSidebar] = useState(false);
 
@@ -23,6 +24,9 @@ function App() {
         </Routes>
         <Routes>
           <Route path="/nft/create" element={<CreateNftPage />}></Route>
+        </Routes>
+        <Routes>
+          <Route path="/user" element={<UserDetailPage />}></Route>
         </Routes>
         <FooterContainer />
       </div>

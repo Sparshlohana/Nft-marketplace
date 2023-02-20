@@ -1,0 +1,10 @@
+.userProfileContainer {
+  width: 10%;
+}
+
+.userProfileImage {
+  width: 100%;
+  transform: translateX(100%) translateY(-70%);
+  border-radius: 50%;
+  border: 1px solid #fff;
+}
