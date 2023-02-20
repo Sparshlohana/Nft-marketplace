@@ -1,10 +1,14 @@
 import "./nftCardsContainerMain.css";
 import NftCardsContainer from "./nftCardContainer/NftCardContainer";
 
-const NftCardsContainerMain = ({ openFilter }) => {
+const NftCardsContainerMain = ({ openFilter, nfts, setNfts }) => {
   return (
     <div className="nftCardsContainerMain">
-      <NftCardsContainer openFilter={openFilter} />
+      <NftCardsContainer
+        nfts={nfts}
+        setNfts={setNfts}
+        openFilter={openFilter}
+      />
     </div>
   );
 };

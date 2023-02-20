@@ -1,19 +1,13 @@
+import { Link } from "react-router-dom";
 import NftCard from "./nftCard/NftCard";
 import "./nftCardContainer.css";
 
-const NftCardContainer = ({ openFilter }) => {
+const NftCardContainer = ({ openFilter, nfts }) => {
   return (
     <div className="nftCardContainer">
-      <NftCard />
-      <NftCard />
-      <NftCard />
-      <NftCard />
-      <NftCard />
-      <NftCard />
-      <NftCard />
-      <NftCard />
-      <NftCard />
-      <NftCard />
+      {nfts?.map((nft) => {
+        return <NftCard nft={nft} />;
+      })}
     </div>
   );
 };

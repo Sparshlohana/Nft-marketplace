@@ -4,12 +4,21 @@ import Shop from "./Pages/shop/Shop";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import FooterContainer from "./components/footerContainer/FooterContainer";
 import NavSideBar from "./components/navSidebar/NavSideBar";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Details from "./Pages/nftDetails/Details";
 import CreateNftPage from "./Pages/createNftPage/CreateNftPage";
-import UserDetailPage from "./Pages/userDetailPage/UserDetailPage";
 function App() {
   const [openSidebar, setOpenSidebar] = useState(false);
+
+  const { checkIfWalletIsConnected, currentAccount } = useContext(
+    NFTMarketplaceContext
+  );
+
+  useEffect(() => {
+    checkIfWalletIsConnected();
+  }, []);
+
+  console.log(currentAccount);
 
   return (
     <Router>
@@ -20,10 +29,10 @@ function App() {
           <Route path="/shop" element={<Shop />}></Route>
         </Routes>
         <Routes>
-          <Route path="/detail" element={<Details />}></Route>
+          <Route path="/nft/:tokenId" element={<Details />}></Route>
         </Routes>
         <Routes>
-          <Route path="/nft/create" element={<CreateNftPage />}></Route>
+          <Route path="/create" element={<CreateNftPage />}></Route>
         </Routes>
         <Routes>
           <Route path="/user" element={<UserDetailPage />}></Route>

@@ -1,13 +1,21 @@
 import "./nftPhoto.css";
 
-const NftPhoto = () => {
+const NftPhoto = ({ nft }) => {
+  console.log(nft);
   return (
     <div className="nftPhotoContainer">
-      <img
-        className="nftPhoto"
-        src="https://mediaserver.responsesource.com/press-release/136827/1_King.png"
-        alt="Could not load img here!!"
-      />
+      {nft?.fileType === "image" && (
+        <img
+          className="nftPhoto"
+          src={nft?.media}
+          alt="Could not load img here!!"
+        />
+      )}
+      {nft?.fileType === "audio" && (
+        <audio controls muted>
+          <source src={nft.media}></source>
+        </audio>
+      )}
     </div>
   );
 };
