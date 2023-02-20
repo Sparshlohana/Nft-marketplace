@@ -90,6 +90,11 @@ contract NFTMarketplace is ERC721URIStorage {
         return newTokenId;
     }
 
+    function deleteNft(uint256 tokenId) public {
+        require(msg.sender == idToMarketItem[tokenId].owner);
+        delete idToMarketItem[tokenId];
+    }
+
     function createMarketItem(uint256 tokenId, uint256 price) private {
         require(price > 0, "Price must be at least 1 wei");
         require(

@@ -4,6 +4,7 @@ import NftPhotoAndDetails from "./NftPhotoAndDetails/NftPhotoAndDetails";
 import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "../../utils/axios";
+
 import { NFTMarketplaceContext } from "../../context/NFTMarketplaceContext";
 
 const NftDetails = () => {

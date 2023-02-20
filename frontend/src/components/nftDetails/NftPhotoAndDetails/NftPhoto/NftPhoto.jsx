@@ -1,7 +1,6 @@
 import "./nftPhoto.css";
 
 const NftPhoto = ({ nft }) => {
-  console.log(nft);
   return (
     <div className="nftPhotoContainer">
       {nft?.fileType === "image" && (
@@ -17,7 +16,7 @@ const NftPhoto = ({ nft }) => {
         </audio>
       )}
       {nft?.fileType === "video" && (
-        <video src={nft.media} controls autoPlay muted/>
+        <video src={nft.media} controls autoPlay muted />
       )}
     </div>
   );
