@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 const NftCard = ({ nft }) => {
   return (
     <div className="nftCard">
-      <Link to={`/nft/${nft.tokenId}`}>
+      <Link style={{ textDecoration: "none" }} to={`/nft/${nft.tokenId}`}>
         <div className="nftCardImgContainer">
           {nft.fileType === "image" && (
             <img src={nft.media} alt="" className="nftCardImg" />
