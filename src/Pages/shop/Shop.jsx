@@ -1,14 +1,24 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import CollectionContainer from "../../components/collectionContainer/CollectionContainer";
 import FilterContainer from "../../components/filterContainer/FilterContainer";
 import FilterContainerMain from "../../components/filterContainerMain/FilterContainerMain";
 import NftCardsContainerMain from "../../components/nftCardsContainerMain/NftCardsContainerMain";
 import SortByContainer from "../../components/sortByContainer/SortByContainer";
+import { NFTMarketplaceContext } from "../../context/NFTMarketplaceContext";
 import "./shop.css";
 
 const Shop = () => {
   const [openSort, setOpenSort] = useState(false);
   const [openFilter, setOpenFilter] = useState(false);
+  const [nfts, setNfts] = useState([]);
+
+  const { fetchNFTs } = useContext(NFTMarketplaceContext);
+
+  useEffect(() => {
+    fetchNFTs().then((data) => {
+      setNfts(data);
+    });
+  }, []);
 
   return (
     <>
@@ -27,7 +37,11 @@ const Shop = () => {
           />
           <div className="shopContainerFlex">
             {openFilter && <FilterContainer />}
-            <NftCardsContainerMain openFilter={openFilter} />
+            <NftCardsContainerMain
+              nfts={nfts}
+              setNfts={setNfts}
+              openFilter={openFilter}
+            />
           </div>
         </div>
       </div>

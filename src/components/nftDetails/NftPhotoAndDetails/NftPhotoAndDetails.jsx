@@ -1,10 +1,10 @@
 import NftPhoto from "./NftPhoto/NftPhoto";
 import "./nftPhotoAndDetails.css";
 
-const NftPhotoAndDetails = () => {
+const NftPhotoAndDetails = ({ nft }) => {
   return (
     <div className="nftPhotoAndDetails">
-      <NftPhoto />
+      <NftPhoto nft={nft} />
     </div>
   );
 };
