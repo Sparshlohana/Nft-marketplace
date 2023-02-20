@@ -11,6 +11,11 @@ const Shop = () => {
   const [openSort, setOpenSort] = useState(false);
   const [openFilter, setOpenFilter] = useState(false);
   const [nfts, setNfts] = useState([]);
+  const [filter, setFilter] = useState({
+    minPrice: null,
+    maxPrice: null,
+    currency: null,
+  });
 
   const { fetchNFTs } = useContext(NFTMarketplaceContext);
 
