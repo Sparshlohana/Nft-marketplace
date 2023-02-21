@@ -1,5 +1,5 @@
 import "./rangeFilter.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const RangeFilter = ({ filter, setFilter }) => {
   return (
@@ -9,7 +9,9 @@ const RangeFilter = ({ filter, setFilter }) => {
         type="number"
         placeholder="Min.."
         value={filter.minPrice}
-        onChange={(e) => setFilter({ ...filter, minPrice: e.target.value })}
+        onChange={(e) => {
+          setFilter({ ...filter, minPrice: e.target.value });
+        }}
         className="priceInput"
         min={0}
       />

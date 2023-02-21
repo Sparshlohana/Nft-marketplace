@@ -1,9 +1,11 @@
-import React, { useState, useRef } from "react";
+import axios from "axios";
+import React, { useState, useRef, useEffect } from "react";
 import { BsPlay, BsPause } from "react-icons/bs";
 import { TiTick } from "react-icons/ti";
+import { Link } from "react-router-dom";
 import "./nftAudioCard.css";
 
-const NftAudioCard = ({ nft }) => {
+const NftAudioCard = ({ nft, filter }) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const audioRef = useRef(null);
@@ -19,6 +21,33 @@ const NftAudioCard = ({ nft }) => {
     audioRef.current.pause();
     setIsPlaying(false);
   };
+
+  const [price, setPrice] = useState("");
+
+  const fetchCurrentPriceOfEth = async () => {
+    try {
+      if (filter.currency === "INR") {
+        const inrPrice = await axios.get(
+          "https://api.coinconvert.net/convert/eth/inr?amount=" + nft?.price
+        );
+        setPrice("₹ " + Math.floor(inrPrice.data.INR) + " INR ");
+      } else if (filter.currency === "USD") {
+        const usdPrice = await axios.get(
+          "https://api.coinconvert.net/convert/eth/usd?amount=" + nft?.price
+        );
+
+        setPrice("$ " + usdPrice.data.USD + " USD ");
+      } else {
+        setPrice(nft?.price + " ETH ");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchCurrentPriceOfEth();
+  });
 
   return (
     <>
@@ -37,26 +66,28 @@ const NftAudioCard = ({ nft }) => {
               )}
             </button>
           </div>
-          <div className="nftCardContent">
-            <div className="nftCardAuthorNameContainer">
-              <p className="nftCardAuthorName">
-                {nft.seller.slice(0, 7) + "..." + nft.seller.slice(28)}
-              </p>
-              <TiTick className="nftAuthorVerificationImg" />
-            </div>
-            <div className="nftCardNameContainer">
-              <h3 className="nftCardName">{nft.name}</h3>
-            </div>
+          <Link style={{ textDecoration: "none" }} to={`/nft/${nft._id}`}>
+            <div className="nftCardContent">
+              <div className="nftCardAuthorNameContainer">
+                <p className="nftCardAuthorName">
+                  {nft.seller.slice(0, 7) + "..." + nft.seller.slice(28)}
+                </p>
+                <TiTick className="nftAuthorVerificationImg" />
+              </div>
+              <div className="nftCardNameContainer">
+                <h3 className="nftCardName">{nft.name}</h3>
+              </div>
 
-            <div className="nftCardPriceAndBuyContainer">
-              <div className="nftCardPriceContainer">
-                <p className="nftCardPrice">{nft.price} ETH</p>
-              </div>
-              <div className="nftCardBuyContainer">
-                <button className="nftCardBuyBtn">Buy</button>
+              <div className="nftCardPriceAndBuyContainer">
+                <div className="nftCardPriceContainer">
+                  <p className="nftCardPrice">{price}</p>
+                </div>
+                <div className="nftCardBuyContainer">
+                  <button className="nftCardBuyBtn">Buy</button>
+                </div>
               </div>
             </div>
-          </div>
+          </Link>
         </div>
       </div>
     </>

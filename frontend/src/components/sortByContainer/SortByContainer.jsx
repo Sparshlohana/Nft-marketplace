@@ -2,7 +2,7 @@ import "./sortByContainer.css";
 import { AiFillCaretDown, AiFillCaretUp } from "react-icons/ai";
 import SortList from "../sortList/SortList";
 
-const SortByContainer = ({ setOpenSort, openSort }) => {
+const SortByContainer = ({ setOpenSort, openSort, sort, setSort }) => {
   return (
     <>
       <div className="sortByContainer">
@@ -17,7 +17,7 @@ const SortByContainer = ({ setOpenSort, openSort }) => {
           )}
           Sort By
         </button>
-        <div>{openSort && <SortList />}</div>
+        <div>{openSort && <SortList sort={sort} setSort={setSort} />}</div>
       </div>
     </>
   );

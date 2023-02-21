@@ -3,7 +3,7 @@ import CurrencyFilter from "../currencyFilter/CurrencyFilter";
 import RangeFilter from "../rangeFilter/RangeFilter";
 import "./filterContainer.css";
 
-const FilterContainer = ({ filter, setFilter }) => {
+const FilterContainer = ({ filter, setFilter, setFilteredNfts }) => {
   return (
     <div className="filterContainer">
       <CurrencyFilter filter={filter} setFilter={setFilter} />

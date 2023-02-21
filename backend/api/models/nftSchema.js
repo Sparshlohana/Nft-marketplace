@@ -11,6 +11,19 @@ const nftSchema = new mongoose.Schema(
       type: Number,
       required: [true, "must provide a token Id"],
     },
+    description: {
+      type: String,
+      trim: true,
+      required: [true, "must provide nft description"],
+    },
+    media: {
+      type: String,
+      required: [true, "must provide a media"],
+    },
+    fileType: {
+      type: String,
+      required: [true, "must provide filetype"],
+    },
     price: {
       type: Number,
       required: [true, "must provide a price"],
@@ -63,8 +76,6 @@ const nftSchema = new mongoose.Schema(
 
     // priceDiscount: { type: Number, default: 0 },
 
-    // description: { type: String, trim: true },
-
     // imageCover: {
     //   type: String,
     //   required: [true, "must provide a cover image"],
@@ -84,9 +95,9 @@ const nftSchema = new mongoose.Schema(
   }
 );
 
-nftSchema.virtual("durationWeeks").get(function () {
-  return Math.floor(this.duration / 7);
-});
+// nftSchema.virtual("durationWeeks").get(function () {
+//   return Math.floor(this.duration / 7);
+// });
 
 nftSchema.pre("save", function (next) {
   this.slug = slugify(this.name, { lower: true });

@@ -2,6 +2,7 @@ import NFT from "../models/nftSchema.js";
 
 import APIFeatures from "../utils/apiFeatures.js";
 import dotenv from "dotenv";
+import axios from "axios";
 
 dotenv.config();
 import * as IPFS from "ipfs-http-client";
@@ -40,7 +41,7 @@ export const getAllNFTs = async (req, res) => {
       .pagination();
 
     const allNFTs = await features.query;
-    console.log(allNFTs);
+    // console.log(allNFTs);
     res.status(200).json({
       message: "Success",
       results: allNFTs?.length,
@@ -60,22 +61,42 @@ export const createNFT = async (req, res) => {
     const { name, tokenURI, tokenId, seller, owner, price, sold } = req.body;
 
     if (name && tokenURI && tokenId && seller && owner && price) {
-      const obj = { name, tokenURI, tokenId, seller, owner, price };
+      const response = await axios.get(tokenURI);
+      const description = response?.data?.description;
+      const media = response?.data?.media;
+      const fileType = response?.data?.fileType;
+
+      const obj = {
+        name,
+        tokenURI,
+        tokenId,
+        seller,
+        owner,
+        price,
+        description,
+        media,
+        fileType,
+        sold,
+      };
+      console.log(obj);
+
       const exist = await NFT.findOne({
         tokenId,
         name,
+        description,
+        media,
+        fileType,
         seller,
         owner,
         price,
         tokenURI,
       });
-      console.log(exist);
       let newNFT;
       if (exist) {
         newNFT = await NFT.updateOne({ tokenId }, obj);
         console.log("update", newNFT);
       } else {
-        newNFT = await NFT.create(req.body);
+        newNFT = await NFT.create(obj);
         console.log("create", newNFT);
       }
 
