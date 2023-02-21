@@ -1,0 +1,11 @@
+.userBioContainer {
+  margin-left: 10%;
+  margin-top: 10px;
+}
+
+.userBio {
+  color: #fff;
+  font-size: 1.2rem;
+  letter-spacing: 1px;
+  word-spacing: 1px;
+}

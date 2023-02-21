@@ -1,0 +1,14 @@
+.socialMediaContainerMain {
+  float: right;
+}
+
+.userSocialMediaContainer {
+  display: flex;
+}
+
+.userSocialMediaLink {
+  text-decoration: none;
+  color: #fff;
+  font-size: 1.7rem;
+  margin: 0 10px 0 10px;
+}

@@ -2,7 +2,7 @@ import NftAudioCard from "./nftCard/NftAudioCard/NftAudioCard";
 import NftCard from "./nftCard/NftCard";
 import "./nftCardContainer.css";
 
-const NftCardContainer = ({ openFilter, nfts }) => {
+const NftCardContainer = ({ nfts }) => {
   return (
     <div className="nftCardContainer">
       {nfts?.map((nft, i) => {
