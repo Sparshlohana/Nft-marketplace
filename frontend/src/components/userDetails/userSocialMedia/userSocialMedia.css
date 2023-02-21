@@ -1,9 +1,11 @@
 .socialMediaContainerMain {
   float: right;
+  margin-right: 20px;
 }
 
 .userSocialMediaContainer {
   display: flex;
+  align-items: center;
 }
 
 .userSocialMediaLink {
@@ -11,4 +13,31 @@
   color: #fff;
   font-size: 1.7rem;
   margin: 0 10px 0 10px;
+}
+
+.userSocialMediaHr {
+  border: 2px solid #ffffff79;
+  margin: 0 10px 0 10px;
+  border-radius: 10px;
+  height: 40px;
+}
+
+.userWebsite:hover {
+  color: #8d6dff;
+}
+
+.userInstagram:hover {
+  color: #c42e77;
+}
+
+.userTwitter:hover {
+  color: #00bbff;
+}
+
+.userShareIcon:hover {
+  color: brown;
+}
+
+.userShowMoreIcon:hover {
+  color: yellow;
 }
