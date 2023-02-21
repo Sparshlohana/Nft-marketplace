@@ -97,10 +97,35 @@
     width: 200px;
     cursor: pointer;
   }
+  .nftCardAudioContainerMain {
+    height: 150px;
+    width: 200px;
+    cursor: pointer;
+  }
+}
+
+@media (max-width: 450px) {
+  .nftCardImgContainer {
+    height: 140px;
+    width: 150px;
+    cursor: pointer;
+  }
+
+  .nftCardAudioContainerMain {
+    height: 140px;
+    width: 150px;
+    cursor: pointer;
+  }
 }
 
 @media (max-width: 380px) {
   .nftCardImgContainer {
+    height: 140px;
+    width: 155px;
+    cursor: pointer;
+  }
+
+  .nftCardAudioContainerMain {
     height: 140px;
     width: 155px;
     cursor: pointer;
