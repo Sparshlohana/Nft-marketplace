@@ -2,6 +2,7 @@ import UserBannerAndProfile from "./userBannerAndProfile/UserBannerAndProfile";
 import UserBio from "./userBio/UserBio";
 import UserDetailHeading from "./userDetailHeading/UserDetailHeading";
 import UserDetailJoiningDate from "./userDetailJoiningDate/UserDetailJoiningDate";
+import UserNftCollectionAndCreationBtnContainer from "./userNftCollectionAndCreationBtnContainer/UserNftCollectionAndCreationBtnContainer";
 import UserSocialMedia from "./userSocialMedia/UserSocialMedia";
 
 const UserDetails = () => {
@@ -12,6 +13,7 @@ const UserDetails = () => {
       <UserSocialMedia />
       <UserDetailJoiningDate />
       <UserBio />
+      <UserNftCollectionAndCreationBtnContainer />
     </div>
   );
 };

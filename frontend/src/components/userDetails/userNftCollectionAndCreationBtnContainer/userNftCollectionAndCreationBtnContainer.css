@@ -1,0 +1,22 @@
+.userNftCollectionAndCreationBtnContainer {
+  display: flex;
+  margin-left: 10%;
+  margin-top: 40px;
+}
+
+.UserNftCollectionBtnContainer {
+  margin: 15px;
+}
+
+.UserNftCollectionBtn {
+  color: #fff;
+  font-size: 1.3rem;
+  cursor: pointer;
+}
+
+.UserNftCollectionBtnActive {
+  color: #fff;
+  font-size: 1.3rem;
+  text-decoration: underline;
+  cursor: pointer;
+}
