@@ -1,16 +1,15 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import CollectionContainer from "../../components/collectionContainer/CollectionContainer";
 import FilterContainer from "../../components/filterContainer/FilterContainer";
 import FilterContainerMain from "../../components/filterContainerMain/FilterContainerMain";
 import NftCardsContainerMain from "../../components/nftCardsContainerMain/NftCardsContainerMain";
 import SortByContainer from "../../components/sortByContainer/SortByContainer";
-import { NFTMarketplaceContext } from "../../context/NFTMarketplaceContext";
+// import { NFTMarketplaceContext } from "../../context/NFTMarketplaceContext";
 import "./shop.css";
 
 import axios from "../../utils/axios";
 
 import fetch from "axios";
-import PageBtnContainer from "../../components/pageBtnContainer/PageBtnContainer";
 
 const Shop = () => {
   const [openSort, setOpenSort] = useState(false);
