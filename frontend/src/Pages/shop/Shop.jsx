@@ -7,22 +7,45 @@ import SortByContainer from "../../components/sortByContainer/SortByContainer";
 import { NFTMarketplaceContext } from "../../context/NFTMarketplaceContext";
 import "./shop.css";
 
+import axios from "../../utils/axios";
+
+import fetch from "axios";
+
 const Shop = () => {
   const [openSort, setOpenSort] = useState(false);
   const [openFilter, setOpenFilter] = useState(false);
   const [nfts, setNfts] = useState([]);
+
   const [filter, setFilter] = useState({
-    minPrice: null,
-    maxPrice: null,
+    minPrice: 0,
+    maxPrice: 0,
     currency: null,
   });
 
   const { fetchNFTs } = useContext(NFTMarketplaceContext);
 
+  const fetchNFTsFromApi = async () => {
+    const response = await axios.get("/api/v1/nfts");
+
+    if (response.data.data?.nfts?.length > 0) {
+      const arr = [];
+      for (let nft of response.data.data?.nfts) {
+        fetch.get(nft?.tokenURI).then((res) => {
+          nft.media = res.data.media;
+          nft.description = res.data.description;
+          nft.fileType = res.data.fileType;
+          arr.push(nft);
+        });
+      }
+
+      return arr;
+    } else {
+      console.log("didnt get nfts");
+    }
+  };
+
   useEffect(() => {
-    fetchNFTs().then((data) => {
-      setNfts(data);
-    });
+    fetchNFTsFromApi().then((data) => setNfts(data));
   }, []);
 
   return (
@@ -41,8 +64,11 @@ const Shop = () => {
             setOpenFilter={setOpenFilter}
           />
           <div className="shopContainerFlex">
-            {openFilter && <FilterContainer />}
+            {openFilter && (
+              <FilterContainer filter={filter} setFilter={setFilter} />
+            )}
             <NftCardsContainerMain
+              filter={filter}
               nfts={nfts}
               setNfts={setNfts}
               openFilter={openFilter}
