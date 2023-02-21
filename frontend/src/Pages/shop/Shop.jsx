@@ -22,31 +22,71 @@ const Shop = () => {
     currency: null,
   });
 
-  const { fetchNFTs } = useContext(NFTMarketplaceContext);
+  const [sort, setSort] = useState(null);
+
+  const [filteredNfts, setFilteredNfts] = useState([]);
+
+  // const { fetchNFTs } = useContext(NFTMarketplaceContext);
 
   const fetchNFTsFromApi = async () => {
-    const response = await axios.get("/api/v1/nfts");
+    const response = await axios.get(`/api/v1/nfts`);
 
-    if (response.data.data?.nfts?.length > 0) {
-      const arr = [];
-      for (let nft of response.data.data?.nfts) {
-        fetch.get(nft?.tokenURI).then((res) => {
-          nft.media = res.data.media;
-          nft.description = res.data.description;
-          nft.fileType = res.data.fileType;
-          arr.push(nft);
-        });
+    return response?.data?.data?.nfts;
+  };
+
+  const handleFilteredNfts = async (filter) => {
+    const response = await axios.get(
+      `/api/v1/nfts?nfts?price[gte]=${filter.minPrice}&price[lte]=${filter.maxPrice}`
+    );
+
+    const data = response?.data?.data?.nfts;
+    setFilteredNfts(data);
+  };
+
+  const handleSortFilter = async (sort) => {
+    try {
+      if (sort === "Price: Lowest") {
+        const response = await axios.get(`/api/v1/nfts?sort=price`);
+
+        const data = response?.data?.data?.nfts;
+        setFilteredNfts(data);
       }
+      if (sort === "Price: Highest") {
+        const response = await axios.get(`/api/v1/nfts?sort=-price`);
 
-      return arr;
-    } else {
-      console.log("didnt get nfts");
+        const data = response?.data?.data?.nfts;
+        setFilteredNfts(data);
+      }
+      if (sort === "Listed: Recent") {
+        const response = await axios.get(`/api/v1/nfts?sort=-createdAt`);
+
+        const data = response?.data?.data?.nfts;
+        setFilteredNfts(data);
+      }
+      if (sort === "Listed: Recent") {
+        const response = await axios.get(`/api/v1/nfts?sort=createdAt`);
+
+        const data = response?.data?.data?.nfts;
+        setFilteredNfts(data);
+      }
+    } catch (error) {
+      console.log("error while sorting");
     }
   };
 
   useEffect(() => {
     fetchNFTsFromApi().then((data) => setNfts(data));
   }, []);
+
+  console.log(filteredNfts);
+
+  useEffect(() => {
+    handleFilteredNfts(filter);
+  }, [filter]);
+
+  useEffect(() => {
+    handleSortFilter(sort);
+  }, [sort]);
 
   return (
     <>
@@ -58,7 +98,12 @@ const Shop = () => {
             position: "relative",
           }}
         >
-          <SortByContainer openSort={openSort} setOpenSort={setOpenSort} />
+          <SortByContainer
+            openSort={openSort}
+            sort={sort}
+            setSort={setSort}
+            setOpenSort={setOpenSort}
+          />
           <FilterContainerMain
             openFilter={openFilter}
             setOpenFilter={setOpenFilter}
@@ -69,7 +114,7 @@ const Shop = () => {
             )}
             <NftCardsContainerMain
               filter={filter}
-              nfts={nfts}
+              nfts={filteredNfts?.length > 0 ? filteredNfts : nfts}
               setNfts={setNfts}
               openFilter={openFilter}
             />

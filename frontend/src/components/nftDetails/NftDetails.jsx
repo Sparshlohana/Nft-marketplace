@@ -18,14 +18,7 @@ const NftDetails = () => {
   const fetchNFTFromApi = async () => {
     try {
       const response = await axios.get(`/api/v1/nfts/${id}`);
-
-      const nft = response.data?.data?.nft;
-      fetch.get(nft?.tokenURI).then((res) => {
-        nft.media = res.data.media;
-        nft.description = res.data.description;
-        nft.fileType = res.data.fileType;
-      });
-      return nft;
+      return response?.data?.data?.nft;
     } catch (error) {
       console.log("error while fetching nft from api");
     }
