@@ -1,9 +1,6 @@
-import { useState } from "react";
 import "./userNftCollectionAndCreationBtnContainer.css";
 
-const UserNftCollectionAndCreationBtnContainer = () => {
-  const [active, setActive] = useState(1);
-
+const UserNftCollectionAndCreationBtnContainer = ({ active, setActive }) => {
   const handleClick = (id) => {
     setActive(id);
   };
@@ -13,7 +10,7 @@ const UserNftCollectionAndCreationBtnContainer = () => {
       <div className="userNftCollectionAndCreationBtnContainer">
         <div className="UserNftCollectionBtnContainer">
           <p
-            onClick={() => handleClick(1)}
+            onClick={(e) => handleClick(1)}
             className={
               active === 1
                 ? "UserNftCollectionBtnActive"

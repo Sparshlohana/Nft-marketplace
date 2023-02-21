@@ -1,3 +1,4 @@
+import { useState } from "react";
 import UserBannerAndProfile from "./userBannerAndProfile/UserBannerAndProfile";
 import UserBio from "./userBio/UserBio";
 import UserDetailHeading from "./userDetailHeading/UserDetailHeading";
@@ -7,6 +8,8 @@ import UserNftCollectionContainer from "./userNftCollectionContainer/UserNftColl
 import UserSocialMedia from "./userSocialMedia/UserSocialMedia";
 
 const UserDetails = () => {
+  const [active, setActive] = useState(1);
+
   return (
     <div className="UserDetailsContainerMain">
       <UserBannerAndProfile />
@@ -14,8 +17,11 @@ const UserDetails = () => {
       <UserSocialMedia />
       <UserDetailJoiningDate />
       <UserBio />
-      <UserNftCollectionAndCreationBtnContainer />
-      <UserNftCollectionContainer />
+      <UserNftCollectionAndCreationBtnContainer
+        active={active}
+        setActive={setActive}
+      />
+      <UserNftCollectionContainer active={active} />
     </div>
   );
 };

@@ -82,7 +82,8 @@ export const getUsersNft = async (req, res) => {
 
     const collected = await collectedFeatures.query;
 
-    // console.log(allNFTs);
+    console.log("collected", collected);
+    console.log("collected", collected);
     res.status(200).json({
       message: "Success",
       data: { nftsCreated: created, nftsCollected: collected },

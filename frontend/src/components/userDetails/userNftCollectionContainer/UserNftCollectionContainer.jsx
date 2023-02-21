@@ -1,14 +1,21 @@
 import axios from "../../../utils/axios";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import FilterButton from "../../filterButton/FilterButton";
 import FilterContainer from "../../filterContainer/FilterContainer";
 import NftCardsContainerMain from "../../nftCardsContainerMain/NftCardsContainerMain";
 import SortByContainer from "../../sortByContainer/SortByContainer";
+import { NFTMarketplaceContext } from "../../../context/NFTMarketplaceContext";
 
-const UserNftCollectionContainer = () => {
+const UserNftCollectionContainer = ({ active }) => {
   const [openSort, setOpenSort] = useState(false);
   const [openFilter, setOpenFilter] = useState(false);
   const [nfts, setNfts] = useState([]);
+
+  const { currentAccount } = useContext(NFTMarketplaceContext);
+
+  const [collected, setCollected] = useState([]);
+
+  const [created, setCreated] = useState([]);
 
   const [filter, setFilter] = useState({
     minPrice: 0,
@@ -18,48 +25,72 @@ const UserNftCollectionContainer = () => {
 
   const [sort, setSort] = useState(null);
 
-  const [filteredNfts, setFilteredNfts] = useState([]);
+  const [collectedFilteredNfts, setCollectedFilteredNfts] = useState([]);
+  const [createdFilteredNfts, setCreatedFilteredNfts] = useState([]);
 
-  const fetchNFTsFromApi = async () => {
-    const response = await axios.get(`/api/v1/nfts`);
+  const fetchUsersNFTsFromApi = async (currentAccount) => {
+    console.log(currentAccount);
+    const response = await axios.get(
+      `/api/v1/nfts/user/${"0x56286c23a7A921a7D1934f1172d9DF028A18c71d"}`
+    );
 
-    return response?.data?.data?.nfts;
+    const data = response?.data?.data;
+    setCollected(data?.nftsCollected);
+    setCreated(data?.nftsCreated);
   };
 
   const handleFilteredNfts = async (filter) => {
     const response = await axios.get(
-      `/api/v1/nfts?nfts?price[gte]=${filter.minPrice}&price[lte]=${filter.maxPrice}`
+      `/api/v1/nfts/user/${currentAccount}?price[gte]=${filter.minPrice}&price[lte]=${filter.maxPrice}`
     );
 
-    const data = response?.data?.data?.nfts;
-    setFilteredNfts(data);
+    const data = response?.data?.data;
+
+    setCollectedFilteredNfts(data?.nftsCollected);
+    setCreatedFilteredNfts(data?.nftsCreated);
   };
 
   const handleSortFilter = async (sort) => {
     try {
       if (sort === "Price: Lowest") {
-        const response = await axios.get(`/api/v1/nfts?sort=price`);
+        const response = await axios.get(
+          `/api/v1/nfts/user/${currentAccount}?sort=price`
+        );
 
-        const data = response?.data?.data?.nfts;
-        setFilteredNfts(data);
+        const data = response?.data?.data;
+
+        setCollectedFilteredNfts(data?.nftsCollected);
+        setCreatedFilteredNfts(data?.nftsCreated);
       }
       if (sort === "Price: Highest") {
-        const response = await axios.get(`/api/v1/nfts?sort=-price`);
+        const response = await axios.get(
+          `/api/v1/nfts/user/${currentAccount}?sort=-price`
+        );
 
-        const data = response?.data?.data?.nfts;
-        setFilteredNfts(data);
+        const data = response?.data?.data;
+
+        setCollectedFilteredNfts(data?.nftsCollected);
+        setCreatedFilteredNfts(data?.nftsCreated);
       }
       if (sort === "Listed: Recent") {
-        const response = await axios.get(`/api/v1/nfts?sort=-createdAt`);
+        const response = await axios.get(
+          `/api/v1/nfts/user/${currentAccount}?sort=-createdAt`
+        );
 
-        const data = response?.data?.data?.nfts;
-        setFilteredNfts(data);
+        const data = response?.data?.data;
+
+        setCollectedFilteredNfts(data?.nftsCollected);
+        setCreatedFilteredNfts(data?.nftsCreated);
       }
       if (sort === "Listed: Recent") {
-        const response = await axios.get(`/api/v1/nfts?sort=createdAt`);
+        const response = await axios.get(
+          `/api/v1/nfts/user/${currentAccount}?sort=createdAt`
+        );
 
-        const data = response?.data?.data?.nfts;
-        setFilteredNfts(data);
+        const data = response?.data?.data;
+
+        setCollectedFilteredNfts(data?.nftsCollected);
+        setCreatedFilteredNfts(data?.nftsCreated);
       }
     } catch (error) {
       console.log("error while sorting");
@@ -67,19 +98,17 @@ const UserNftCollectionContainer = () => {
   };
 
   useEffect(() => {
-    fetchNFTsFromApi().then((data) => setNfts(data));
-  }, []);
+    fetchUsersNFTsFromApi(currentAccount);
+  }, [currentAccount]);
 
-  console.log(filteredNfts);
+  // useEffect(() => {
+  //   handleFilteredNfts(filter);
+  // }, [filter]);
 
-  useEffect(() => {
-    handleFilteredNfts(filter);
-  }, [filter]);
-
-  useEffect(() => {
-    handleSortFilter(sort);
-  }, [sort]);
-
+  // useEffect(() => {
+  //   handleSortFilter(sort);
+  // }, [sort]);
+  console.log(active);
   return (
     <div className="filterContainerMain">
       <div
@@ -104,7 +133,16 @@ const UserNftCollectionContainer = () => {
 
           <NftCardsContainerMain
             filter={filter}
-            nfts={filteredNfts?.length > 0 ? filteredNfts : nfts}
+            nfts={
+              collectedFilteredNfts?.length > 0 ||
+              createdFilteredNfts?.length > 0
+                ? active === 1
+                  ? collectedFilteredNfts
+                  : createdFilteredNfts
+                : active === 1
+                ? collected
+                : created
+            }
             setNfts={setNfts}
             openFilter={openFilter}
           />
