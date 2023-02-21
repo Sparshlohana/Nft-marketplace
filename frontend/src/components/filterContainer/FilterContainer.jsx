@@ -3,14 +3,14 @@ import CurrencyFilter from "../currencyFilter/CurrencyFilter";
 import RangeFilter from "../rangeFilter/RangeFilter";
 import "./filterContainer.css";
 
-const FilterContainer = () => {
+const FilterContainer = ({ filter, setFilter }) => {
   return (
     <div className="filterContainer">
-      <CurrencyFilter />
+      <CurrencyFilter filter={filter} setFilter={setFilter} />
       <hr className="hr" />
-      <RangeFilter />
+      <RangeFilter filter={filter} setFilter={setFilter} />
       <hr className="hr" />
-      <CategoriesFilter />
+      <CategoriesFilter filter={filter} setFilter={setFilter} />
     </div>
   );
 };

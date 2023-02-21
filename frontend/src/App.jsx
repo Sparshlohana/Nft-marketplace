@@ -33,7 +33,7 @@ function App() {
           <Route path="/shop" element={<Shop />}></Route>
         </Routes>
         <Routes>
-          <Route path="/nft/:tokenId" element={<Details />}></Route>
+          <Route path="/nft/:id" element={<Details />}></Route>
         </Routes>
         <Routes>
           <Route path="/create" element={<CreateNftPage />}></Route>

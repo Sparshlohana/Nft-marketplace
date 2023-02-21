@@ -1,12 +1,27 @@
 import "./rangeFilter.css";
+import { useState } from "react";
 
-const RangeFilter = () => {
+const RangeFilter = ({ filter, setFilter }) => {
   return (
     <div className="rangeFilterContainer">
       <h3 className="priceRangeHeading">Price Range</h3>
-      <input type="number" placeholder="Min.." className="priceInput" min={0} />
+      <input
+        type="number"
+        placeholder="Min.."
+        value={filter.minPrice}
+        onChange={(e) => setFilter({ ...filter, minPrice: e.target.value })}
+        className="priceInput"
+        min={0}
+      />
       <p className="colon">:</p>
-      <input type="number" placeholder="Max.." className="priceInput" min={0} />
+      <input
+        type="number"
+        value={filter?.maxPrice}
+        onChange={(e) => setFilter({ ...filter, maxPrice: e.target.value })}
+        placeholder="Max.."
+        className="priceInput"
+        min={0}
+      />
     </div>
   );
 };

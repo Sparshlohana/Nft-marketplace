@@ -12,7 +12,7 @@ const NftPhoto = ({ nft }) => {
       )}
       {nft?.fileType === "audio" && (
         <audio controls muted>
-          <source src={nft.media}></source>
+          <source src={nft?.media}></source>
         </audio>
       )}
       {nft?.fileType === "video" && (

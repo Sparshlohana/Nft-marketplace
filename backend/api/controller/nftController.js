@@ -40,7 +40,7 @@ export const getAllNFTs = async (req, res) => {
       .pagination();
 
     const allNFTs = await features.query;
-
+    console.log(allNFTs);
     res.status(200).json({
       message: "Success",
       results: allNFTs?.length,
@@ -61,7 +61,14 @@ export const createNFT = async (req, res) => {
 
     if (name && tokenURI && tokenId && seller && owner && price) {
       const obj = { name, tokenURI, tokenId, seller, owner, price };
-      const exist = await NFT.findOne({ tokenId });
+      const exist = await NFT.findOne({
+        tokenId,
+        name,
+        seller,
+        owner,
+        price,
+        tokenURI,
+      });
       console.log(exist);
       let newNFT;
       if (exist) {
@@ -91,7 +98,8 @@ export const createNFT = async (req, res) => {
 export const getSingleNFT = async (req, res) => {
   try {
     const id = req.params.id;
-    const nft = await NFT.findOne({ tokenId: id });
+    const nft = await NFT.findById(id);
+    console.log(nft);
 
     res.status(200).json({
       status: "success",

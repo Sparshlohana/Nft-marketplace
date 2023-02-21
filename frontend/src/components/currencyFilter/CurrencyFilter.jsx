@@ -1,11 +1,20 @@
 import React, { useState } from "react";
 import "./currencyFilter.css";
 
-const CurrencyFilter = () => {
+const CurrencyFilter = ({ filter, setFilter }) => {
   const [active, setActive] = useState(null);
 
   const handleClick = (id) => {
     setActive(id);
+    if (id === 1) {
+      setFilter({ ...filter, currency: "ETH" });
+    }
+    if (id === 2) {
+      setFilter({ ...filter, currency: "USD" });
+    }
+    if (id === 3) {
+      setFilter({ ...filter, currency: "INR" });
+    }
   };
 
   return (
