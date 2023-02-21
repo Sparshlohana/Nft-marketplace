@@ -1,7 +1,7 @@
 import UserDetails from "../../components/userDetails/UserDetails";
 import "./userDetailPage.css";
 
-const UserDetail = () => {
+const UserDetailPage = () => {
   return (
     <>
       <UserDetails />
@@ -9,4 +9,4 @@ const UserDetail = () => {
   );
 };
 
-export default UserDetail;
+export default UserDetailPage;
