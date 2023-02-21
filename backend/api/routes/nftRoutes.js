@@ -7,6 +7,7 @@ import {
   getMonthlyStats,
   getNFTsStats,
   getSingleNFT,
+  getUsersNft,
   updateNFT,
   uploadImgToIPFS,
   uploadNftToIPFS,
@@ -17,6 +18,8 @@ import multer from "multer";
 const upload = multer();
 
 const router = express.Router();
+
+router.get("/user/:account", getUsersNft);
 
 router.route("/nfts-stats").get(getNFTsStats);
 

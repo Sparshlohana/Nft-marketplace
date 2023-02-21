@@ -10,6 +10,7 @@ import "./shop.css";
 import axios from "../../utils/axios";
 
 import fetch from "axios";
+import PageBtnContainer from "../../components/pageBtnContainer/PageBtnContainer";
 
 const Shop = () => {
   const [openSort, setOpenSort] = useState(false);
@@ -23,13 +24,14 @@ const Shop = () => {
   });
 
   const [sort, setSort] = useState(null);
+  const [page, onPageChange] = useState(1);
 
   const [filteredNfts, setFilteredNfts] = useState([]);
 
   // const { fetchNFTs } = useContext(NFTMarketplaceContext);
 
-  const fetchNFTsFromApi = async () => {
-    const response = await axios.get(`/api/v1/nfts`);
+  const fetchNFTsFromApi = async (page) => {
+    const response = await axios.get(`/api/v1/nfts?page=${page}&limit=30`);
 
     return response?.data?.data?.nfts;
   };
@@ -75,8 +77,8 @@ const Shop = () => {
   };
 
   useEffect(() => {
-    fetchNFTsFromApi().then((data) => setNfts(data));
-  }, []);
+    fetchNFTsFromApi(page).then((data) => setNfts(data));
+  }, [page]);
 
   console.log(filteredNfts);
 
@@ -119,6 +121,11 @@ const Shop = () => {
               openFilter={openFilter}
             />
           </div>
+
+          <PageBtnContainer
+            page={page}
+            onPageChange={onPageChange}
+          ></PageBtnContainer>
         </div>
       </div>
     </>

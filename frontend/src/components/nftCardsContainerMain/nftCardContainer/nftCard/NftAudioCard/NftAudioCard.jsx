@@ -51,7 +51,7 @@ const NftAudioCard = ({ nft, filter }) => {
 
   return (
     <>
-      <div className="nftCard">
+      <div className="nftAudioCard">
         <div className="nftCardAudioContainerMain">
           <div className="nftCardAudioContainer">
             <audio ref={audioRef} src={nft.media} />
@@ -70,7 +70,7 @@ const NftAudioCard = ({ nft, filter }) => {
             <div className="nftCardContent">
               <div className="nftCardAuthorNameContainer">
                 <p className="nftCardAuthorName">
-                  {nft.seller.slice(0, 7) + "..." + nft.seller.slice(28)}
+                  {nft.seller.slice(0, 7) + "..." + nft.seller.slice(37)}
                 </p>
                 <TiTick className="nftAuthorVerificationImg" />
               </div>

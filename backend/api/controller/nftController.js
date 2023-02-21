@@ -34,7 +34,7 @@ export const aliasTopNFTs = (req, res, next) => {
 
 export const getAllNFTs = async (req, res) => {
   try {
-    const features = new APIFeatures(NFT.find(), req.query)
+    const features = new APIFeatures(NFT.findOne({ sold: false }), req.query)
       .filter()
       .sort()
       .limitFeilds()
@@ -46,6 +46,46 @@ export const getAllNFTs = async (req, res) => {
       message: "Success",
       results: allNFTs?.length,
       data: { nfts: allNFTs },
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(404).json({
+      status: "fail",
+      message: error.message,
+    });
+  }
+};
+
+export const getUsersNft = async (req, res) => {
+  try {
+    const account = req.params?.account;
+
+    const createdFeatures = new APIFeatures(
+      NFT.findOne({ seller: account }),
+      req.query
+    )
+      .filter()
+      .sort()
+      .limitFeilds()
+      .pagination();
+
+    const created = await createdFeatures.query;
+
+    const collectedFeatures = new APIFeatures(
+      NFT.findOne({ owner: account }),
+      req.query
+    )
+      .filter()
+      .sort()
+      .limitFeilds()
+      .pagination();
+
+    const collected = await collectedFeatures.query;
+
+    // console.log(allNFTs);
+    res.status(200).json({
+      message: "Success",
+      data: { nftsCreated: created, nftsCollected: collected },
     });
   } catch (error) {
     console.log(error);
