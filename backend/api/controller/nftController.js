@@ -186,7 +186,7 @@ export const updateNFT = async (req, res) => {
       seller: req.body?.seller?.toLowerCase(),
       price: req.body?.price,
       owner: req.body?.owner?.toLowerCase(),
-      sold: true,
+      sold: req.body?.sold
     };
     console.log(data);
 
