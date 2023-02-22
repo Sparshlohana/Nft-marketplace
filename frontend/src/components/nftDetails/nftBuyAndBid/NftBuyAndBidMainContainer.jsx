@@ -10,7 +10,7 @@ const NftBuyAndBidMainContainer = ({ nft }) => {
     <div className="NftBuyAndBidMainContainer">
       <NftAuthorName nft={nft} />
       <NftTokenName nft={nft} />
-      <NftRanking nft={nft} />
+
       <NftBuyBidAndSaleContainer nft={nft} />
       <NftDetailContainer nft={nft} />
     </div>

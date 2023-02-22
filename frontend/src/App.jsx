@@ -10,6 +10,7 @@ import CreateNftPage from "./Pages/createNftPage/CreateNftPage";
 import { NFTMarketplaceContext } from "./context/NFTMarketplaceContext";
 
 import UserDetailPage from "./Pages/userDetailPage/UserDetailPage";
+import ResellNftPage from "./Pages/resellNftPage/ResellNftPage";
 
 function App() {
   const [openSidebar, setOpenSidebar] = useState(false);
@@ -38,6 +39,9 @@ function App() {
         </Routes>
         <Routes>
           <Route path="/user" element={<UserDetailPage />}></Route>
+        </Routes>
+        <Routes>
+          <Route path="/resell/:id" element={<ResellNftPage />}></Route>
         </Routes>
         <FooterContainer />
       </div>

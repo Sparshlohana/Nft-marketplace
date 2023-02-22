@@ -5,11 +5,13 @@ import { MdOutlineLocalOffer } from "react-icons/md";
 import "./nftBuyAndMakeOffer.css";
 import axios from "axios";
 import { NFTMarketplaceContext } from "../../../../../context/NFTMarketplaceContext";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 const NftBuyAndMakeOffer = ({ nft }) => {
   const [usd, setUsd] = useState(0);
   const [inr, setInr] = useState(0);
+
+  const { id } = useParams();
 
   const { buyNft, currentAccount, createSale } = useContext(
     NFTMarketplaceContext
@@ -55,15 +57,12 @@ const NftBuyAndMakeOffer = ({ nft }) => {
       <div className="buyNowContainerMain">
         {currentAccount?.toLowerCase() === nft?.owner ? (
           <div className="buyNowContainer">
-            <button
-              className="addToCartBtn"
-              onClick={() => {
-                createSale(nft?.tokenURI, "20", nft?.name, true, nft?.tokenId);
-              }}
-            >
-              <FaRegHandshake className="buyNowIcons" />
-              <span className="buyNowSpan"> Resell NFT</span>
-            </button>
+            <Link to={"/resell/" + id}>
+              <button className="addToCartBtn">
+                <FaRegHandshake className="buyNowIcons" />
+                <span className="buyNowSpan"> Resell NFT</span>
+              </button>
+            </Link>
           </div>
         ) : (
           <>

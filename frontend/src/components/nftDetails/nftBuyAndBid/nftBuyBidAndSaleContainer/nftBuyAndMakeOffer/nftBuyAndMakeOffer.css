@@ -95,14 +95,21 @@
 @media (max-width: 450px) {
   .ethereumPrice {
     font-size: 1.1rem;
-    padding: 5px;
+    padding: 10px 0 3px 0;
+    border-bottom: 0.5px solid rgba(255, 255, 255, 0.242);
   }
   .USDPrice {
     font-size: 1.1rem;
-    padding: 5px;
+    padding: 10px 0 3px 0;
+    border-bottom: 0.5px solid rgba(255, 255, 255, 0.242);
   }
   .INRPrice {
     font-size: 1.1rem;
-    padding: 5px;
+    padding: 10px 0 3px 0;
+    border-bottom: 0.5px solid rgba(255, 255, 255, 0.242);
+  }
+  .nftPriceContainer {
+    flex-direction: column;
+    align-items: start;
   }
 }
