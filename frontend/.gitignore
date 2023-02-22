@@ -5,6 +5,7 @@
 /src/smartcontract/build/
 /.pnp
 .pnp.js
+/src/context/contanst.js
 
 # testing
 /coverage
