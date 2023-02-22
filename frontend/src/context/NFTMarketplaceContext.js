@@ -298,21 +298,23 @@ const NFTMarketplaceProvider = ({ children }) => {
   //buy NFTs function
   const buyNft = async (nft) => {
     try {
+      console.log(nft);
       const contract = await connectingWithSmartContract();
       const price = ethers.utils.parseUnits(nft.price.toString(), "ether");
 
       const transaction = await contract.createMarketSale(nft.tokenId, {
         value: price,
       });
-      
-      contract.on("buyEvent", async (tokenId, seller, owner, price) => {
+
+      contract.on("buyEvent", async (tokenId, seller, owner) => {
         const data = {
           tokenId: Number(String(tokenId)),
-          seller,
-          owner,
-          price,
+          seller: seller?.toLowerCase(),
+          owner: owner?.toLowerCase(),
+          price: nft.price,
           sold: true,
         };
+
         console.log(data);
 
         const res = await axios.patch(

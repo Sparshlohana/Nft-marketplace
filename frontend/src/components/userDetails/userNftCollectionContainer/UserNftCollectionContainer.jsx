@@ -102,13 +102,13 @@ const UserNftCollectionContainer = ({ active }) => {
     fetchUsersNFTsFromApi(currentAccount);
   }, [currentAccount]);
 
-  // useEffect(() => {
-  //   handleFilteredNfts(filter);
-  // }, [filter]);
+  useEffect(() => {
+    handleFilteredNfts(filter);
+  }, [filter]);
 
-  // useEffect(() => {
-  //   handleSortFilter(sort);
-  // }, [sort]);
+  useEffect(() => {
+    handleSortFilter(sort);
+  }, [sort]);
 
   return (
     <div className="filterContainerMain">

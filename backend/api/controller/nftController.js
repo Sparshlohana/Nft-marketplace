@@ -188,6 +188,7 @@ export const updateNFT = async (req, res) => {
       owner: req.body?.owner?.toLowerCase(),
       sold: true,
     };
+    console.log(data);
 
     const updatedNft = await NFT.updateOne({ tokenId }, data, {
       new: true,
