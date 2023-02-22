@@ -41,3 +41,19 @@
 .userShowMoreIcon:hover {
   color: yellow;
 }
+
+@media (max-width: 650px) {
+  .socialMediaContainerMain {
+    margin-top: -30px;
+  }
+  .userSocialMediaContainer {
+    flex-direction: column-reverse;
+  }
+  .userSocialMediaHr {
+    display: none;
+  }
+  .userSocialMediaIcons {
+    font-size: 1.5rem;
+    margin-top: 5px;
+  }
+}
