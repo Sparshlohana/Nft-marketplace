@@ -11,8 +11,8 @@ const NftAuthorName = ({ nft }) => {
         <a href="/" className="nftAuthorNameAnchor">
           {/* Author Name {} */}
           {currentAccount?.toLowerCase() === nft?.owner
-            ? nft?.owner
-            : nft?.seller}
+            ? nft?.owner.slice(0, 12) + "..." + nft?.owner.slice(36)
+            : nft?.seller.slice(0, 12) + "..." + nft?.seller.slice(36)}
         </a>
         <img
           className="nftAuthorNameVerificationImage"

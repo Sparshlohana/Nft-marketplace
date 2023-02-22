@@ -26,4 +26,8 @@
     width: 250px;
     margin: 70px 0 0 0;
   }
+  .nftPhoto {
+    width: 100%;
+    height: 100%;
+  }
 }
