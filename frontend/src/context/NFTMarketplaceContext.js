@@ -11,6 +11,13 @@ export const NFTMarketplaceContext = createContext();
 const NFTMarketplaceProvider = ({ children }) => {
   const [currentAccount, setCurrentAccount] = useState("");
 
+  const getProvider = async () => {
+    const web3modal = new Web3Modal();
+    const connection = await web3modal.connect();
+    const provider = new ethers.providers.Web3Provider(connection);
+    return provider;
+  };
+
   // fetch Contract
   const fetchContract = (signerOrProvider) =>
     new ethers.Contract(
@@ -23,9 +30,7 @@ const NFTMarketplaceProvider = ({ children }) => {
 
   const connectingWithSmartContract = async () => {
     try {
-      const web3modal = new Web3Modal();
-      const connection = await web3modal.connect();
-      const provider = new ethers.providers.Web3Provider(connection);
+      const provider = await getProvider();
       const signer = provider.getSigner();
       const contract = fetchContract(signer);
 

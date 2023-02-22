@@ -38,6 +38,13 @@ const DB = process.env.DATABASE_URI.replace(
   process.env.DATABASE_PASSWORD
 );
 
+app.all("*", (req, res) => {
+  res.status(404).json({
+    status: "fail",
+    message: "can't find " + req.originalUrl,
+  });
+});
+
 mongoose.set("strictQuery", true);
 mongoose.connect(DB, { useNewUrlParser: true }).then(async (con) => {
   console.log("db connection established");

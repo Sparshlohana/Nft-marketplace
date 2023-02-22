@@ -22,8 +22,6 @@ function App() {
     checkIfWalletIsConnected();
   });
 
-  console.log(currentAccount);
-
   return (
     <Router>
       <div className="App">
