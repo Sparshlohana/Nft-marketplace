@@ -11,6 +11,7 @@ import { NFTMarketplaceContext } from "./context/NFTMarketplaceContext";
 
 import UserDetailPage from "./Pages/userDetailPage/UserDetailPage";
 import ResellNftPage from "./Pages/resellNftPage/ResellNftPage";
+import HomePage from "./Pages/homePage/HomePage";
 
 function App() {
   const [openSidebar, setOpenSidebar] = useState(false);
@@ -28,6 +29,9 @@ function App() {
       <div className="App">
         <Navbar openSidebar={openSidebar} setOpenSidebar={setOpenSidebar} />
         {openSidebar && <NavSideBar />}
+        <Routes>
+          <Route path="/" element={<HomePage />}></Route>
+        </Routes>
         <Routes>
           <Route path="/shop" element={<Shop />}></Route>
         </Routes>
