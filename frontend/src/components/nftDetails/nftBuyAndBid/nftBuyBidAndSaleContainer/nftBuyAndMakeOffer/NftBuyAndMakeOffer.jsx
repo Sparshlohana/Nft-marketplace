@@ -11,7 +11,9 @@ const NftBuyAndMakeOffer = ({ nft }) => {
   const [usd, setUsd] = useState(0);
   const [inr, setInr] = useState(0);
 
-  const { buyNft, currentAccount } = useContext(NFTMarketplaceContext);
+  const { buyNft, currentAccount, createSale } = useContext(
+    NFTMarketplaceContext
+  );
 
   const fetchCurrentPriceOfEth = async () => {
     try {
@@ -51,34 +53,38 @@ const NftBuyAndMakeOffer = ({ nft }) => {
         </div>
       </div>
       <div className="buyNowContainerMain">
-        <div className="buyNowContainer">
-          <button className="addToCartBtn">
-            <AiOutlineShoppingCart className="buyNowIcons" />
-            <span className="buyNowSpan"> Add to Cart</span>
-          </button>
-        </div>
-        {currentAccount === nft?.owner && <h1>YOU OWNED THIS NFT</h1>}
-        {currentAccount === nft?.owner ? (
-          <div className="buyNowContainer">
-            <Link to={"/nft/resell/" + nft.tokenId}>
-              <button className="addToCartBtn">
-                <FaRegHandshake className="buyNowIcons" />
-                <span className="buyNowSpan"> Resell NFT</span>
-              </button>
-            </Link>
-          </div>
-        ) : (
+        {currentAccount?.toLowerCase() === nft?.owner ? (
           <div className="buyNowContainer">
             <button
               className="addToCartBtn"
               onClick={() => {
-                buyNft(nft);
+                createSale(nft?.tokenURI, "20", nft?.name, true, nft?.tokenId);
               }}
             >
               <FaRegHandshake className="buyNowIcons" />
-              <span className="buyNowSpan"> Buy Now</span>
+              <span className="buyNowSpan"> Resell NFT</span>
             </button>
           </div>
+        ) : (
+          <>
+            <div className="buyNowContainer">
+              <button
+                className="addToCartBtn"
+                onClick={() => {
+                  buyNft(nft);
+                }}
+              >
+                <FaRegHandshake className="buyNowIcons" />
+                <span className="buyNowSpan"> Buy Now</span>
+              </button>
+            </div>
+            <div className="buyNowContainer">
+              <button className="addToCartBtn">
+                <AiOutlineShoppingCart className="buyNowIcons" />
+                <span className="buyNowSpan"> Add to Cart</span>
+              </button>
+            </div>
+          </>
         )}
         <div className="buyNowContainer">
           <button className="addToCartBtn">

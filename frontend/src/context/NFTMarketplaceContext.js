@@ -52,7 +52,7 @@ const NFTMarketplaceProvider = ({ children }) => {
         console.log("No account found");
       }
 
-      console.log(currentAccount);
+      // console.log(currentAccount);
     } catch (error) {
       console.log(error);
     }
@@ -98,7 +98,7 @@ const NFTMarketplaceProvider = ({ children }) => {
       const url = response.data.url;
       // console.log(url);
 
-      await createSale(url, price, name);
+      await createSale(url, price, name, false);
     } catch (error) {
       console.log("creating nft error: ", error);
     }
@@ -106,13 +106,13 @@ const NFTMarketplaceProvider = ({ children }) => {
 
   const createSale = async (url, formInputPrice, name, isReselling, id) => {
     try {
-      const contract = await connectingWithSmartContract();
+      if (isReselling === false) {
+        const contract = await connectingWithSmartContract();
 
-      const price = ethers.utils.parseUnits(formInputPrice, "ether");
+        const price = ethers.utils.parseUnits(formInputPrice, "ether");
 
-      const listingPrice = await contract.getListingPrice();
+        const listingPrice = await contract.getListingPrice();
 
-      if (!isReselling) {
         const transaction = await contract.createToken(url, price, {
           value: listingPrice.toString(),
         });
@@ -137,6 +137,12 @@ const NFTMarketplaceProvider = ({ children }) => {
 
         await transaction.wait();
       } else {
+        const contract = await connectingWithSmartContract();
+
+        const price = ethers.utils.parseUnits(formInputPrice, "ether");
+
+        const listingPrice = await contract.getListingPrice();
+
         const transaction = await contract.resellToken(id, price, {
           value: listingPrice.toString(),
         });
@@ -146,6 +152,7 @@ const NFTMarketplaceProvider = ({ children }) => {
             tokenId: Number(String(tokenId)),
             seller,
             owner,
+            sold: false,
             price: Number(String(ethers.utils.formatUnits(price, "ether"))),
           };
           console.log(data);
@@ -297,12 +304,13 @@ const NFTMarketplaceProvider = ({ children }) => {
       const transaction = await contract.createMarketSale(nft.tokenId, {
         value: price,
       });
-
+      
       contract.on("buyEvent", async (tokenId, seller, owner, price) => {
         const data = {
           tokenId: Number(String(tokenId)),
           seller,
           owner,
+          price,
           sold: true,
         };
         console.log(data);

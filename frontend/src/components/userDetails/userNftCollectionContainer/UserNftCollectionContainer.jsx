@@ -29,9 +29,8 @@ const UserNftCollectionContainer = ({ active }) => {
   const [createdFilteredNfts, setCreatedFilteredNfts] = useState([]);
 
   const fetchUsersNFTsFromApi = async (currentAccount) => {
-    console.log(currentAccount);
     const response = await axios.get(
-      `/api/v1/nfts/user/${"0x56286c23a7A921a7D1934f1172d9DF028A18c71d"}`
+      `/api/v1/nfts/user/${currentAccount?.toLowerCase()}`
     );
 
     const data = response?.data?.data;
@@ -41,7 +40,9 @@ const UserNftCollectionContainer = ({ active }) => {
 
   const handleFilteredNfts = async (filter) => {
     const response = await axios.get(
-      `/api/v1/nfts/user/${currentAccount}?price[gte]=${filter.minPrice}&price[lte]=${filter.maxPrice}`
+      `/api/v1/nfts/user/${currentAccount?.toLowerCase()}?price[gte]=${
+        filter.minPrice
+      }&price[lte]=${filter.maxPrice}`
     );
 
     const data = response?.data?.data;
@@ -54,7 +55,7 @@ const UserNftCollectionContainer = ({ active }) => {
     try {
       if (sort === "Price: Lowest") {
         const response = await axios.get(
-          `/api/v1/nfts/user/${currentAccount}?sort=price`
+          `/api/v1/nfts/user/${currentAccount?.toLowerCase()}?sort=price`
         );
 
         const data = response?.data?.data;
@@ -64,7 +65,7 @@ const UserNftCollectionContainer = ({ active }) => {
       }
       if (sort === "Price: Highest") {
         const response = await axios.get(
-          `/api/v1/nfts/user/${currentAccount}?sort=-price`
+          `/api/v1/nfts/user/${currentAccount?.toLowerCase()}?sort=-price`
         );
 
         const data = response?.data?.data;
@@ -74,7 +75,7 @@ const UserNftCollectionContainer = ({ active }) => {
       }
       if (sort === "Listed: Recent") {
         const response = await axios.get(
-          `/api/v1/nfts/user/${currentAccount}?sort=-createdAt`
+          `/api/v1/nfts/user/${currentAccount?.toLowerCase()}?sort=-createdAt`
         );
 
         const data = response?.data?.data;
@@ -84,7 +85,7 @@ const UserNftCollectionContainer = ({ active }) => {
       }
       if (sort === "Listed: Recent") {
         const response = await axios.get(
-          `/api/v1/nfts/user/${currentAccount}?sort=createdAt`
+          `/api/v1/nfts/user/${currentAccount?.toLowerCase()}?sort=createdAt`
         );
 
         const data = response?.data?.data;
@@ -108,7 +109,7 @@ const UserNftCollectionContainer = ({ active }) => {
   // useEffect(() => {
   //   handleSortFilter(sort);
   // }, [sort]);
-  console.log(active);
+
   return (
     <div className="filterContainerMain">
       <div

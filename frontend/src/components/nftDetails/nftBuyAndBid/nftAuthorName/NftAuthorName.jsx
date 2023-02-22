@@ -1,12 +1,18 @@
+import { useContext } from "react";
+import { NFTMarketplaceContext } from "../../../../context/NFTMarketplaceContext";
 import "./nftAuthorName.css";
 
 const NftAuthorName = ({ nft }) => {
+  const { currentAccount } = useContext(NFTMarketplaceContext);
+
   return (
     <div className="nftAuthorNameContainer">
       <div className="nftAuthorName">
         <a href="/" className="nftAuthorNameAnchor">
           {/* Author Name {} */}
-          {nft?.seller}
+          {currentAccount?.toLowerCase() === nft?.owner
+            ? nft?.owner
+            : nft?.seller}
         </a>
         <img
           className="nftAuthorNameVerificationImage"

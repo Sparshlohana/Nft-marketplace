@@ -111,8 +111,8 @@ export const createNFT = async (req, res) => {
         name,
         tokenURI,
         tokenId,
-        seller,
-        owner,
+        seller: seller?.toLowerCase(),
+        owner: owner?.toLowerCase(),
         price,
         description,
         media,
@@ -127,8 +127,8 @@ export const createNFT = async (req, res) => {
         description,
         media,
         fileType,
-        seller,
-        owner,
+        seller: seller?.toLowerCase(),
+        owner: owner?.toLowerCase(),
         price,
         tokenURI,
       });
@@ -180,12 +180,20 @@ export const getSingleNFT = async (req, res) => {
 export const updateNFT = async (req, res) => {
   try {
     const tokenId = req.params.id;
-    const data = req.body;
+
+    const data = {
+      tokenId: req.body?.tokenId,
+      seller: req.body?.seller?.toLowerCase(),
+      price: req.body?.price,
+      owner: req.body?.owner?.toLowerCase(),
+      sold: true,
+    };
 
     const updatedNft = await NFT.updateOne({ tokenId }, data, {
       new: true,
       runValidators: true,
     });
+
     console.log(updateNFT);
     res.status(200).json({
       status: "success",
