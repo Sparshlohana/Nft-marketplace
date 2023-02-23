@@ -17,7 +17,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: -1;
   height: 100%;
   width: 100%;
   background-size: cover;
@@ -37,6 +36,12 @@
 .nftAudioCardPlayPauseIcon {
   color: #fff;
   font-size: 2.5rem;
+}
+
+@media (max-width: 1100px) {
+  .nftAudioCard {
+    height: 370px;
+  }
 }
 
 @media (max-width: 800px) {

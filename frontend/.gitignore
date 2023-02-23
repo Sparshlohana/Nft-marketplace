@@ -3,6 +3,7 @@
 # dependencies
 /node_modules
 /src/smartcontract/build/
+/src/smartcontract/node_modules/
 /.pnp
 .pnp.js
 /src/context/contanst.js
@@ -11,6 +12,7 @@
 # testing
 /coverage
 /src/smartcontract/build
+/src/smartcontract/node_modules
 
 # production
 /build
