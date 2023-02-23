@@ -5,11 +5,15 @@
   padding: 5%;
 }
 
-.footerLogo {
+.footerLogoContainer {
   color: #fff;
   font-size: 2rem;
   margin-left: 20px;
   flex: 1;
+}
+
+.footerLogo {
+  width: 50%;
 }
 
 .footerItemsContainer {

@@ -3,7 +3,7 @@ const CollectionCard = () => {
     <div className="collectionCardContainer">
       <div className="collectionCardImageContainer">
         <img
-          src="https://cdn.dribbble.com/users/383277/screenshots/18055765/media/e5fc935b60035305099554810357012a.png?compress=1&resize=400x300"
+          src="https://m.economictimes.com/thumb/msid-93499274,width-1200,height-900,resizemode-4,imgsize-99638/how-investible-are-nfts.jpg"
           className="collectionCardImage"
           alt=""
         />

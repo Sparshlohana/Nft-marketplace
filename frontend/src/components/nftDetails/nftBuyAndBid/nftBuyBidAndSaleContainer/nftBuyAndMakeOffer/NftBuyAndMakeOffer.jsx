@@ -6,6 +6,7 @@ import "./nftBuyAndMakeOffer.css";
 import axios from "axios";
 import { NFTMarketplaceContext } from "../../../../../context/NFTMarketplaceContext";
 import { Link, useParams } from "react-router-dom";
+import { NFTMarketplaceAddress } from "../../../../../context/contanst";
 
 const NftBuyAndMakeOffer = ({ nft }) => {
   const [usd, setUsd] = useState(0);
@@ -55,7 +56,9 @@ const NftBuyAndMakeOffer = ({ nft }) => {
         </div>
       </div>
       <div className="buyNowContainerMain">
-        {currentAccount?.toLowerCase() === nft?.owner ? (
+        {currentAccount?.toLowerCase() === nft?.owner ||
+        (NFTMarketplaceAddress.toLowerCase() === nft?.owner &&
+          currentAccount?.toLowerCase() === nft?.seller) ? (
           <div className="buyNowContainer">
             <Link to={"/resell/" + id}>
               <button className="addToCartBtn">

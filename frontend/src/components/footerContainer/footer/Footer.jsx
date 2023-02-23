@@ -1,9 +1,12 @@
+import lucentLogo from "./lucentLogo.png";
 import "./footer.css";
 
 const Footer = () => {
   return (
     <div className="footer">
-      <div className="footerLogo">Logo</div>
+      <div className="footerLogoContainer">
+        <img src={lucentLogo} alt="lucentLogo" className="footerLogo" />
+      </div>
       <div className="footerItemsContainer">
         <ul className="footerUl">
           <li className="footerItems">

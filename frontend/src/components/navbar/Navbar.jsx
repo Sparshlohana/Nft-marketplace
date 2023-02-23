@@ -1,6 +1,6 @@
 import "./navbar.css";
 import { RiCloseLine, RiEqualizerLine } from "react-icons/ri";
-
+import lucentLogo from "./lucentLogo.png";
 import { NFTMarketplaceContext } from "../../context/NFTMarketplaceContext";
 import { useContext } from "react";
 import { Link } from "react-router-dom";
@@ -24,8 +24,8 @@ const Navbar = ({ openSidebar, setOpenSidebar }) => {
         )}
       </div>
       <div className="logoContainer">
-        {/* <img src="" alt="logo" /> */}
-        <p className="logo">LOGO</p>
+        {/* <p className="logo">LOGO</p> */}
+        <img src={lucentLogo} alt="logo" className="logo"></img>
       </div>
 
       <div className="searchContainer">
