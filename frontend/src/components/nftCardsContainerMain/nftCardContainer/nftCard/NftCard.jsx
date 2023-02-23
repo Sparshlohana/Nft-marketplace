@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 const NftCard = ({ nft, filter }) => {
-  const [price, setPrice] = useState("");
+  const [price, setPrice] = useState(nft?.price + " ETH ");
 
   const fetchCurrentPriceOfEth = async () => {
     try {

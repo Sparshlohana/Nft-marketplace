@@ -22,7 +22,7 @@ const NftAudioCard = ({ nft, filter }) => {
     setIsPlaying(false);
   };
 
-  const [price, setPrice] = useState("");
+  const [price, setPrice] = useState(nft?.price + " ETH ");
 
   const fetchCurrentPriceOfEth = async () => {
     try {
