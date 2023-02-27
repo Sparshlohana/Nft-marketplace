@@ -4,7 +4,7 @@ import "./homeCarousel.css";
 
 const HomeCarousel = () => {
   return (
-    <AwesomeSlider style={{ height: "100vh" }}>
+    <AwesomeSlider style={{ height: "80vh" }}>
       <div data-src="https://images.hdqwalls.com/wallpapers/monkey-nft-v7.jpg" />
       <div data-src="https://wallpapersmug.com/download/3840x2160/3e0156/bitcoin-digital-art-abstract.jpg" />
       <div data-src="https://wallpaperaccess.com/full/3648367.jpg" />

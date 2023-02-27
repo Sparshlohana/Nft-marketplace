@@ -36,3 +36,33 @@
   color: #fff;
   font-size: 1.2rem;
 }
+
+@media (max-width: 630px) {
+  .homeCategoriesCards {
+    width: 27%;
+  }
+}
+@media (max-width: 500px) {
+  .homeCategoriesCards {
+    width: 25%;
+    height: 17vh;
+  }
+  .homeCategoriesCardsContent {
+    font-size: 1rem;
+  }
+}
+@media (max-width: 400px) {
+  .homeCategoriesCards {
+    width: 23%;
+    height: 15vh;
+  }
+  .homeCategoriesCardsContent {
+    font-size: 0.9rem;
+  }
+}
+@media (max-width: 350px) {
+  .homeCategoriesCards {
+    width: 26%;
+    height: 13vh;
+  }
+}
