@@ -7,7 +7,7 @@ const ErrorHandler = ({ msg }) => {
   const { setIsError } = useContext(NFTMarketplaceContext);
   return (
     <div className="errorContainer">
-      <p>{msg}</p>
+      <p className="errorMessage">{msg}</p>
       <CgClose
         className="closeErrorIcon"
         onClick={() => setIsError(false)}

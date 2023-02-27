@@ -1,5 +1,9 @@
 .successContainer {
-  background-color: rgba(74, 248, 144, 0.951);
+  background: radial-gradient(
+    939px at 94.7% 50%,
+    rgb(0, 178, 169) 0%,
+    rgb(0, 106, 101) 76.9%
+  );
   color: #fff;
   height: 50px;
   display: flex;
@@ -13,7 +17,27 @@
   width: 60%;
   margin: 20px auto;
 }
-
+.successContainer::before {
+  content: "";
+  position: absolute;
+  height: 20px;
+  width: 70px;
+  background: linear-gradient(to right, rgb(0, 178, 169), rgb(0, 106, 101));
+  transform: translateX(-171.4%);
+  z-index: -1;
+}
+.successContainer::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-left: 20px solid transparent;
+  border-right: 20px solid transparent;
+  border-top: 20px solid rgb(0, 106, 101);
+  margin: 2rem;
+  transform: rotate(270deg) translateY(-460%);
+  z-index: -1;
+}
 .closeSuccessIcon {
   cursor: pointer;
 }

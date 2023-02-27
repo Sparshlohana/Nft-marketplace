@@ -75,7 +75,7 @@ const NFTMarketplaceProvider = ({ children }) => {
   const connectWallet = async () => {
     try {
       if (!window.ethereum) {
-        console.log("insatall metamask");
+        console.log("install metamask");
       }
       const accounts = await window.ethereum.request({
         method: "eth_requestAccounts",
@@ -121,7 +121,7 @@ const NFTMarketplaceProvider = ({ children }) => {
         await createSale(url, price, name, false);
       }
     } catch (error) {
-      setError("Missing requried feilds");
+      setError("Missing required felids");
       setIsError(true);
     }
   };
@@ -194,7 +194,7 @@ const NFTMarketplaceProvider = ({ children }) => {
         transaction.wait();
 
         setIsSuccess(true);
-        setSuccessMsg("NFT Resell Successfull!");
+        setSuccessMsg("NFT Resell Successful!");
         navigate(window.location.pathname);
       }
     } catch (error) {
