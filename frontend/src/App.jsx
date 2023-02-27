@@ -14,6 +14,7 @@ import ResellNftPage from "./Pages/resellNftPage/ResellNftPage";
 import HomePage from "./Pages/homePage/HomePage";
 import ErrorHandler from "./components/Error/ErrorHandler";
 import SuccessHandler from "./components/Success/SuccessHandler";
+import CategoryPage from "./Pages/categoryPage/CategoryPage";
 
 function App() {
   const [openSidebar, setOpenSidebar] = useState(false);
@@ -32,31 +33,34 @@ function App() {
   });
 
   return (
-      <div className="App">
-        <Navbar openSidebar={openSidebar} setOpenSidebar={setOpenSidebar} />
-        {openSidebar && <NavSideBar />}
-        {isError && <ErrorHandler msg={error} />}
-        {isSuccess && <SuccessHandler msg={success} />}
-        <Routes>
-          <Route path="/" element={<HomePage />}></Route>
-        </Routes>
-        <Routes>
-          <Route path="/shop" element={<Shop />}></Route>
-        </Routes>
-        <Routes>
-          <Route path="/nft/:id" element={<Details />}></Route>
-        </Routes>
-        <Routes>
-          <Route path="/create" element={<CreateNftPage />}></Route>
-        </Routes>
-        <Routes>
-          <Route path="/user" element={<UserDetailPage />}></Route>
-        </Routes>
-        <Routes>
-          <Route path="/resell/:id" element={<ResellNftPage />}></Route>
-        </Routes>
-        <FooterContainer />
-      </div>
+    <div className="App">
+      <Navbar openSidebar={openSidebar} setOpenSidebar={setOpenSidebar} />
+      {openSidebar && <NavSideBar />}
+      {isError && <ErrorHandler msg={error} />}
+      {isSuccess && <SuccessHandler msg={success} />}
+      <Routes>
+        <Route path="/" element={<HomePage />}></Route>
+      </Routes>
+      <Routes>
+        <Route path="/shop" element={<Shop />}></Route>
+      </Routes>
+      <Routes>
+        <Route path="/nft/:id" element={<Details />}></Route>
+      </Routes>
+      <Routes>
+        <Route path="/create" element={<CreateNftPage />}></Route>
+      </Routes>
+      <Routes>
+        <Route path="/user" element={<UserDetailPage />}></Route>
+      </Routes>
+      <Routes>
+        <Route path="/resell/:id" element={<ResellNftPage />}></Route>
+      </Routes>
+      <Routes>
+        <Route path="/categories" element={<CategoryPage />}></Route>
+      </Routes>
+      <FooterContainer />
+    </div>
   );
 }
 
