@@ -76,6 +76,11 @@
   outline: 1px solid #fff;
 }
 
+.createNftDataCollectionOption {
+  background-color: #ffffff0b;
+  padding: 10px;
+}
+
 .NftImgVidDisplayContainer {
   /* width: 25vw; */
   width: 70vh;

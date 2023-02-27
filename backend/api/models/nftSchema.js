@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { Schema } from "mongoose";
 import slugify from "slugify";
 
 const nftSchema = new mongoose.Schema(
@@ -16,6 +16,10 @@ const nftSchema = new mongoose.Schema(
       trim: true,
       required: [true, "must provide nft description"],
     },
+    category: {
+      type: String,
+      required: [true, "must provide a category"],
+    },
     media: {
       type: String,
       required: [true, "must provide a media"],
@@ -27,6 +31,11 @@ const nftSchema = new mongoose.Schema(
     price: {
       type: Number,
       required: [true, "must provide a price"],
+    },
+    wishlist: {
+      type: [String],
+      index: true,
+      unique: true,
     },
     owner: {
       type: String,
@@ -107,3 +116,9 @@ nftSchema.pre("save", function (next) {
 const NFT = mongoose.model("NFT", nftSchema);
 
 export default NFT;
+
+// const collectionSchema = new mongoose.Schema({
+//   name: {
+//     type: "String",
+//   },
+// });

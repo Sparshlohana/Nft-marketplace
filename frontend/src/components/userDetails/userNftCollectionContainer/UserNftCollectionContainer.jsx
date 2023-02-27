@@ -9,7 +9,6 @@ import { NFTMarketplaceContext } from "../../../context/NFTMarketplaceContext";
 const UserNftCollectionContainer = ({ active }) => {
   const [openSort, setOpenSort] = useState(false);
   const [openFilter, setOpenFilter] = useState(false);
-  const [nfts, setNfts] = useState([]);
 
   const { currentAccount } = useContext(NFTMarketplaceContext);
 
@@ -144,7 +143,6 @@ const UserNftCollectionContainer = ({ active }) => {
                 ? collected
                 : created
             }
-            setNfts={setNfts}
             openFilter={openFilter}
           />
         </div>

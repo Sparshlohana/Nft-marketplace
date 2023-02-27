@@ -4,13 +4,13 @@ import NftCard from "../../../nftCardsContainerMain/nftCardContainer/nftCard/Nft
 import NftAudioCard from "../../../nftCardsContainerMain/nftCardContainer/nftCard/NftAudioCard/NftAudioCard";
 import "./priceUnderCards.css";
 
-import { fetchNFTsFromApi } from "../../../../apiFunctions/nftsApi";
+import { handleFilteredNfts } from "../../../../apiFunctions/nftsApi";
 
 const PriceUnderCards = ({ price }) => {
   const [nfts, setNfts] = useState([]);
 
   useEffect(() => {
-    fetchNFTsFromApi(price).then((data) => setNfts(data));
+    handleFilteredNfts(0, price).then((data) => setNfts(data));
   }, []);
 
   return (

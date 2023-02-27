@@ -33,6 +33,11 @@
   color: #fff;
 }
 
+.favoritesFillImg {
+  font-size: 1.1rem;
+  cursor: pointer;
+  color: #fff;
+}
 .favorites {
   color: #fff;
   font-size: 1.1rem;

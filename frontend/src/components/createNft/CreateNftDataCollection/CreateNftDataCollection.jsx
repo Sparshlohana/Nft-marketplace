@@ -11,14 +11,13 @@ const CreateNftDataCollection = () => {
 
   const [fileType, setFileType] = useState(null);
 
-  const [fileUrl, setFileUrl] = useState(null);
   const [price, setPrice] = useState("");
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [royalties, setRoyalties] = useState("");
   const [category, setCategory] = useState(0);
 
-  const { createNFT } = useContext(NFTMarketplaceContext);
+  const { createNFT, setError, setIsError } = useContext(NFTMarketplaceContext);
 
   const onDrop = useCallback(async (acceptedFile) => {
     try {
@@ -33,7 +32,6 @@ const CreateNftDataCollection = () => {
         },
       });
 
-      setFileUrl(url.data.url);
       setMedia(url.data.url);
 
       if (
@@ -47,7 +45,8 @@ const CreateNftDataCollection = () => {
         setFileType("video");
       }
     } catch (error) {
-      console.log(error);
+      setError("Cant'upload  Nft try again ");
+      setIsError(true);
     }
   }, []);
 
@@ -55,7 +54,7 @@ const CreateNftDataCollection = () => {
     accept: "image/*, video/*, .gif",
     onDrop,
   });
-
+  console.log(category);
   return (
     <div className="createNftDataCollection">
       <div className="NftImgVidDisplayContainer">
@@ -98,9 +97,7 @@ const CreateNftDataCollection = () => {
         </div>
 
         <div className="createNftDataCollectionFormItemContainer">
-          <h2 className="createNftDataCollectionFormPriceHeading">
-            Collection Name
-          </h2>
+          <h2 className="createNftDataCollectionFormPriceHeading">NFT Name</h2>
           <input
             className="createNftDataCollectionFormInput"
             type="text"
@@ -109,6 +106,72 @@ const CreateNftDataCollection = () => {
             placeholder="Name"
             required
           />
+        </div>
+        <div className="createNftDataCollectionFormItemContainer">
+          <h2 className="createNftDataCollectionFormPriceHeading">
+            Category Name
+          </h2>
+          <select
+            className="createNftDataCollectionFormInput"
+            onChange={(e) => setCategory(e.target.value)}
+          >
+            <option
+              value=""
+              style={{ background: "black" }}
+              className="createNftDataCollectionOption"
+            >
+              -- Select Category --
+            </option>
+            <option
+              style={{ background: "black" }}
+              className="createNftDataCollectionOption"
+              value={"art"}
+            >
+              Art
+            </option>
+            <option
+              style={{ background: "black" }}
+              className="createNftDataCollectionOption"
+              value={"music"}
+            >
+              Music
+            </option>
+            <option
+              style={{ background: "black" }}
+              className="createNftDataCollectionOption"
+              value={"video"}
+            >
+              Video
+            </option>
+            <option
+              style={{ background: "black" }}
+              className="createNftDataCollectionOption"
+              value={"fashion"}
+            >
+              Fashion
+            </option>
+            <option
+              style={{ background: "black" }}
+              className="createNftDataCollectionOption"
+              value={"sports"}
+            >
+              Sports
+            </option>
+            <option
+              style={{ background: "black" }}
+              className="createNftDataCollectionOption"
+              value={"photography"}
+            >
+              Photography
+            </option>
+            <option
+              style={{ background: "black" }}
+              className="createNftDataCollectionOption"
+              value={"collectibles"}
+            >
+              Collectibles
+            </option>
+          </select>
         </div>
         <div className="createNftDataCollectionFormItemContainer">
           <h2 className="createNftDataCollectionFormPriceHeading">
@@ -160,7 +223,7 @@ const CreateNftDataCollection = () => {
         <button
           onClick={(e) => {
             e.preventDefault();
-            createNFT(name, price, media, fileType, description);
+            createNFT(name, price, media, fileType, description, category);
           }}
           className="createNftBtn"
         >

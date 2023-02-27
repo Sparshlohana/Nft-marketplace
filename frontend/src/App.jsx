@@ -12,23 +12,31 @@ import { NFTMarketplaceContext } from "./context/NFTMarketplaceContext";
 import UserDetailPage from "./Pages/userDetailPage/UserDetailPage";
 import ResellNftPage from "./Pages/resellNftPage/ResellNftPage";
 import HomePage from "./Pages/homePage/HomePage";
+import ErrorHandler from "./components/Error/ErrorHandler";
+import SuccessHandler from "./components/Success/SuccessHandler";
 
 function App() {
   const [openSidebar, setOpenSidebar] = useState(false);
 
-  const { checkIfWalletIsConnected, currentAccount } = useContext(
-    NFTMarketplaceContext
-  );
+  const {
+    checkIfWalletIsConnected,
+    currentAccount,
+    isSuccess,
+    success,
+    error,
+    isError,
+  } = useContext(NFTMarketplaceContext);
 
   useEffect(() => {
     checkIfWalletIsConnected();
   });
 
   return (
-    <Router>
       <div className="App">
         <Navbar openSidebar={openSidebar} setOpenSidebar={setOpenSidebar} />
         {openSidebar && <NavSideBar />}
+        {isError && <ErrorHandler msg={error} />}
+        {isSuccess && <SuccessHandler msg={success} />}
         <Routes>
           <Route path="/" element={<HomePage />}></Route>
         </Routes>
@@ -49,7 +57,6 @@ function App() {
         </Routes>
         <FooterContainer />
       </div>
-    </Router>
   );
 }
 

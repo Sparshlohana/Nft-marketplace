@@ -106,6 +106,7 @@ export const createNFT = async (req, res) => {
       const description = response?.data?.description;
       const media = response?.data?.media;
       const fileType = response?.data?.fileType;
+      const category = response?.data?.category;
 
       const obj = {
         name,
@@ -115,15 +116,18 @@ export const createNFT = async (req, res) => {
         owner: owner?.toLowerCase(),
         price,
         description,
+        category,
         media,
         fileType,
         sold,
       };
+
       console.log(obj);
 
       const exist = await NFT.findOne({
         tokenId,
         name,
+        category,
         description,
         media,
         fileType,
@@ -157,11 +161,48 @@ export const createNFT = async (req, res) => {
   }
 };
 
+export const getByCategory = async (req, res) => {
+  try {
+    const category = req.params?.category;
+
+    const data = new APIFeatures(NFT.findOne({ category }), req.query)
+      .filter()
+      .sort()
+      .limitFeilds()
+      .pagination();
+
+    // const created = await createdFeatures.query;
+
+    // const collectedFeatures = new APIFeatures(
+    //   NFT.findOne({ owner: account }),
+    //   req.query
+    // )
+    //   .filter()
+    //   .sort()
+    //   .limitFeilds()
+    //   .pagination();
+
+    const allNFTs = await data.query;
+
+    res.status(200).json({
+      message: "Success",
+      data: { nfts: allNFTs },
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(404).json({
+      status: "fail",
+      message: error.message,
+    });
+  }
+};
+
 export const getSingleNFT = async (req, res) => {
   try {
     const id = req.params.id;
+
     const nft = await NFT.findById(id);
-    console.log(nft);
+    // console.log(nft);
 
     res.status(200).json({
       status: "success",
@@ -186,7 +227,7 @@ export const updateNFT = async (req, res) => {
       seller: req.body?.seller?.toLowerCase(),
       price: req.body?.price,
       owner: req.body?.owner?.toLowerCase(),
-      sold: req.body?.sold
+      sold: req.body?.sold,
     };
     console.log(data);
 
@@ -331,15 +372,15 @@ export const uploadImgToIPFS = async (req, res) => {
 
 export const uploadNftToIPFS = async (req, res) => {
   try {
-    const { name, description, media, fileType } = req.body;
+    const { name, description, media, fileType, category } = req.body;
 
-    if ((name && description && media, fileType)) {
-      const data = { name, description, media, fileType };
+    if ((name && description && media, fileType && category)) {
+      const data = { name, description, media, fileType, category };
 
       const added = await client.add(JSON.stringify(data));
 
       const url = `https://${subdomain}.infura-ipfs.io/ipfs/${added.path}`;
-
+      console.log(url);
       res.status(200).json({
         status: "success",
         url,
@@ -354,6 +395,38 @@ export const uploadNftToIPFS = async (req, res) => {
     res
       .stats(200)
       .json({ status: "fail", message: "couldn't upload nft to ipfs" });
+  }
+};
+
+export const likeOrDislike = async (req, res) => {
+  const { like, account, id } = req.body;
+
+  if (like && id && account) {
+    const liked = await NFT.findByIdAndUpdate(
+      id.id,
+      {
+        $push: { wishlist: account },
+      },
+      { new: true, runValidators: true }
+    );
+    console.log(liked);
+    res.status(200).json({
+      status: "success",
+      likes: liked?.wishlist,
+    });
+  }
+  if (like == false && id?.id & account) {
+    const unliked = await NFT.findByIdAndUpdate(
+      id.id,
+      { $pull: { wishlist: account } },
+      { new: true, runValidators: true },
+      { multi: true }
+    );
+    console.log(unliked);
+    res.status(200).json({
+      status: "success",
+      likes: unliked?.wishlist,
+    });
   }
 };
 

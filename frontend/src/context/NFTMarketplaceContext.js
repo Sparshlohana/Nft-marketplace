@@ -5,11 +5,20 @@ import axios from "axios";
 import Web3Modal from "web3modal";
 
 import { NFTMarketplaceAddress, NFTMarketplaceABI } from "./contanst";
+import { useNavigate } from "react-router-dom";
 
 export const NFTMarketplaceContext = createContext();
 
 const NFTMarketplaceProvider = ({ children }) => {
   const [currentAccount, setCurrentAccount] = useState("");
+
+  const [isError, setIsError] = useState(false);
+  const [error, setError] = useState("");
+
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [successMsg, setSuccessMsg] = useState("");
+
+  const navigate = useNavigate();
 
   const getProvider = async () => {
     const web3modal = new Web3Modal();
@@ -32,12 +41,13 @@ const NFTMarketplaceProvider = ({ children }) => {
     try {
       const provider = await getProvider();
       const signer = provider.getSigner();
+      console.log(signer);
       const contract = fetchContract(signer);
 
       return contract;
     } catch (error) {
-      console.log(error);
-      console.log("Something went wrong while connecting to smart contract");
+      setIsError(true);
+      setError("Internal Server Error!");
     }
   };
 
@@ -46,11 +56,10 @@ const NFTMarketplaceProvider = ({ children }) => {
       if (!window.ethereum) {
         console.log("install metamask");
       }
-
+      console.log(currentAccount);
       const accounts = await window.ethereum.request({
         method: "eth_accounts",
       });
-
       if (accounts.length > 0) {
         setCurrentAccount(accounts[0]);
       } else {
@@ -71,12 +80,16 @@ const NFTMarketplaceProvider = ({ children }) => {
       const accounts = await window.ethereum.request({
         method: "eth_requestAccounts",
       });
-      console.log(accounts);
+
       if (accounts.length > 0) {
         setCurrentAccount(accounts[0]);
       }
+      setIsSuccess(true);
+      setSuccessMsg("Wallet Connected!");
+      navigate(window.location.pathname);
     } catch (error) {
-      console.log(error);
+      setError("wallet can't connect");
+      setIsError(true);
     }
   };
 
@@ -86,14 +99,16 @@ const NFTMarketplaceProvider = ({ children }) => {
     media,
     fileType,
     description,
+    category,
     router
   ) => {
     try {
-      if (!name || !description || !media || !fileType || !price) {
-        console.log("Data is missing");
+      if (!name && !description && !media && !fileType && !price && !category) {
+        setIsError(true);
+        setError("Missing required fields!");
       }
 
-      const data = { name, description, media, fileType };
+      const data = { name, description, media, fileType, category };
 
       const response = await axios.post(
         "http://localhost:5000/api/v1/nfts/uploadNFT",
@@ -101,11 +116,13 @@ const NFTMarketplaceProvider = ({ children }) => {
       );
 
       const url = response.data.url;
-      // console.log(url);
 
-      await createSale(url, price, name, false);
+      if (url) {
+        await createSale(url, price, name, false);
+      }
     } catch (error) {
-      console.log("creating nft error: ", error);
+      setError("Missing requried feilds");
+      setIsError(true);
     }
   };
 
@@ -141,6 +158,11 @@ const NFTMarketplaceProvider = ({ children }) => {
         );
 
         await transaction.wait();
+
+        setIsSuccess(true);
+        setSuccessMsg("NFT Created Successfull!");
+
+        navigate(window.location.pathname);
       } else {
         const contract = await connectingWithSmartContract();
 
@@ -170,9 +192,18 @@ const NFTMarketplaceProvider = ({ children }) => {
         });
 
         transaction.wait();
+
+        setIsSuccess(true);
+        setSuccessMsg("NFT Resell Successfull!");
+        navigate(window.location.pathname);
       }
     } catch (error) {
-      console.log("creating sale error: ", error);
+      setIsError(true);
+      if (isReselling) {
+        setError("Something went wrong while Reselling NFT !");
+      } else {
+        setError("Something went wrong while Creating NFT!");
+      }
     }
   };
 
@@ -249,8 +280,8 @@ const NFTMarketplaceProvider = ({ children }) => {
 
       return items;
     } catch (error) {
-      console.log(error);
-      console.log("Erroe while fetching nfts");
+      setIsError(true);
+      setIsError("internal Server Error!");
     }
   };
 
@@ -296,14 +327,14 @@ const NFTMarketplaceProvider = ({ children }) => {
 
       return items;
     } catch (error) {
-      console.log("error while fetching listed nfts ", error);
+      setIsError(true);
+      setIsError("internal Server Error!");
     }
   };
 
   //buy NFTs function
   const buyNft = async (nft) => {
     try {
-      console.log(nft);
       const contract = await connectingWithSmartContract();
       const price = ethers.utils.parseUnits(nft.price.toString(), "ether");
 
@@ -320,20 +351,19 @@ const NFTMarketplaceProvider = ({ children }) => {
           sold: true,
         };
 
-        console.log(data);
-
         const res = await axios.patch(
           `http://localhost:5000/api/v1/nfts/${tokenId}`,
           data
         );
-
-        console.log(res);
       });
 
       await transaction.wait();
-      console.log(transaction);
+      setIsSuccess(true);
+      setSuccessMsg("NFT Purchased Successfully");
+      navigate(window.location.pathname);
     } catch (error) {
-      console.log("error while buying nft ", error);
+      setIsError(true);
+      setIsError("Something went wrong while purchasing NFT!");
     }
   };
 
@@ -349,6 +379,13 @@ const NFTMarketplaceProvider = ({ children }) => {
           createSale,
           fetchNFT,
           buyNft,
+          setError,
+          error,
+          isError,
+          successMsg,
+          setIsSuccess,
+          isSuccess,
+          setIsError,
           fetchNFTs,
           fetchMyNFTsOrListedNFTs,
         }}

@@ -1,0 +1,19 @@
+.errorContainer {
+  background-color: rgba(248, 74, 74, 0.951);
+  color: #fff;
+  height: 50px;
+  display: flex;
+  position: absolute;
+  top: 12%;
+  left: 20%;
+  z-index: 11111;
+  padding: 0 20px;
+  justify-content: space-between;
+  align-items: center;
+  width: 60%;
+  margin: 20px auto;
+}
+
+.closeErrorIcon {
+  cursor: pointer;
+}

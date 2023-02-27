@@ -13,7 +13,7 @@ const NftDetails = () => {
   const { id } = useParams();
   const [nft, setNft] = useState(null);
 
-  const { fetchNFT } = useContext(NFTMarketplaceContext);
+  // const { fetchNFT } = useContext(NFTMarketplaceContext);
 
   const fetchNFTFromApi = async () => {
     try {
@@ -24,14 +24,15 @@ const NftDetails = () => {
     }
   };
 
-  const fetchSingleNft = async (tokenId) => {
-    const data = await fetchNFT(Number(tokenId));
-    setNft(data);
-  };
+  // const fetchSingleNft = async (tokenId) => {
+  //   const data = await fetchNFT(Number(tokenId));
+  //   setNft(data);
+  // };
 
   useEffect(() => {
     fetchNFTFromApi().then((data) => {
       setNft(data);
+      console.log(data);
     });
     // fetchSingleNft();
   }, []);

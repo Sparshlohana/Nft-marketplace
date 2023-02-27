@@ -8,8 +8,11 @@ import PageBtnContainer from "../../components/pageBtnContainer/PageBtnContainer
 // import { NFTMarketplaceContext } from "../../context/NFTMarketplaceContext";
 import "./shop.css";
 
-import axios from "../../utils/axios";
-
+import {
+  handleFilteredNfts,
+  fetchNFTsFromApi,
+  handleSortFilter,
+} from "../../apiFunctions/nftsApi";
 // import fetch from "axios";
 
 const Shop = () => {
@@ -28,66 +31,20 @@ const Shop = () => {
 
   const [filteredNfts, setFilteredNfts] = useState([]);
 
-  // const { fetchNFTs } = useContext(NFTMarketplaceContext);
-
-  const fetchNFTsFromApi = async (page) => {
-    const response = await axios.get(`/api/v1/nfts?page=${page}&limit=30`);
-
-    return response?.data?.data?.nfts;
-  };
-
-  const handleFilteredNfts = async (filter) => {
-    const response = await axios.get(
-      `/api/v1/nfts?nfts?price[gte]=${filter.minPrice}&price[lte]=${filter.maxPrice}`
-    );
-
-    const data = response?.data?.data?.nfts;
-    setFilteredNfts(data);
-  };
-
-  const handleSortFilter = async (sort) => {
-    try {
-      if (sort === "Price: Lowest") {
-        const response = await axios.get(`/api/v1/nfts?sort=price`);
-
-        const data = response?.data?.data?.nfts;
-        setFilteredNfts(data);
-      }
-      if (sort === "Price: Highest") {
-        const response = await axios.get(`/api/v1/nfts?sort=-price`);
-
-        const data = response?.data?.data?.nfts;
-        setFilteredNfts(data);
-      }
-      if (sort === "Listed: Recent") {
-        const response = await axios.get(`/api/v1/nfts?sort=-createdAt`);
-
-        const data = response?.data?.data?.nfts;
-        setFilteredNfts(data);
-      }
-      if (sort === "Listed: Recent") {
-        const response = await axios.get(`/api/v1/nfts?sort=createdAt`);
-
-        const data = response?.data?.data?.nfts;
-        setFilteredNfts(data);
-      }
-    } catch (error) {
-      console.log("error while sorting");
-    }
-  };
-
   useEffect(() => {
-    fetchNFTsFromApi(page).then((data) => setNfts(data));
+    fetchNFTsFromApi(page, 30).then((data) => setNfts(data));
   }, [page]);
 
   console.log(filteredNfts);
 
   useEffect(() => {
-    handleFilteredNfts(filter);
+    handleFilteredNfts(filter.maxPrice, filter.minPrice).then((data) =>
+      setFilteredNfts(data)
+    );
   }, [filter]);
 
   useEffect(() => {
-    handleSortFilter(sort);
+    handleSortFilter(sort).then((data) => setFilteredNfts(data));
   }, [sort]);
 
   return (

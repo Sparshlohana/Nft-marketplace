@@ -1,36 +1,49 @@
 import "./navSideBar.css";
 
+import { Link } from "react-router-dom";
+import { NFTMarketplaceContext } from "../../context/NFTMarketplaceContext";
+import { useContext } from "react";
+
 const NavSideBar = () => {
+  const { connectWallet, currentAccount } = useContext(NFTMarketplaceContext);
+
   return (
     <div className="navSideBarContainer">
       <div className="navResponsiveListItemContainer">
         <ul className="navResponsiveListItemUl">
           <li className="navResponsiveListItem">
-            <a href="/" className="navResponsiveListItemAnchor">
+            <Link href="/" className="navResponsiveListItemAnchor">
               Home
-            </a>
+            </Link>
           </li>
           <li className="navResponsiveListItem">
-            <a href="/" className="navResponsiveListItemAnchor">
+            <Link to="/shop" className="navResponsiveListItemAnchor">
               Shop
-            </a>
+            </Link>
           </li>
           <li className="navResponsiveListItem">
-            <a href="/" className="navResponsiveListItemAnchor">
+            <Link href="/" className="navResponsiveListItemAnchor">
               Contact Us
-            </a>
+            </Link>
           </li>
           <li className="navResponsiveListItem">
-            <a href="/" className="navResponsiveListItemAnchor">
+            <Link href="/" className="navResponsiveListItemAnchor">
               About Us
-            </a>
+            </Link>
           </li>
         </ul>
       </div>
       <hr className="navResponsiveListHr" />
       <div className="responsiveSignInContainer">
-        <button className="responsiveSignIn">Sign In</button>
-        <button className="responsiveSignIn">Sign Up</button>
+        {currentAccount !== "" ? (
+          <Link to="/create">
+            <button className="responsiveSignIn">Create</button>
+          </Link>
+        ) : (
+          <button className="responsiveSignIn" onClick={connectWallet}>
+            Sign In
+          </button>
+        )}
       </div>
       <hr className="navResponsiveListHr" />
       <div className="navResponsiveListItemContainer">

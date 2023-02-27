@@ -56,11 +56,23 @@ const NftBuyAndMakeOffer = ({ nft }) => {
         </div>
       </div>
       <div className="buyNowContainerMain">
+        {!currentAccount && (
+          <p style={{ color: "white", marginRight: "20px" }}>
+            Sign in to purchase NFT
+          </p>
+        )}
+        {NFTMarketplaceAddress.toLowerCase() === nft?.owner &&
+          currentAccount?.toLowerCase() === nft?.seller && (
+            <p style={{ color: "white", marginRight: "20px" }}>
+              You owned this NFT
+            </p>
+          )}
+
         {currentAccount?.toLowerCase() === nft?.owner ||
-        (NFTMarketplaceAddress.toLowerCase() === nft?.owner &&
+        (NFTMarketplaceAddress.toLowerCase() !== nft?.owner &&
           currentAccount?.toLowerCase() === nft?.seller) ? (
           <div className="buyNowContainer">
-            <Link to={"/resell/" + id}>
+            <Link style={{ textDecoration: "none" }} to={"/resell/" + id}>
               <button className="addToCartBtn">
                 <FaRegHandshake className="buyNowIcons" />
                 <span className="buyNowSpan"> Resell NFT</span>
@@ -68,32 +80,36 @@ const NftBuyAndMakeOffer = ({ nft }) => {
             </Link>
           </div>
         ) : (
-          <>
-            <div className="buyNowContainer">
-              <button
-                className="addToCartBtn"
-                onClick={() => {
-                  buyNft(nft);
-                }}
-              >
-                <FaRegHandshake className="buyNowIcons" />
-                <span className="buyNowSpan"> Buy Now</span>
-              </button>
-            </div>
-            <div className="buyNowContainer">
-              <button className="addToCartBtn">
-                <AiOutlineShoppingCart className="buyNowIcons" />
-                <span className="buyNowSpan"> Add to Cart</span>
-              </button>
-            </div>
-          </>
+          currentAccount?.toLowerCase() === nft?.seller ||
+          (currentAccount && (
+            <>
+              <div className="buyNowContainer">
+                <button
+                  className="addToCartBtn"
+                  onClick={() => {
+                    buyNft(nft);
+                  }}
+                >
+                  <FaRegHandshake className="buyNowIcons" />
+                  <span className="buyNowSpan"> Buy Now</span>
+                </button>
+              </div>
+              <div className="buyNowContainer">
+                <button className="addToCartBtn">
+                  <AiOutlineShoppingCart className="buyNowIcons" />
+                  <span className="buyNowSpan"> Add to Cart</span>
+                </button>
+              </div>
+
+              <div className="buyNowContainer">
+                <button className="addToCartBtn">
+                  <MdOutlineLocalOffer className="buyNowIcons" />
+                  <span className="buyNowSpan"> Make Offer</span>
+                </button>
+              </div>
+            </>
+          ))
         )}
-        <div className="buyNowContainer">
-          <button className="addToCartBtn">
-            <MdOutlineLocalOffer className="buyNowIcons" />
-            <span className="buyNowSpan"> Make Offer</span>
-          </button>
-        </div>
       </div>
     </div>
   );
