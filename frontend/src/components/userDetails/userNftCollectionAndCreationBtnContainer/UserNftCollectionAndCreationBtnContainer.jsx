@@ -1,5 +1,4 @@
 import "./userNftCollectionAndCreationBtnContainer.css";
-
 const UserNftCollectionAndCreationBtnContainer = ({ active, setActive }) => {
   const handleClick = (id) => {
     setActive(id);
@@ -30,6 +29,18 @@ const UserNftCollectionAndCreationBtnContainer = ({ active, setActive }) => {
             }
           >
             Created <span className="UserNftCollectionBtn">92.5k</span>
+          </p>
+        </div>
+        <div className="UserNftCollectionBtnContainer">
+          <p
+            onClick={() => handleClick(3)}
+            className={
+              active === 3
+                ? "UserNftCollectionBtnActive"
+                : "UserNftCollectionBtn"
+            }
+          >
+            Favorite <span className="UserNftCollectionBtn">92.5k</span>
           </p>
         </div>
       </div>
