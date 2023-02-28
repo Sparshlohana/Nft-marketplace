@@ -29,7 +29,7 @@ function App() {
   } = useContext(NFTMarketplaceContext);
 
   useEffect(() => {
-    checkIfWalletIsConnected();
+    (async () => await checkIfWalletIsConnected())();
   });
 
   return (

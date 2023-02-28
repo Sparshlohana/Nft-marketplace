@@ -11,4 +11,8 @@ const collectionSchema = new mongoose.Schema({
     trim: true,
     required: [true, "must provide nft description"],
   },
+  creator: {
+    type: String,
+    required: [true, "must provide nft creator address"],
+  },
 });

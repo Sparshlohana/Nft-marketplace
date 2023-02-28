@@ -49,8 +49,8 @@ const Navbar = ({ openSidebar, setOpenSidebar }) => {
         <Link to="/shop" className="navItemsLink">
           <li className="navItems">Shop</li>
         </Link>
-        <Link className="navItemsLink">
-          <li className="navItems">Contact Us</li>
+        <Link to={"/user"} className="navItemsLink">
+          <li className="navItems">Profile</li>
         </Link>
         <Link className="navItemsLink">
           <li className="navItems">About Us</li>
