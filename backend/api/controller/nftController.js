@@ -71,6 +71,19 @@ export const getUsersNft = async (req, res) => {
 
     const created = await createdFeatures.query;
 
+    const favoriteFeatures = new APIFeatures(
+      NFT.findOne({
+        wishlist: { account: account.toLowerCase(), isLiked: true },
+      }),
+      req.query
+    )
+      .filter()
+      .sort()
+      .limitFeilds()
+      .pagination();
+
+    const favorites = await favoriteFeatures.query;
+
     const collectedFeatures = new APIFeatures(
       NFT.findOne({ owner: account }),
       req.query
@@ -82,11 +95,13 @@ export const getUsersNft = async (req, res) => {
 
     const collected = await collectedFeatures.query;
 
-    console.log("collected", collected);
-    console.log("collected", collected);
     res.status(200).json({
       message: "Success",
-      data: { nftsCreated: created, nftsCollected: collected },
+      data: {
+        nftsCreated: created,
+        nftsCollected: collected,
+        favorites: favorites,
+      },
     });
   } catch (error) {
     console.log(error);

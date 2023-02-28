@@ -78,7 +78,7 @@ const CreateNftDataCollection = ({
           </audio>
         )}
       </div>
-      <form action="" className="createNftDataCollectionForm">
+      <form className="createNftDataCollectionForm">
         <div
           className="createNftDataCollectionFormItemContainer"
           {...getRootProps()}
@@ -208,7 +208,15 @@ const CreateNftDataCollection = ({
               Choose Collection
             </button>
           </div>
-          <button className="createNftBtn">Create NFT</button>
+          <button
+            className="createNftBtn"
+            onClick={(e) => {
+              e.preventDefault();
+              createNFT(name, price, media, fileType, description, category);
+            }}
+          >
+            Create NFT
+          </button>
         </>
       </form>
     </div>
