@@ -6,9 +6,11 @@ import { useContext } from "react";
 import { NFTMarketplaceContext } from "../../../context/NFTMarketplaceContext";
 import axios from "../../../utils/axios";
 
-const CreateNftDataCollection = () => {
+const CreateNftDataCollection = ({
+  openCreateCollection,
+  setOpenCreateCollection,
+}) => {
   const [media, setMedia] = useState(null);
-
   const [fileType, setFileType] = useState(null);
 
   const [price, setPrice] = useState("");
@@ -115,57 +117,31 @@ const CreateNftDataCollection = () => {
             className="createNftDataCollectionFormInput"
             onChange={(e) => setCategory(e.target.value)}
           >
-            <option
-              value=""
-              style={{ background: "black" }}
-              className="createNftDataCollectionOption"
-            >
+            <option value="" className="createNftDataCollectionOption">
               -- Select Category --
             </option>
-            <option
-              style={{ background: "black" }}
-              className="createNftDataCollectionOption"
-              value={"art"}
-            >
+            <option className="createNftDataCollectionOption" value={"art"}>
               Art
             </option>
-            <option
-              style={{ background: "black" }}
-              className="createNftDataCollectionOption"
-              value={"music"}
-            >
+            <option className="createNftDataCollectionOption" value={"music"}>
               Music
             </option>
-            <option
-              style={{ background: "black" }}
-              className="createNftDataCollectionOption"
-              value={"video"}
-            >
+            <option className="createNftDataCollectionOption" value={"video"}>
               Video
             </option>
-            <option
-              style={{ background: "black" }}
-              className="createNftDataCollectionOption"
-              value={"fashion"}
-            >
+            <option className="createNftDataCollectionOption" value={"fashion"}>
               Fashion
             </option>
-            <option
-              style={{ background: "black" }}
-              className="createNftDataCollectionOption"
-              value={"sports"}
-            >
+            <option className="createNftDataCollectionOption" value={"sports"}>
               Sports
             </option>
             <option
-              style={{ background: "black" }}
               className="createNftDataCollectionOption"
               value={"photography"}
             >
               Photography
             </option>
             <option
-              style={{ background: "black" }}
               className="createNftDataCollectionOption"
               value={"collectibles"}
             >
@@ -220,15 +196,20 @@ const CreateNftDataCollection = () => {
             placeholder="Royalty recipient"
           />
         </div>
-        <button
-          onClick={(e) => {
-            e.preventDefault();
-            createNFT(name, price, media, fileType, description, category);
-          }}
-          className="createNftBtn"
-        >
-          Create NFT
-        </button>
+        <>
+          <div className="createNftDataCollectionBtnContainer">
+            <button
+              className="createNftBtn createNftDataCollectionBtn"
+              onClick={() => setOpenCreateCollection(!openCreateCollection)}
+            >
+              Create Collection
+            </button>
+            <button className="createNftBtn createNftDataCollectionBtn">
+              Choose Collection
+            </button>
+          </div>
+          <button className="createNftBtn">Create NFT</button>
+        </>
       </form>
     </div>
   );

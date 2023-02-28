@@ -77,8 +77,10 @@
 }
 
 .createNftDataCollectionOption {
-  background-color: #ffffff0b;
+  background-color: #2e2e2e;
   padding: 10px;
+  border: none;
+  outline: none;
 }
 
 .NftImgVidDisplayContainer {
@@ -110,6 +112,16 @@
   background: #ffffff18;
 }
 
+.createNftDataCollectionBtnContainer {
+  display: flex;
+  gap: 15px;
+}
+
+.createNftDataCollectionBtn {
+  width: 50%;
+  /* margin-left: 5px; */
+}
+
 @media (max-width: 900px) {
   .createNftDataCollectionForm {
     width: 90%;
@@ -118,19 +130,19 @@
 
 @media (max-width: 510px) {
   .dropYourFilePara {
-    font-size: 1.2rem;
+    font-size: 1rem;
   }
 
   .dropFileIcon {
-    font-size: 3rem;
+    font-size: 2.7rem;
   }
 
   .createNftDataCollectionFormPriceHeading {
-    font-size: 1.4rem;
+    font-size: 1.2rem;
   }
 
   .createNftDataCollectionFormInput {
-    font-size: 1.1rem;
+    font-size: 1rem;
   }
 
   .NftImgVidDisplayContainer {
@@ -148,6 +160,7 @@
   }
 
   .createNftBtn {
+    font-size: 0.9rem;
     width: 50%;
   }
 }
@@ -159,5 +172,9 @@
 
   .createNftBtn {
     width: 60%;
+  }
+
+  .createNftDataCollectionBtn {
+    font-size: 0.7rem;
   }
 }

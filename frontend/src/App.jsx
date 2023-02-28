@@ -36,7 +36,7 @@ function App() {
     <div className="App">
       <Navbar openSidebar={openSidebar} setOpenSidebar={setOpenSidebar} />
       {openSidebar && <NavSideBar />}
-      {isError && <ErrorHandler msg={error} />};
+      {isError && <ErrorHandler msg={error} />}
       {isSuccess && <SuccessHandler msg={success} />}
       <Routes>
         <Route path="/" element={<HomePage />}></Route>

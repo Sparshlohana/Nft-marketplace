@@ -1,0 +1,13 @@
+.createCollectionContainerMain {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  top: 20%;
+}
+
+.createCollectionContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
