@@ -13,12 +13,23 @@ const NftDetails = () => {
   const { id } = useParams();
   const [nft, setNft] = useState(null);
 
-  // const { fetchNFT } = useContext(NFTMarketplaceContext);
+  const { currentAccount } = useContext(NFTMarketplaceContext);
+
+  const [like, setLike] = useState(false);
+  const [likes, setLikes] = useState(0);
 
   const fetchNFTFromApi = async () => {
     try {
       const response = await axios.get(`/api/v1/nfts/${id}`);
-      return response?.data?.data?.nft;
+      const data = response?.data?.data?.nft;
+      setNft(data);
+      // console.log({ wishlist: data.wishlist });
+      const isFavourite = data.wishlist.find((ac) => {
+        return ac.account == currentAccount.toLowerCase();
+      });
+      console.log({ isFavourite });
+      setLike(isFavourite?.isLiked);
+      setLikes(nft?.wishlist?.length);
     } catch (error) {
       console.log("error while fetching nft from api");
     }
@@ -30,17 +41,20 @@ const NftDetails = () => {
   // };
 
   useEffect(() => {
-    fetchNFTFromApi().then((data) => {
-      setNft(data);
-      console.log(data);
-    });
+    (async () => await fetchNFTFromApi())();
     // fetchSingleNft();
-  }, []);
+  }, [currentAccount]);
 
   return (
     <div className="NftDetailsMainContainer">
       <NftPhotoAndDetails nft={nft} />
-      <NftBuyAndBidMainContainer nft={nft} />
+      <NftBuyAndBidMainContainer
+        like={like}
+        setLike={setLike}
+        setLikes={setLikes}
+        likes={likes}
+        nft={nft}
+      />
     </div>
   );
 };

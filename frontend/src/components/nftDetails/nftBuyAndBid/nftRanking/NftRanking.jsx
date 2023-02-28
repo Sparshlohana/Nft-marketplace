@@ -6,21 +6,18 @@ import { NFTMarketplaceContext } from "../../../../context/NFTMarketplaceContext
 import axios from "../../../../utils/axios";
 import { useParams } from "react-router-dom";
 
-const NftRanking = () => {
-  const [like, setLike] = useState({ isLike: false, account: "" });
+const NftRanking = ({ like, likes, setLike, setLikes }) => {
   const { currentAccount } = useContext(NFTMarketplaceContext);
-  const [likes, setLikes] = useState([]);
-  const id = useParams();
+
+  const { id } = useParams();
 
   const handleLike = async () => {
     if (currentAccount !== "") {
-      setLike({ isLike: !like.isLike, account: currentAccount });
-      console.log(like.isLike);
-      if (like.isLike === true) {
-        const data = { like: like.isLike, account: like.account, id };
-        const res = await axios.post("/api/v1/nfts/favorites", data);
-        setLikes(res?.data?.likes);
-      }
+      setLike(!like);
+      const data = { like, account: currentAccount, id };
+      const res = await axios.post("/api/v1/nfts/favorites", data);
+      console.log({ res: res.data });
+      setLikes(res?.data?.count);
     }
   };
 
@@ -30,7 +27,7 @@ const NftRanking = () => {
         <p className="ranking">#1000</p>
       </div>
       <div className="favoritesContainer">
-        {like?.isLike ? (
+        {like ? (
           <AiFillHeart
             onClick={handleLike}
             className="favoritesFillImg"
@@ -38,7 +35,7 @@ const NftRanking = () => {
         ) : (
           <FiHeart onClick={handleLike} className="favoritesImg" />
         )}
-        <p className="favorites">{likes?.length} favorites</p>
+        <p className="favorites">{likes} favorites</p>
       </div>
     </div>
   );

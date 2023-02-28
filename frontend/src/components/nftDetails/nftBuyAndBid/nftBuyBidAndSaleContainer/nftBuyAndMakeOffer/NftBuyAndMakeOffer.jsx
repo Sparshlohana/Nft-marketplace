@@ -36,7 +36,7 @@ const NftBuyAndMakeOffer = ({ nft }) => {
   };
 
   useEffect(() => {
-    fetchCurrentPriceOfEth();
+    // fetchCurrentPriceOfEth();
   });
 
   return (
