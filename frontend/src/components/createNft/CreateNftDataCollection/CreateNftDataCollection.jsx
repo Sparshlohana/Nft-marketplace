@@ -208,7 +208,15 @@ const CreateNftDataCollection = ({
               Choose Collection
             </button>
           </div>
-          <button className="createNftBtn">Create NFT</button>
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+              createNFT(name, price, media, fileType, description, category);
+            }}
+            className="createNftBtn"
+          >
+            Create NFT
+          </button>
         </>
       </form>
     </div>
