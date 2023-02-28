@@ -1,16 +1,19 @@
+import { Link } from "react-router-dom";
 import "./categoriesList.css";
 
-const CategoriesList = () => {
+const CategoriesList = ({ data }) => {
   return (
     <div className="categoriesListContainer">
       <ul className="categoriesListUl">
-        <li className="categoriesListItems">Photography</li>
-        <li className="categoriesListItems">Sports</li>
-        <li className="categoriesListItems">Music</li>
-        <li className="categoriesListItems">Collectable</li>
-        <li className="categoriesListItems">Art</li>
-        <li className="categoriesListItems">Fashion</li>
-        <li className="categoriesListItems">Trading Cards</li>
+        {data?.map((cat, i) => (
+          <Link
+            style={{ textDecoration: "none" }}
+            key={i}
+            to={"/categories/" + cat?.name.toLowerCase()}
+          >
+            <li className="categoriesListItems">{cat.name}</li>
+          </Link>
+        ))}
       </ul>
     </div>
   );

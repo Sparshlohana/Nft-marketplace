@@ -1,12 +1,9 @@
 import "./categoriesHeadingDetails.css";
 
-const CategoriesHeadingDetails = () => {
+const CategoriesHeadingDetails = ({ description }) => {
   return (
     <div className="categoriesHeadingDetailsContainer">
-      <p className="categoriesHeadingDetails">
-        Explore and own collectibles from some of the biggest sports teams and
-        brands in the world.
-      </p>
+      <p className="categoriesHeadingDetails">{description}</p>
     </div>
   );
 };

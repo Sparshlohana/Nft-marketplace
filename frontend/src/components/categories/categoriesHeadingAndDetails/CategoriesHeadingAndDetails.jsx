@@ -2,11 +2,11 @@ import CategoriesHeading from "./categoriesHeading/CategoriesHeading";
 import CategoriesHeadingDetails from "./categoriesHeadingDetails/CategoriesHeadingDetails";
 import "./categoriesHeadingAndDetails.css";
 
-const CategoriesHeadingAndDetails = () => {
+const CategoriesHeadingAndDetails = ({ name, description }) => {
   return (
     <div className="categoriesHeadingAndDetailsContainer">
-      <CategoriesHeading />
-      <CategoriesHeadingDetails />
+      <CategoriesHeading name={name} />
+      <CategoriesHeadingDetails description={description} />
     </div>
   );
 };

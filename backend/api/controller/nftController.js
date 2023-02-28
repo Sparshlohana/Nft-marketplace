@@ -164,6 +164,7 @@ export const createNFT = async (req, res) => {
 export const getByCategory = async (req, res) => {
   try {
     const category = req.params?.category;
+    console.log(category);
 
     const data = new APIFeatures(NFT.findOne({ category }), req.query)
       .filter()
@@ -183,7 +184,7 @@ export const getByCategory = async (req, res) => {
     //   .pagination();
 
     const allNFTs = await data.query;
-
+    console.log(allNFTs);
     res.status(200).json({
       message: "Success",
       data: { nfts: allNFTs },

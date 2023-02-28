@@ -9,17 +9,17 @@ const NftCard = ({ nft, filter }) => {
 
   const fetchCurrentPriceOfEth = async () => {
     try {
-      if (filter.currency === "INR") {
+      if (filter?.currency === "INR") {
         const inrPrice = await axios.get(
           "https://api.coinconvert.net/convert/eth/inr?amount=" + nft?.price
         );
-        setPrice("₹ " + Math.floor(inrPrice.data.INR) + " INR ");
-      } else if (filter.currency === "USD") {
+        setPrice("₹ " + Math.floor(inrPrice?.data?.INR) + " INR ");
+      } else if (filter?.currency === "USD") {
         const usdPrice = await axios.get(
           "https://api.coinconvert.net/convert/eth/usd?amount=" + nft?.price
         );
 
-        setPrice("$ " + usdPrice.data.USD + " USD ");
+        setPrice("$ " + usdPrice?.data?.USD + " USD ");
       } else {
         setPrice(nft?.price + " ETH ");
       }

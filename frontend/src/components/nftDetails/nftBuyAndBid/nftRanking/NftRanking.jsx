@@ -11,11 +11,12 @@ const NftRanking = () => {
   const { currentAccount } = useContext(NFTMarketplaceContext);
   const [likes, setLikes] = useState([]);
   const id = useParams();
-  console.log(likes);
+
   const handleLike = async () => {
     if (currentAccount !== "") {
       setLike({ isLike: !like.isLike, account: currentAccount });
-      if (like.isLike) {
+      console.log(like.isLike);
+      if (like.isLike === true) {
         const data = { like: like.isLike, account: like.account, id };
         const res = await axios.post("/api/v1/nfts/favorites", data);
         setLikes(res?.data?.likes);
@@ -29,15 +30,15 @@ const NftRanking = () => {
         <p className="ranking">#1000</p>
       </div>
       <div className="favoritesContainer">
-        {!like?.isLike ? (
-          <FiHeart onClick={handleLike} className="favoritesImg" />
-        ) : (
+        {like?.isLike ? (
           <AiFillHeart
             onClick={handleLike}
             className="favoritesFillImg"
           ></AiFillHeart>
+        ) : (
+          <FiHeart onClick={handleLike} className="favoritesImg" />
         )}
-        <p className="favorites">3 favorites</p>
+        <p className="favorites">{likes?.length} favorites</p>
       </div>
     </div>
   );

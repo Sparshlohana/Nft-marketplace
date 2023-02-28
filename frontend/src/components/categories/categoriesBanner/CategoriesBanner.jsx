@@ -1,13 +1,9 @@
 import "./categoriesBanner.css";
 
-const CategoriesBanner = () => {
+const CategoriesBanner = ({ img }) => {
   return (
     <div className="categoriesBannerImgContainer">
-      <img
-        className="categoriesBannerImg"
-        src="https://www.clubmahindra.com/blog/media/section_images/naturephot-ec32e94608f809e.webp"
-        alt=""
-      />
+      <img className="categoriesBannerImg" src={img} alt="" />
     </div>
   );
 };

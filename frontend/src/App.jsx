@@ -36,7 +36,7 @@ function App() {
     <div className="App">
       <Navbar openSidebar={openSidebar} setOpenSidebar={setOpenSidebar} />
       {openSidebar && <NavSideBar />}
-      {isError && <ErrorHandler msg={error} />}
+      {isError && <ErrorHandler msg={error} />};
       {isSuccess && <SuccessHandler msg={success} />}
       <Routes>
         <Route path="/" element={<HomePage />}></Route>
@@ -57,7 +57,7 @@ function App() {
         <Route path="/resell/:id" element={<ResellNftPage />}></Route>
       </Routes>
       <Routes>
-        <Route path="/categories" element={<CategoryPage />}></Route>
+        <Route path="/categories/:category" element={<CategoryPage />}></Route>
       </Routes>
       <FooterContainer />
     </div>

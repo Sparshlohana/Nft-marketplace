@@ -6,12 +6,14 @@ import "./priceUnderCards.css";
 
 import { handleFilteredNfts } from "../../../../apiFunctions/nftsApi";
 
-const PriceUnderCards = ({ price }) => {
+const PriceUnderCards = ({ minPrice, maxPrice }) => {
   const [nfts, setNfts] = useState([]);
 
   useEffect(() => {
-    handleFilteredNfts(0, price).then((data) => setNfts(data));
+    handleFilteredNfts(minPrice, maxPrice).then((data) => setNfts(data));
   }, []);
+
+  console.log(nfts);
 
   return (
     <>

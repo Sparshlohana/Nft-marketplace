@@ -6,13 +6,13 @@ const PriceUnderContainer = () => {
   return (
     <div className="priceUnderContainerMain">
       <PriceUnderHeading title={"Nfts under 5 ETH"} />
-      <PriceUnderCards price={5} />
+      <PriceUnderCards minPrice={0} maxPrice={5} />
       <hr className="priceUnderContainerHr" />
-      <PriceUnderHeading title={"Nfts under 15 ETH"} />
-      <PriceUnderCards price={15} />
+      <PriceUnderHeading title={"Nfts Between 5ETH and 15 ETH"} />
+      <PriceUnderCards minPrice={5} maxPrice={15} />
       <hr className="priceUnderContainerHr" />
-      <PriceUnderHeading title={"Nfts under 25 ETH"} />
-      <PriceUnderCards price={25} />
+      <PriceUnderHeading title={"Nfts Between 15ETH and 25 ETH"} />
+      <PriceUnderCards minPrice={15} maxPrice={25} />
     </div>
   );
 };

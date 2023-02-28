@@ -23,7 +23,7 @@ const router = express.Router();
 
 router.get("/user/:account", getUsersNft);
 
-router.get("category/:category", getByCategory);
+router.get("/categories/:category", getByCategory);
 
 router.route("/nfts-stats").get(getNFTsStats);
 

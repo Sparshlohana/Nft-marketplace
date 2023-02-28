@@ -162,7 +162,7 @@ const NFTMarketplaceProvider = ({ children }) => {
         setIsSuccess(true);
         setSuccessMsg("NFT Created Successfull!");
 
-        navigate(window.location.pathname);
+        navigate("/user");
       } else {
         const contract = await connectingWithSmartContract();
 
@@ -195,7 +195,7 @@ const NFTMarketplaceProvider = ({ children }) => {
 
         setIsSuccess(true);
         setSuccessMsg("NFT Resell Successful!");
-        navigate(window.location.pathname);
+        navigate("/user");
       }
     } catch (error) {
       setIsError(true);
@@ -360,7 +360,7 @@ const NFTMarketplaceProvider = ({ children }) => {
       await transaction.wait();
       setIsSuccess(true);
       setSuccessMsg("NFT Purchased Successfully");
-      navigate(window.location.pathname);
+      navigate("/user");
     } catch (error) {
       setIsError(true);
       setIsError("Something went wrong while purchasing NFT!");

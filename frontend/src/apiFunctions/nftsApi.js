@@ -6,7 +6,7 @@ export const fetchNFTsFromApi = async (page, limit) => {
   return response?.data?.data?.nfts;
 };
 
-export const handleFilteredNfts = async (maxPrice, minPrice) => {
+export const handleFilteredNfts = async (minPrice, maxPrice) => {
   const response = await axios.get(
     `/api/v1/nfts?price[gte]=${minPrice}&price[lte]=${maxPrice}`
   );
