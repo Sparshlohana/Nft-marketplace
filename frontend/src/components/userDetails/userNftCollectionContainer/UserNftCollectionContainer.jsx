@@ -34,7 +34,6 @@ const UserNftCollectionContainer = ({ active }) => {
     const response = await axios.get(
       `/api/v1/nfts/user/${currentAccount?.toLowerCase()}`
     );
-    console.log(response);
     const data = response?.data?.data;
     setCollected(data?.nftsCollected);
     setCreated(data?.nftsCreated);

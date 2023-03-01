@@ -8,6 +8,8 @@ import PageBtnContainer from "../../components/pageBtnContainer/PageBtnContainer
 // import { NFTMarketplaceContext } from "../../context/NFTMarketplaceContext";
 import "./shop.css";
 
+import axios from "../../utils/axios";
+
 import {
   handleFilteredNfts,
   fetchNFTsFromApi,
@@ -19,6 +21,7 @@ const Shop = () => {
   const [openSort, setOpenSort] = useState(false);
   const [openFilter, setOpenFilter] = useState(false);
   const [nfts, setNfts] = useState([]);
+  const [collections, setCollections] = useState([]);
 
   const [filter, setFilter] = useState({
     minPrice: 0,
@@ -31,8 +34,18 @@ const Shop = () => {
 
   const [filteredNfts, setFilteredNfts] = useState([]);
 
+  const fetchCollections = async () => {
+    try {
+      const res = await axios.get("/api/v1/collections");
+      setCollections(res?.data?.collections);
+    } catch (error) {}
+  };
+
   useEffect(() => {
     fetchNFTsFromApi(page, 30).then((data) => setNfts(data));
+    (async () => {
+      await fetchCollections();
+    })();
   }, [page]);
 
   console.log(filteredNfts);
@@ -50,7 +63,7 @@ const Shop = () => {
   return (
     <>
       <div className="shop">
-        <CollectionContainer />
+        <CollectionContainer collections={collections} />
 
         <div
           style={{

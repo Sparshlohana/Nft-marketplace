@@ -114,7 +114,17 @@ export const getUsersNft = async (req, res) => {
 
 export const createNFT = async (req, res) => {
   try {
-    const { name, tokenURI, tokenId, seller, owner, price, sold } = req.body;
+    const {
+      name,
+      tokenURI,
+      tokenId,
+      seller,
+      owner,
+      price,
+      sold,
+      collectionId,
+      wishlist,
+    } = req.body;
 
     if (name && tokenURI && tokenId && seller && owner && price) {
       const response = await axios.get(tokenURI);
@@ -131,13 +141,13 @@ export const createNFT = async (req, res) => {
         owner: owner?.toLowerCase(),
         price,
         description,
+        collectionId,
+        wishlist,
         category,
         media,
         fileType,
         sold,
       };
-
-      console.log(obj);
 
       const exist = await NFT.findOne({
         tokenId,
@@ -151,6 +161,7 @@ export const createNFT = async (req, res) => {
         price,
         tokenURI,
       });
+
       let newNFT;
       if (exist) {
         newNFT = await NFT.updateOne({ tokenId }, obj);
@@ -396,7 +407,7 @@ export const uploadNftToIPFS = async (req, res) => {
       const added = await client.add(JSON.stringify(data));
 
       const url = `https://${subdomain}.infura-ipfs.io/ipfs/${added.path}`;
-      console.log(url);
+
       res.status(200).json({
         status: "success",
         url,
