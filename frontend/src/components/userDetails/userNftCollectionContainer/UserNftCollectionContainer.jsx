@@ -16,6 +16,8 @@ const UserNftCollectionContainer = ({ active }) => {
 
   const [created, setCreated] = useState([]);
 
+  const [favorites, setFavorites] = useState([]);
+
   const [filter, setFilter] = useState({
     minPrice: 0,
     maxPrice: 0,
@@ -26,6 +28,7 @@ const UserNftCollectionContainer = ({ active }) => {
 
   const [collectedFilteredNfts, setCollectedFilteredNfts] = useState([]);
   const [createdFilteredNfts, setCreatedFilteredNfts] = useState([]);
+  const [favoriteFilteredNfts, setFavoriteFilteredNfts] = useState([]);
 
   const fetchUsersNFTsFromApi = async (currentAccount) => {
     const response = await axios.get(
@@ -35,6 +38,7 @@ const UserNftCollectionContainer = ({ active }) => {
     const data = response?.data?.data;
     setCollected(data?.nftsCollected);
     setCreated(data?.nftsCreated);
+    setFavorites(data?.favorites);
   };
 
   const handleFilteredNfts = async (filter) => {
@@ -48,6 +52,7 @@ const UserNftCollectionContainer = ({ active }) => {
 
     setCollectedFilteredNfts(data?.nftsCollected);
     setCreatedFilteredNfts(data?.nftsCreated);
+    setFavoriteFilteredNfts(data?.favorites);
   };
 
   const handleSortFilter = async (sort) => {
@@ -61,6 +66,8 @@ const UserNftCollectionContainer = ({ active }) => {
 
         setCollectedFilteredNfts(data?.nftsCollected);
         setCreatedFilteredNfts(data?.nftsCreated);
+
+        setFavoriteFilteredNfts(data?.favorites);
       }
       if (sort === "Price: Highest") {
         const response = await axios.get(
@@ -70,6 +77,8 @@ const UserNftCollectionContainer = ({ active }) => {
         const data = response?.data?.data;
 
         setCollectedFilteredNfts(data?.nftsCollected);
+
+        setFavoriteFilteredNfts(data?.favorites);
         setCreatedFilteredNfts(data?.nftsCreated);
       }
       if (sort === "Listed: Recent") {
@@ -79,6 +88,7 @@ const UserNftCollectionContainer = ({ active }) => {
 
         const data = response?.data?.data;
 
+        setFavoriteFilteredNfts(data?.favorites);
         setCollectedFilteredNfts(data?.nftsCollected);
         setCreatedFilteredNfts(data?.nftsCreated);
       }
@@ -89,6 +99,7 @@ const UserNftCollectionContainer = ({ active }) => {
 
         const data = response?.data?.data;
 
+        setFavoriteFilteredNfts(data?.favorites);
         setCollectedFilteredNfts(data?.nftsCollected);
         setCreatedFilteredNfts(data?.nftsCreated);
       }
@@ -135,13 +146,18 @@ const UserNftCollectionContainer = ({ active }) => {
             filter={filter}
             nfts={
               collectedFilteredNfts?.length > 0 ||
-              createdFilteredNfts?.length > 0
+              createdFilteredNfts?.length > 0 ||
+              favoriteFilteredNfts?.length > 0
                 ? active === 1
                   ? collectedFilteredNfts
-                  : createdFilteredNfts
+                  : active === 2
+                  ? createdFilteredNfts
+                  : favoriteFilteredNfts
                 : active === 1
                 ? collected
-                : created
+                : active === 2
+                ? created
+                : favorites
             }
             openFilter={openFilter}
           />

@@ -42,7 +42,6 @@ const NftDetails = () => {
 
   useEffect(() => {
     (async () => await fetchNFTFromApi())();
-    // fetchSingleNft();
   }, [currentAccount]);
 
   return (
