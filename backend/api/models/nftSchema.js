@@ -33,7 +33,7 @@ const nftSchema = new mongoose.Schema(
       required: [true, "must provide a price"],
     },
     wishlist: {
-      type: [Object],
+      type: [String],
     },
     owner: {
       type: String,

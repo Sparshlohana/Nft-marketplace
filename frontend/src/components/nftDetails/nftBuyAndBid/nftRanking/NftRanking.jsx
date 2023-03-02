@@ -1,23 +1,26 @@
-import "./nftRanking.css";
-import { FiHeart } from "react-icons/fi";
-import { AiFillHeart } from "react-icons/ai";
 import { useContext, useState } from "react";
+import { AiFillHeart } from "react-icons/ai";
+import { FiHeart } from "react-icons/fi";
+import { useParams } from "react-router-dom";
 import { NFTMarketplaceContext } from "../../../../context/NFTMarketplaceContext";
 import axios from "../../../../utils/axios";
-import { useParams } from "react-router-dom";
+import "./nftRanking.css";
 
-const NftRanking = ({ like, likes, setLike, setLikes }) => {
+const NftRanking = ({ like, likes, toggleLikHandler, setLikeHandler }) => {
   const { currentAccount } = useContext(NFTMarketplaceContext);
-
   const { id } = useParams();
 
   const handleLike = async () => {
+    let isLoading = false;
     if (currentAccount !== "") {
-      setLike(!like);
+      toggleLikHandler();
       const data = { like, account: currentAccount, id };
-      const res = await axios.post("/api/v1/nfts/favorites", data);
-      console.log({ res: res.data });
-      setLikes(res?.data?.count);
+      isLoading = true;
+      await axios.post("/api/v1/nfts/favorites", data);
+      isLoading = false;
+      if (!isLoading) {
+        setLikeHandler(like ? likes - 1 : likes + 1);
+      }
     }
   };
 

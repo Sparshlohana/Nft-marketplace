@@ -13,6 +13,7 @@ import {
   updateNFT,
   uploadImgToIPFS,
   uploadNftToIPFS,
+  getLikeOrDislike
 } from "../controller/nftController.js";
 
 import multer from "multer";
@@ -27,6 +28,8 @@ router.get("/categories/:category", getByCategory);
 
 router.route("/nfts-stats").get(getNFTsStats);
 
+router.post("/favorites", likeOrDislike);
+
 router.post("/uploadToIPFS", upload.single("media"), uploadImgToIPFS);
 
 router.post("/uploadNFT", uploadNftToIPFS);
@@ -38,7 +41,5 @@ router.route("/top-5-nfts").get(aliasTopNFTs, getAllNFTs);
 router.route("/").get(getAllNFTs).post(createNFT);
 
 router.route("/:id").get(getSingleNFT).patch(updateNFT).delete(deleteNFT);
-
-router.post("/favorites", likeOrDislike);
 
 export default router;

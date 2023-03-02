@@ -423,64 +423,53 @@ export const uploadNftToIPFS = async (req, res) => {
   }
 };
 
+// For like and dislike the post of NFT
 export const likeOrDislike = async (req, res) => {
   const { account, id } = req.body;
-  let { like } = req.body;
-  console.log(like);
-  like = !like;
+  const accountIdInLowercase = account.toLowerCase();
+
   try {
-    if (like) {
-      const exist = await NFT.findOne({
-        _id: id,
-        wishlist: { account: account.toLowerCase(), isLiked: true },
-      });
-
-      if (exist === null) {
-        const liked = await NFT.findOneAndUpdate(
-          id,
-          {
-            $push: {
-              wishlist: { account: account.toLowerCase(), isLiked: true },
-            },
-          },
-          {
-            runValidators: true,
-            new: true,
-          }
-        );
-        res.status(200).json({
-          status: "success",
-          likes: liked?.wishlist,
-          count: liked?.wishlist?.length,
-        });
-      } else {
-        res.status(200).json({
-          status: "success",
-          likes: exist?.wishlist,
-          count: exist?.wishlist?.length,
-        });
-      }
-    } else {
-      const unliked = await NFT.findOneAndUpdate(
-        id,
-        {
-          $pull: {
-            wishlist: { account: account.toLowerCase() },
-          },
-        },
-        { new: true }
+    const nftPost = await NFT.findOne({ _id: id });
+    if (nftPost.wishlist.includes(accountIdInLowercase)) {
+      await NFT.updateOne(
+        { _id: id },
+        { $pull: { wishlist: accountIdInLowercase } }
       );
-
-      res.status(200).json({
-        status: "success",
-        likes: unliked?.wishlist,
-        count: unliked?.wishlist?.length,
-      });
+      res
+        .status(200)
+        .json({ status: "success", message: "post disliked successfully" });
+    } else {
+      await NFT.updateOne(
+        { _id: id },
+        { $push: { wishlist: accountIdInLowercase } }
+      );
+      res
+        .status(200)
+        .json({ status: "success", message: "post liked successfully" });
     }
-  } catch (error) {
-    res.status(500).json({
-      status: "failed",
-      message: "internal server error",
-    });
+    res.status(400).json({ status: "fail", message: "something gone wrong" });
+  } catch (e) {
+    console.log(e);
   }
+};
+
+// const checkId = (req, res, next, value) => {
+//   console.log("ID: ", value);
+//   if (req.params.id == 3) {
+//     return res.status(404).json({ staus: "fail", message: "Invalid ID" });
+//   }
+//   next();
+// };
+
+// const checkBody = (req, res, next) => {
+//   if (!req.body.name && !req.body.price) {
+//     return res
+//       .status(404)
+//       .json({ status: "fail", message: "missing name and price" });
+//   }
+//   next();
+// };
+
+export const getLikeOrDislike = (req, res) => {
+  res.status(200).json({ name: "DONE" });
 };
