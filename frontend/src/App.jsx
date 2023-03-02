@@ -15,6 +15,7 @@ import HomePage from "./Pages/homePage/HomePage";
 import ErrorHandler from "./components/Error/ErrorHandler";
 import SuccessHandler from "./components/Success/SuccessHandler";
 import CategoryPage from "./Pages/categoryPage/CategoryPage";
+import CollectionPage from "./Pages/collectionPage/CollectionPage";
 
 function App() {
   const [openSidebar, setOpenSidebar] = useState(false);
@@ -58,6 +59,9 @@ function App() {
       </Routes>
       <Routes>
         <Route path="/categories/:category" element={<CategoryPage />}></Route>
+      </Routes>
+      <Routes>
+        <Route path="/collection" element={<CollectionPage />}></Route>
       </Routes>
       <FooterContainer />
     </div>

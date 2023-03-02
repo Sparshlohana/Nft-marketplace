@@ -1,0 +1,20 @@
+.collectionOwnerAndVerificationContainer {
+  display: flex;
+  margin-left: 10%;
+  margin-top: 15px;
+  gap: 5px;
+  align-items: center;
+}
+
+.collectionOwner {
+  color: #fff;
+}
+
+.collectionOwnerVerificationImgContainer {
+  width: 30%;
+  margin-top: 5px;
+}
+
+.collectionOwnerVerificationImg {
+  width: 5%;
+}

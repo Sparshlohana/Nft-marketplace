@@ -1,0 +1,10 @@
+.collectionDescriptionContainer {
+  margin-left: 10%;
+  width: 50%;
+  margin-top: 15px;
+}
+
+.collectionDescription {
+  color: #fff;
+  font-size: 1.1rem;
+}
