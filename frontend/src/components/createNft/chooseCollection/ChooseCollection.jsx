@@ -1,54 +1,111 @@
+import { useContext, useEffect, useState } from "react";
+import { NFTMarketplaceContext } from "../../../context/NFTMarketplaceContext";
 import "./chooseCollection.css";
 
-const ChooseCollection = () => {
+import { AiFillCaretDown, AiFillCaretUp } from "react-icons/ai";
+
+import axios from "../../../utils/axios";
+import ChooseCollectionItems from "./chooseCollectionItems/ChooseCollectionItems";
+
+const ChooseCollection = ({
+  setOpenChooseCollection,
+  collectionData,
+  setCollectionData,
+  category,
+  name,
+  fileType,
+  media,
+  price,
+  description,
+  createNFT,
+}) => {
+  const [openChooseCollectionItems, setOpenChooseCollectionItems] =
+    useState(false);
+
+  const { currentAccount } = useContext(NFTMarketplaceContext);
+
+  const [collections, setCollections] = useState([]);
+
+  const fetchUsersCollection = async () => {
+    try {
+      const res = await axios.get(
+        "/api/v1/collections/user/" + currentAccount?.toLowerCase()
+      );
+
+      setCollections(res.data?.collections);
+    } catch (error) {}
+  };
+
+  useEffect(() => {
+    (async () => {
+      await fetchUsersCollection();
+    })();
+  }, []);
+
+  console.log(collectionData);
+
   return (
     <>
       <div className="createCollectionContainerMain">
         <div className="createCollectionContainer">
-          <form action="" className="createNftDataCollectionForm">
+          <div action="" className="createNftDataCollectionForm">
             <h2 className="createNftDataCollectionFormPriceHeading">
               Choose Collection
             </h2>
-            <select
-              name=""
-              id=""
-              className="createNftDataCollectionFormInput chooseCollectionSelect"
-            >
-              <option
-                className="createNftDataCollectionOption"
-                value="Collection"
+            <div className="ChooseCollectionItemsSelectBtn">
+              <button
+                className="ChooseCollectionItemsSelectBtnBtn"
+                onClick={() => {
+                  setOpenChooseCollectionItems(!openChooseCollectionItems);
+                }}
               >
-                Choose Collection..
-              </option>
-              <option
-                className="createNftDataCollectionOption"
-                value="Collection"
+                {openChooseCollectionItems ? (
+                  <AiFillCaretUp className="arrow" />
+                ) : (
+                  <AiFillCaretDown className="arrow" />
+                )}
+                Choose Collection
+              </button>
+              {openChooseCollectionItems && (
+                <ChooseCollectionItems
+                  collections={collections}
+                  collectionData={collectionData}
+                  setCollectionData={setCollectionData}
+                />
+              )}
+            </div>
+            <div className="chooseCollectionCreateCancelBtn">
+              <button
+                className="createNftBtn chooseCollection"
+                onClick={(e) => {
+                  e.preventDefault();
+
+                  createNFT(
+                    name,
+                    price,
+                    media,
+                    fileType,
+                    description,
+                    category,
+                    collectionData
+                  );
+                  setOpenChooseCollection(false);
+                }}
               >
-                Collection1
-              </option>
-              <option
-                className="createNftDataCollectionOption"
-                value="Collection"
+                Create NFT
+              </button>
+
+              <button
+                className="createNftBtn chooseCollection"
+                onClick={(e) => {
+                  e.preventDefault();
+                  setOpenChooseCollection(false);
+                }}
               >
-                Collection1
-              </option>
-              <option
-                className="createNftDataCollectionOption"
-                value="Collection"
-              >
-                Collection1
-              </option>
-              <option
-                className="createNftDataCollectionOption"
-                value="Collection"
-              >
-                Collection1
-              </option>
-            </select>
-            <button className="createNftBtn chooseCollection">
-              Choose Collection
-            </button>
-          </form>
+                Cancel
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </>

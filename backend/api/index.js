@@ -11,6 +11,7 @@ const __filename = fileURLToPath(import.meta.url);
 
 import nftRoute from "./routes/nftRoutes.js";
 import userRoute from "./routes/userRoutes.js";
+import collectionRoute from "./routes/collectionRoute.js";
 
 // config dotenv
 dotenv.config();
@@ -29,6 +30,7 @@ app.use(express.static(path.dirname(__filename) + "/nft-data/img"));
 
 //routes
 app.use("/api/v1/nfts", nftRoute);
+app.use("/api/v1/collections", collectionRoute);
 app.use("/api/v1/users", userRoute);
 
 const PORT = process.env.PORT || 5000;

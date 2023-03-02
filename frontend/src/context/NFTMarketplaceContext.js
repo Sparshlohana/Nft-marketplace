@@ -1,6 +1,6 @@
 import React, { createContext, useState } from "react";
 import { ethers } from "ethers";
-import axios from "axios";
+import axios from "../utils/axios";
 
 import Web3Modal from "web3modal";
 
@@ -100,7 +100,7 @@ const NFTMarketplaceProvider = ({ children }) => {
     fileType,
     description,
     category,
-    router
+    collectionData
   ) => {
     try {
       if (!name && !description && !media && !fileType && !price && !category) {
@@ -110,15 +110,12 @@ const NFTMarketplaceProvider = ({ children }) => {
 
       const data = { name, description, media, fileType, category };
 
-      const response = await axios.post(
-        "http://localhost:5000/api/v1/nfts/uploadNFT",
-        data
-      );
+      const response = await axios.post("/api/v1/nfts/uploadNFT", data);
 
       const url = response.data.url;
 
       if (url) {
-        await createSale(url, price, name, false);
+        await createSale(url, price, name, false, 0, collectionData);
       }
     } catch (error) {
       setError("Missing required felids");
@@ -126,7 +123,14 @@ const NFTMarketplaceProvider = ({ children }) => {
     }
   };
 
-  const createSale = async (url, formInputPrice, name, isReselling, id) => {
+  const createSale = async (
+    url,
+    formInputPrice,
+    name,
+    isReselling,
+    id,
+    collectionData
+  ) => {
     try {
       if (isReselling === false) {
         const contract = await connectingWithSmartContract();
@@ -139,6 +143,21 @@ const NFTMarketplaceProvider = ({ children }) => {
           value: listingPrice.toString(),
         });
 
+        let collectionId = "";
+
+        if (collectionData !== undefined || collectionData !== null) {
+          if (collectionData?.created === false) {
+            const res = await axios.post("/api/v1/collections", {
+              ...collectionData,
+              creator: currentAccount?.toLowerCase(),
+            });
+
+            collectionId = res?.data?.data?._id;
+          } else {
+            collectionId = collectionData?._id;
+          }
+        }
+
         contract.on(
           "MarketItemCreated",
           async (tokenId, seller, owner, price, sold) => {
@@ -150,10 +169,10 @@ const NFTMarketplaceProvider = ({ children }) => {
               owner,
               price: Number(String(ethers.utils.formatUnits(price, "ether"))),
               sold,
+              collectionId,
             };
 
-            await axios.post("http://localhost:5000/api/v1/nfts", data);
-            // console.log(postData);
+            await axios.post("/api/v1/nfts", data);
           }
         );
 
@@ -182,6 +201,7 @@ const NFTMarketplaceProvider = ({ children }) => {
             sold: false,
             price: Number(String(ethers.utils.formatUnits(price, "ether"))),
           };
+
           console.log(data);
 
           const res = await axios.patch(
@@ -383,6 +403,7 @@ const NFTMarketplaceProvider = ({ children }) => {
           error,
           isError,
           successMsg,
+          setSuccessMsg,
           setIsSuccess,
           isSuccess,
           setIsError,

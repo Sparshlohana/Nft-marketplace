@@ -1,26 +1,30 @@
 import { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { FaDropbox } from "react-icons/fa";
-import { useContext } from "react";
 
-import { NFTMarketplaceContext } from "../../../context/NFTMarketplaceContext";
 import axios from "../../../utils/axios";
 
 const CreateNftDataCollection = ({
   openCreateCollection,
   setOpenCreateCollection,
+  setOpenChooseCollection,
+  openChooseCollection,
+  createNFT,
+  setError,
+  setIsError,
+  setMedia,
+  setName,
+  setFileType,
+  setPrice,
+  setDescription,
+  setCategory,
+  category,
+  name,
+  fileType,
+  media,
+  price,
+  description,
 }) => {
-  const [media, setMedia] = useState(null);
-  const [fileType, setFileType] = useState(null);
-
-  const [price, setPrice] = useState("");
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
-  const [royalties, setRoyalties] = useState("");
-  const [category, setCategory] = useState(0);
-
-  const { createNFT, setError, setIsError } = useContext(NFTMarketplaceContext);
-
   const onDrop = useCallback(async (acceptedFile) => {
     try {
       const formData = new FormData();
@@ -56,7 +60,7 @@ const CreateNftDataCollection = ({
     accept: "image/*, video/*, .gif",
     onDrop,
   });
-  console.log(category);
+
   return (
     <div className="createNftDataCollection">
       <div className="NftImgVidDisplayContainer">
@@ -204,7 +208,10 @@ const CreateNftDataCollection = ({
             >
               Create Collection
             </button>
-            <button className="createNftBtn createNftDataCollectionBtn">
+            <button
+              className="createNftBtn createNftDataCollectionBtn"
+              onClick={() => setOpenChooseCollection(!openChooseCollection)}
+            >
               Choose Collection
             </button>
           </div>

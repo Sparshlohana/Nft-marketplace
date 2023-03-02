@@ -1,0 +1,24 @@
+.chooseCollectionItemsMainContainer {
+  background-color: rgba(0, 0, 0, 0.441);
+  padding: 10px;
+  border-radius: 20px;
+}
+
+.chooseCollectionContainer {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+.chooseCollectionImage {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+}
+
+.chooseCollectionNameHeading {
+  font-size: 13px;
+  margin-left: 20px;
+}

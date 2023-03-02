@@ -2,17 +2,36 @@ import mongoose, { Schema } from "mongoose";
 import slugify from "slugify";
 
 const collectionSchema = new mongoose.Schema({
-  name: {
+  collectionName: {
     type: "String",
     required: [true, "must provide collection name"],
   },
-  description: {
+  collectionDescription: {
     type: String,
     trim: true,
     required: [true, "must provide nft description"],
+  },
+  image: {
+    type: String,
+    required: [true, "must provide collection Image"],
   },
   creator: {
     type: String,
     required: [true, "must provide nft creator address"],
   },
+  createdAt: {
+    type: Date,
+    default: Date.now(),
+  },
+
+  slug: String,
 });
+
+collectionSchema.pre("save", function (next) {
+  this.slug = slugify(this.collectionName, { lower: true });
+  next();
+});
+
+const Collection = mongoose.model("Collection", collectionSchema);
+
+export default Collection;

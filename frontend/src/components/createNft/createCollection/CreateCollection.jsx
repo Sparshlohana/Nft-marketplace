@@ -1,15 +1,23 @@
-import { useCallback, useContext, useState } from "react";
+import { useCallback, useContext,  } from "react";
 import { useDropzone } from "react-dropzone";
 import { FaDropbox } from "react-icons/fa";
 import { NFTMarketplaceContext } from "../../../context/NFTMarketplaceContext";
 import axios from "../../../utils/axios";
 import "./createCollection.css";
 
-const CreateCollection = () => {
-  const [media, setMedia] = useState(null);
-  const [fileType, setFileType] = useState(null);
-
-  const { createNFT, setError, setIsError } = useContext(NFTMarketplaceContext);
+const CreateCollection = ({
+  setOpenCreateCollection,
+  collectionData,
+  setCollectionData,
+  category,
+  name,
+  fileType,
+  media,
+  price,
+  description,
+  createNFT,
+}) => {
+  const { setError, setIsError } = useContext(NFTMarketplaceContext);
 
   const onDrop = useCallback(async (acceptedFile) => {
     try {
@@ -18,33 +26,34 @@ const CreateCollection = () => {
 
       const postUrl = "/api/v1/nfts/uploadToIPFS";
 
-      const url = await axios.post(postUrl, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
-
-      setMedia(url.data.url);
-
       if (
         acceptedFile[0].type.startsWith("image") ||
         acceptedFile[0].type.startsWith("image/gif")
       ) {
-        setFileType("image");
+        const res = await axios.post(postUrl, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
+        setCollectionData({ ...collectionData, image: res?.data?.url });
       } else if (acceptedFile[0].type.startsWith("audio")) {
-        setFileType("audio");
+        setError("audio Cant be uploaded");
+        setIsError(true);
       } else if (acceptedFile[0].type.startsWith("video")) {
-        setFileType("video");
+        setError("Video Cant be uploaded");
+        setIsError(true);
       }
     } catch (error) {
       setError("Cant'upload  Nft try again ");
       setIsError(true);
     }
   }, []);
+
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     accept: "image/*, video/*, .gif",
     onDrop,
   });
+
   return (
     <>
       <div className="createCollectionContainerMain">
@@ -55,29 +64,19 @@ const CreateCollection = () => {
             </div>
             <div className="createCollectionInputContainer">
               <div className="NftImgVidDisplayContainer">
-                {fileType === "image" && (
-                  <img className="NftImgDisplay" src={media} alt="Uploaded " />
-                )}
-                {fileType === "video" && (
-                  <video
+                {collectionData.image && (
+                  <img
                     className="NftImgDisplay"
-                    src={media}
-                    controls
-                    muted
-                    autoPlay
+                    src={collectionData.image}
+                    alt="Uploaded "
                   />
-                )}
-                {fileType === "audio" && (
-                  <audio controls muted autoPlay>
-                    <source src={media}></source>
-                  </audio>
                 )}
               </div>{" "}
               <div
                 className="createNftDataCollectionFormItemContainer"
                 {...getRootProps()}
               >
-                <input {...getInputProps()} />
+                <input required {...getInputProps()} />
 
                 {isDragActive ? (
                   <div className="dropFileContainer">
@@ -104,6 +103,14 @@ const CreateCollection = () => {
                   className="createNftDataCollectionFormInput"
                   type="text"
                   placeholder="Enter Collection Name.."
+                  required
+                  value={collectionData.collectionName}
+                  onChange={(e) =>
+                    setCollectionData({
+                      ...collectionData,
+                      collectionName: e.target.value,
+                    })
+                  }
                 />
               </div>
               <div className="createNftDataCollectionFormItemContainer">
@@ -113,10 +120,50 @@ const CreateCollection = () => {
                 <input
                   className="createNftDataCollectionFormInput"
                   type="text"
+                  required
                   placeholder="Enter Collection Description.."
+                  value={collectionData.collectionDescription}
+                  onChange={(e) =>
+                    setCollectionData({
+                      ...collectionData,
+                      collectionDescription: e.target.value,
+                    })
+                  }
                 />
               </div>
-              <button className="createNftBtn">Create NFT</button>
+              <button
+                className="createNftBtn"
+                onClick={(e) => {
+                  e.preventDefault();
+
+                  createNFT(
+                    name,
+                    price,
+                    media,
+                    fileType,
+                    description,
+                    category,
+                    collectionData
+                  );
+                }}
+              >
+                Create NFT
+              </button>
+              &nbsp; &nbsp;
+              <button
+                className="createNftBtn"
+                onClick={(e) => {
+                  e.preventDefault();
+                  setCollectionData({
+                    collectionName: "",
+                    collectionDescription: "",
+                    image: "",
+                  });
+                  setOpenCreateCollection(false);
+                }}
+              >
+                Cancel
+              </button>
             </div>
           </form>
         </div>
