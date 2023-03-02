@@ -71,17 +71,17 @@ input[type="search"]::-webkit-search-results-decoration {
 
 .signInContainer {
   flex: 1;
-  text-align: center;
+  /* text-align: center; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .signIn {
-  /* color: #f1f1f1; */
-  /* border: 2px solid #fff; */
-  padding: 8px;
-  /* width: 90%; */
+  width: 100%;
+  padding: 5px 10px;
   border-radius: 20px;
   font-size: 1rem;
-  width: 40%;
   cursor: pointer;
   color: #fff;
   background: hsla(0, 0%, 99%, 0.11);
@@ -90,6 +90,12 @@ input[type="search"]::-webkit-search-results-decoration {
 
 .navResponsiveBtn {
   display: none;
+}
+
+.navProfileIcon {
+  font-size: 2rem;
+  color: #fff;
+  margin-left: 20px;
 }
 
 @media (max-width: 1000px) {

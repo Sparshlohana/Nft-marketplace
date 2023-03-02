@@ -4,6 +4,7 @@ import lucentLogo from "./lucentLogo.png";
 import { NFTMarketplaceContext } from "../../context/NFTMarketplaceContext";
 import { useContext } from "react";
 import { Link } from "react-router-dom";
+import { CgProfile } from "react-icons/cg";
 
 const Navbar = ({ openSidebar, setOpenSidebar }) => {
   const { connectWallet, currentAccount } = useContext(NFTMarketplaceContext);
@@ -49,9 +50,9 @@ const Navbar = ({ openSidebar, setOpenSidebar }) => {
         <Link to="/shop" className="navItemsLink">
           <li className="navItems">Shop</li>
         </Link>
-        <Link to={"/user"} className="navItemsLink">
+        {/* <Link to={"/user"} className="navItemsLink">
           <li className="navItems">Profile</li>
-        </Link>
+        </Link> */}
         <Link className="navItemsLink">
           <li className="navItems">About Us</li>
         </Link>
@@ -66,6 +67,9 @@ const Navbar = ({ openSidebar, setOpenSidebar }) => {
             Sign In
           </button>
         )}
+        <Link to={"/user"} className="navItemsLink">
+          <CgProfile className="navProfileIcon" />
+        </Link>
       </div>
     </nav>
   );

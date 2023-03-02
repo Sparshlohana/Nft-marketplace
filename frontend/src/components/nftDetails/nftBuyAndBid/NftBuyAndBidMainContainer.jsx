@@ -5,7 +5,13 @@ import NftRanking from "./nftRanking/NftRanking";
 import NftBuyBidAndSaleContainer from "./nftBuyBidAndSaleContainer/NftBuyBidAndSaleContainer";
 import NftDetailContainer from "./nftDetails/NftDetailContainer";
 
-const NftBuyAndBidMainContainer = ({ nft, like, likes, setLike, setLikes }) => {
+const NftBuyAndBidMainContainer = ({
+  nft,
+  like,
+  likes,
+  toggleLikHandler,
+  setLikeHandler,
+}) => {
   console.log(nft);
   return (
     <div className="NftBuyAndBidMainContainer">
@@ -15,8 +21,8 @@ const NftBuyAndBidMainContainer = ({ nft, like, likes, setLike, setLikes }) => {
         nft={nft}
         like={like}
         likes={likes}
-        setLike={setLike}
-        setLikes={setLikes}
+        toggleLikHandler={toggleLikHandler}
+        setLikeHandler={setLikeHandler}
       ></NftRanking>
       <NftBuyBidAndSaleContainer nft={nft} />
       <NftDetailContainer nft={nft} />
