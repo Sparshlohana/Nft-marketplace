@@ -111,7 +111,6 @@ const CollectionMain = ({ search }) => {
     handleFilteredNfts(filter);
   }, [filter]);
 
-
   useEffect(() => {
     handleSortFilter(sort);
   }, [sort]);

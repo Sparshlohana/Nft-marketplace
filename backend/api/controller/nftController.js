@@ -73,7 +73,7 @@ export const getUsersNft = async (req, res) => {
 
     const favoriteFeatures = new APIFeatures(
       NFT.findOne({
-        wishlist: { account: account.toLowerCase(), isLiked: true },
+        wishlist: account.toLowerCase(),
       }),
       req.query
     )
@@ -123,7 +123,6 @@ export const createNFT = async (req, res) => {
       price,
       sold,
       collectionId,
-      wishlist,
     } = req.body;
 
     if (name && tokenURI && tokenId && seller && owner && price) {

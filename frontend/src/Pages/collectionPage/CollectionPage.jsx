@@ -2,7 +2,6 @@ import React from "react";
 import CollectionMain from "../../components/collection/CollectionMain";
 
 const CollectionPage = ({ search }) => {
-  
   return (
     <>
       <CollectionMain search={search} />
@@ -11,3 +10,5 @@ const CollectionPage = ({ search }) => {
 };
 
 export default CollectionPage;
+
+t
