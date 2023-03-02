@@ -1,9 +1,11 @@
 .collectionProfileContainer {
   width: 10%;
+  height: 20vh;
 }
 
 .collectionProfile {
   width: 100%;
+  height: 100%;
   transform: translateX(100%) translateY(-70%);
   border-radius: 50%;
   border: 1px solid #fff;

@@ -1,7 +1,9 @@
 .chooseCollectionItemsMainContainer {
-  background-color: rgba(0, 0, 0, 0.441);
-  padding: 10px;
+  background-color: #1c1c1c;
+  padding: 5px;
   border-radius: 20px;
+  margin-top: 5px;
+  border: 1px solid #fff;
 }
 
 .chooseCollectionContainer {
@@ -9,16 +11,17 @@
   justify-content: start;
   align-items: center;
   cursor: pointer;
-  margin-bottom: 10px;
+  width: 100%;
+  background: #1c1c1c;
+  border: none;
+  gap: 20px;
 }
 
 .chooseCollectionImage {
-  width: 35px;
-  height: 35px;
-  border-radius: 50%;
+  width: 10%;
 }
 
-.chooseCollectionNameHeading {
-  font-size: 13px;
-  margin-left: 20px;
+.chooseCollectionHeading {
+  color: #fff;
+  font-size: 1.3rem;
 }

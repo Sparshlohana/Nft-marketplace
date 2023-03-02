@@ -52,9 +52,9 @@ const ChooseCollection = ({
             <h2 className="createNftDataCollectionFormPriceHeading">
               Choose Collection
             </h2>
-            <div className="ChooseCollectionItemsSelectBtn">
+            <div className="ChooseCollectionItemsSelectContainer">
               <button
-                className="ChooseCollectionItemsSelectBtnBtn"
+                className="ChooseCollectionItemsSelectBtn"
                 onClick={() => {
                   setOpenChooseCollectionItems(!openChooseCollectionItems);
                 }}

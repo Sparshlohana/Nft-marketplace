@@ -38,8 +38,6 @@ const NftDetails = () => {
     setLike(!like);
   };
 
-<<<<<<< HEAD
-=======
   const setLikeHandler = (likes) => {
     setLikes(likes);
   };
@@ -48,7 +46,6 @@ const NftDetails = () => {
   //   setNft(data);
   // };
 
->>>>>>> d9b5ef9c6f49b0284ca9a4593e5c69382c430bf4
   useEffect(() => {
     (async () => await fetchNFTFromApi())();
   }, [currentAccount]);
