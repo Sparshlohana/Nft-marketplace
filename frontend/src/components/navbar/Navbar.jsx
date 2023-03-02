@@ -5,7 +5,7 @@ import { NFTMarketplaceContext } from "../../context/NFTMarketplaceContext";
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 
-const Navbar = ({ openSidebar, setOpenSidebar }) => {
+const Navbar = ({ openSidebar, setOpenSidebar, search, setSearch }) => {
   const { connectWallet, currentAccount } = useContext(NFTMarketplaceContext);
 
   return (
@@ -35,6 +35,8 @@ const Navbar = ({ openSidebar, setOpenSidebar }) => {
           id="search"
           className="searchBar"
           placeholder="Search.."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
         />
         <img
           src="https://cdn-icons-png.flaticon.com/512/3917/3917754.png"

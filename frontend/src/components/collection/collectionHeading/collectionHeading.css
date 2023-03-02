@@ -1,0 +1,23 @@
+.collectionHeadingContainerMain {
+  margin-left: 10%;
+  margin-top: -5%;
+}
+
+.collectionHeadingAndVerificationImgContainer {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.collectionHeading {
+  color: #fff;
+}
+
+.collectionVerificationImgContainer {
+  width: 2%;
+}
+
+.collectionVerificationImg {
+  width: 100%;
+  margin-top: 5px;
+}

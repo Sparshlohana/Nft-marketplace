@@ -227,12 +227,12 @@ export const getSingleNFT = async (req, res) => {
     const id = req.params.id;
 
     const nft = await NFT.findById(id);
-    // console.log(nft);
 
     res.status(200).json({
       status: "success",
       data: {
         nft,
+        likes: nft.wishlist.length,
       },
     });
   } catch (error) {
@@ -426,6 +426,7 @@ export const uploadNftToIPFS = async (req, res) => {
 export const likeOrDislike = async (req, res) => {
   const { account, id } = req.body;
   let { like } = req.body;
+  console.log(like);
   like = !like;
   try {
     if (like) {
@@ -483,20 +484,3 @@ export const likeOrDislike = async (req, res) => {
     });
   }
 };
-
-// const checkId = (req, res, next, value) => {
-//   console.log("ID: ", value);
-//   if (req.params.id == 3) {
-//     return res.status(404).json({ staus: "fail", message: "Invalid ID" });
-//   }
-//   next();
-// };
-
-// const checkBody = (req, res, next) => {
-//   if (!req.body.name && !req.body.price) {
-//     return res
-//       .status(404)
-//       .json({ status: "fail", message: "missing name and price" });
-//   }
-//   next();
-// };

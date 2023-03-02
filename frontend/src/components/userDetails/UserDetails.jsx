@@ -7,7 +7,7 @@ import UserNftCollectionAndCreationBtnContainer from "./userNftCollectionAndCrea
 import UserNftCollectionContainer from "./userNftCollectionContainer/UserNftCollectionContainer";
 import UserSocialMedia from "./userSocialMedia/UserSocialMedia";
 
-const UserDetails = () => {
+const UserDetails = ({ search }) => {
   const [active, setActive] = useState(1);
 
   return (
@@ -21,7 +21,7 @@ const UserDetails = () => {
         active={active}
         setActive={setActive}
       />
-      <UserNftCollectionContainer active={active} />
+      <UserNftCollectionContainer search={search} active={active} />
     </div>
   );
 };

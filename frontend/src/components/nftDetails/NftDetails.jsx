@@ -35,11 +35,6 @@ const NftDetails = () => {
     }
   };
 
-  // const fetchSingleNft = async (tokenId) => {
-  //   const data = await fetchNFT(Number(tokenId));
-  //   setNft(data);
-  // };
-
   useEffect(() => {
     (async () => await fetchNFTFromApi())();
   }, [currentAccount]);

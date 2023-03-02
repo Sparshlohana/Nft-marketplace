@@ -1,10 +1,10 @@
 import UserDetails from "../../components/userDetails/UserDetails";
 import "./userDetailPage.css";
 
-const UserDetailPage = () => {
+const UserDetailPage = ({ search }) => {
   return (
     <>
-      <UserDetails />
+      <UserDetails search={search}  />
     </>
   );
 };

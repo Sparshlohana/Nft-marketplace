@@ -17,7 +17,7 @@ import {
 } from "../../apiFunctions/nftsApi";
 // import fetch from "axios";
 
-const Shop = () => {
+const Shop = ({ search }) => {
   const [openSort, setOpenSort] = useState(false);
   const [openFilter, setOpenFilter] = useState(false);
   const [nfts, setNfts] = useState([]);
@@ -49,6 +49,15 @@ const Shop = () => {
   }, [page]);
 
   console.log(filteredNfts);
+
+  const handleSearch = () => {
+    const data = nfts?.filter((nft) => nft?.name?.includes(search));
+    setFilteredNfts(data);
+  };
+
+  useEffect(() => {
+    handleSearch();
+  }, [search]);
 
   useEffect(() => {
     handleFilteredNfts(filter.maxPrice, filter.minPrice).then((data) =>

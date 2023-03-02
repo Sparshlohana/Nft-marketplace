@@ -6,7 +6,7 @@ import NftCardsContainerMain from "../../nftCardsContainerMain/NftCardsContainer
 import SortByContainer from "../../sortByContainer/SortByContainer";
 import { NFTMarketplaceContext } from "../../../context/NFTMarketplaceContext";
 
-const UserNftCollectionContainer = ({ active }) => {
+const UserNftCollectionContainer = ({ active, search }) => {
   const [openSort, setOpenSort] = useState(false);
   const [openFilter, setOpenFilter] = useState(false);
 
@@ -106,6 +106,24 @@ const UserNftCollectionContainer = ({ active }) => {
       console.log("error while sorting");
     }
   };
+
+  const handleSearch = () => {
+    const searchCollected = collected?.filter((nft) =>
+      nft?.name?.includes(search)
+    );
+    const searchCreated = created?.filter((nft) => nft?.name?.includes(search));
+
+    const searchfavorite = favorites?.filter((nft) =>
+      nft?.name?.includes(search)
+    );
+    setCollectedFilteredNfts(searchCollected);
+    setCreatedFilteredNfts(searchCreated);
+    setFavoriteFilteredNfts(searchfavorite);
+  };
+
+  useEffect(() => {
+    handleSearch();
+  }, [search]);
 
   useEffect(() => {
     fetchUsersNFTsFromApi(currentAccount);

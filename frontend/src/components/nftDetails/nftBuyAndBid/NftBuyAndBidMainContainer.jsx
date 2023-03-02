@@ -6,7 +6,6 @@ import NftBuyBidAndSaleContainer from "./nftBuyBidAndSaleContainer/NftBuyBidAndS
 import NftDetailContainer from "./nftDetails/NftDetailContainer";
 
 const NftBuyAndBidMainContainer = ({ nft, like, likes, setLike, setLikes }) => {
-  console.log(nft);
   return (
     <div className="NftBuyAndBidMainContainer">
       <NftAuthorName nft={nft} />
