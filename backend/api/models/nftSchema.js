@@ -1,11 +1,6 @@
 import mongoose, { Schema } from "mongoose";
 import slugify from "slugify";
 
-const WishListSchema = new Schema({
-  account: String,
-  isLiked: Boolean,
-});
-
 const nftSchema = new mongoose.Schema(
   {
     name: {
@@ -39,7 +34,6 @@ const nftSchema = new mongoose.Schema(
     },
     wishlist: {
       type: [Object],
-      default: [],
     },
     owner: {
       type: String,

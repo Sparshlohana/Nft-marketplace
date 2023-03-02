@@ -1,6 +1,6 @@
 import NftMarketplace from "../smartcontract/build/contracts/NFTMarketplace.json";
 
 export const NFTMarketplaceAddress =
-  "0xf7ecE3599e22d23390D1663BF98A5C5AC13784bb";
+  "0x579d292Dc5A74464400F2720BC690Ab2dB8D7fbC";
 
 export const NFTMarketplaceABI = NftMarketplace.abi;

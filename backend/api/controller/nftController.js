@@ -142,18 +142,16 @@ export const createNFT = async (req, res) => {
         price,
         description,
         collectionId,
-        wishlist,
         category,
         media,
         fileType,
         sold,
       };
-
+      console.log(obj);
       const exist = await NFT.findOne({
         tokenId,
         name,
         category,
-        description,
         media,
         fileType,
         seller: seller?.toLowerCase(),

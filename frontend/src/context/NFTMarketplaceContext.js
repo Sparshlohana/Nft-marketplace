@@ -143,11 +143,10 @@ const NFTMarketplaceProvider = ({ children }) => {
           value: listingPrice.toString(),
         });
 
-        let collectionId;
-        console.log("data ===========> ", collectionData);
+        let collectionId = "";
 
         if (collectionData !== undefined || collectionData !== null) {
-          if (collectionData.created === false) {
+          if (collectionData?.created === false) {
             const res = await axios.post("/api/v1/collections", {
               ...collectionData,
               creator: currentAccount?.toLowerCase(),
@@ -155,7 +154,7 @@ const NFTMarketplaceProvider = ({ children }) => {
 
             collectionId = res?.data?.data?._id;
           } else {
-            collectionId = collectionData._id;
+            collectionId = collectionData?._id;
           }
         }
 
@@ -172,6 +171,7 @@ const NFTMarketplaceProvider = ({ children }) => {
               sold,
               collectionId,
             };
+
             await axios.post("/api/v1/nfts", data);
           }
         );

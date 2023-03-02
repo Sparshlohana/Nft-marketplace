@@ -109,7 +109,7 @@ const UserNftCollectionContainer = ({ active }) => {
 
   useEffect(() => {
     fetchUsersNFTsFromApi(currentAccount);
-  }, [currentAccount, collectedFilteredNfts, createdFilteredNfts]);
+  }, [currentAccount, active]);
 
   useEffect(() => {
     handleFilteredNfts(filter);

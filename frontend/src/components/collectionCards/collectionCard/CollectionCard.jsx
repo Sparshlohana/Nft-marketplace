@@ -1,5 +1,4 @@
 const CollectionCard = ({ collection }) => {
-  console.log(collection);
   return (
     <div className="collectionCardContainer">
       <div className="collectionCardImageContainer">
