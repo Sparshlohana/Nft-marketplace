@@ -102,9 +102,7 @@ const UserNftCollectionContainer = ({ active, search }) => {
         setCollectedFilteredNfts(data?.nftsCollected);
         setCreatedFilteredNfts(data?.nftsCreated);
       }
-    } catch (error) {
-      console.log("error while sorting");
-    }
+    } catch (error) {}
   };
 
   const handleSearch = () => {

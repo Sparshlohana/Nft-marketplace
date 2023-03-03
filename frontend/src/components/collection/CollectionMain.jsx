@@ -88,9 +88,7 @@ const CollectionMain = ({ search }) => {
         const data = response?.data?.nfts;
         setFilteredNfts(data);
       }
-    } catch (error) {
-      console.log("error while sorting");
-    }
+    } catch (error) {}
   };
 
   const handleSearch = () => {

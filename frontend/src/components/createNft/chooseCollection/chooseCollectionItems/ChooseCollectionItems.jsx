@@ -29,9 +29,7 @@ const ChooseCollectionItems = ({
                 src={image}
                 alt="collection"
               ></img>
-              <div className="chooseCollectionNameHeading">
-                <h4>{collectionName}</h4>
-              </div>
+              <p className="chooseCollectionHeading">{collectionName}</p>
             </button>
           );
         }

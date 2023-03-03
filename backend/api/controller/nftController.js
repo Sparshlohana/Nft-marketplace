@@ -41,14 +41,13 @@ export const getAllNFTs = async (req, res) => {
       .pagination();
 
     const allNFTs = await features.query;
-    // console.log(allNFTs);
+
     res.status(200).json({
       message: "Success",
       results: allNFTs?.length,
       data: { nfts: allNFTs },
     });
   } catch (error) {
-    console.log(error);
     res.status(404).json({
       status: "fail",
       message: error.message,
@@ -104,7 +103,6 @@ export const getUsersNft = async (req, res) => {
       },
     });
   } catch (error) {
-    console.log(error);
     res.status(404).json({
       status: "fail",
       message: error.message,
@@ -146,7 +144,6 @@ export const createNFT = async (req, res) => {
         fileType,
         sold,
       };
-      console.log(obj);
       const exist = await NFT.findOne({
         tokenId,
         name,
@@ -162,10 +159,8 @@ export const createNFT = async (req, res) => {
       let newNFT;
       if (exist) {
         newNFT = await NFT.updateOne({ tokenId }, obj);
-        console.log("update", newNFT);
       } else {
         newNFT = await NFT.create(obj);
-        console.log("create", newNFT);
       }
 
       res.status(200).json({
@@ -176,7 +171,6 @@ export const createNFT = async (req, res) => {
       });
     }
   } catch (error) {
-    console.log(error);
     res.status(400).json({
       status: "fail",
       message: error.message,
@@ -187,7 +181,6 @@ export const createNFT = async (req, res) => {
 export const getByCategory = async (req, res) => {
   try {
     const category = req.params?.category;
-    console.log(category);
 
     const data = new APIFeatures(NFT.findOne({ category }), req.query)
       .filter()
@@ -207,13 +200,12 @@ export const getByCategory = async (req, res) => {
     //   .pagination();
 
     const allNFTs = await data.query;
-    console.log(allNFTs);
+
     res.status(200).json({
       message: "Success",
       data: { nfts: allNFTs },
     });
   } catch (error) {
-    console.log(error);
     res.status(404).json({
       status: "fail",
       message: error.message,
@@ -253,14 +245,12 @@ export const updateNFT = async (req, res) => {
       owner: req.body?.owner?.toLowerCase(),
       sold: req.body?.sold,
     };
-    console.log(data);
 
     const updatedNft = await NFT.updateOne({ tokenId }, data, {
       new: true,
       runValidators: true,
     });
 
-    console.log(updateNFT);
     res.status(200).json({
       status: "success",
       data: {
@@ -386,7 +376,6 @@ export const uploadImgToIPFS = async (req, res) => {
       });
     }
   } catch (error) {
-    console.log(error);
     res.status(400).json({
       status: "faild",
       message: "file upload failed",
@@ -446,29 +435,7 @@ export const likeOrDislike = async (req, res) => {
         .status(200)
         .json({ status: "success", message: "post liked successfully" });
     }
-    res.status(400).json({ status: "fail", message: "something gone wrong" });
   } catch (e) {
-    console.log(e);
+    res.status(400).json({ status: "fail", message: "something gone wrong" });
   }
-};
-
-// const checkId = (req, res, next, value) => {
-//   console.log("ID: ", value);
-//   if (req.params.id == 3) {
-//     return res.status(404).json({ staus: "fail", message: "Invalid ID" });
-//   }
-//   next();
-// };
-
-// const checkBody = (req, res, next) => {
-//   if (!req.body.name && !req.body.price) {
-//     return res
-//       .status(404)
-//       .json({ status: "fail", message: "missing name and price" });
-//   }
-//   next();
-// };
-
-export const getLikeOrDislike = (req, res) => {
-  res.status(200).json({ name: "DONE" });
 };

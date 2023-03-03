@@ -10,7 +10,7 @@ const PageBtnContainer = ({ page, onPageChange }) => {
   const onPrevious = () => {
     onPageChange(page - 1);
   };
-  console.log(page);
+  
   return (
     <div className="pageBtnContainer">
       <button onClick={onPrevious}>

@@ -10,5 +10,3 @@ const CollectionPage = ({ search }) => {
 };
 
 export default CollectionPage;
-
-t

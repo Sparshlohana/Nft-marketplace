@@ -19,9 +19,7 @@ const ResellNft = () => {
     try {
       const response = await axios.get(`/api/v1/nfts/${id}`);
       return response?.data?.data?.nft;
-    } catch (error) {
-      console.log("error while fetching nft from api");
-    }
+    } catch (error) {}
   };
 
   const fetchSingleNft = async (tokenId) => {

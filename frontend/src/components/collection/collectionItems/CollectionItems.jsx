@@ -6,12 +6,16 @@ const CollectionItems = ({ nfts, collection }) => {
       <div className="collectionItemContainer">
         <ul className="collectionItemUl">
           <li className="collectionItems">
-            Items <span className="collectionItemSpan">{nfts?.length}</span>
+            <h6>Items</h6>
+            <span className="collectionItemSpan">
+              <h5>{nfts?.length}</h5>
+            </span>
           </li>
           <li className="collectionItems">
-            Created{" "}
+            <h6>Created</h6>
+
             <span className="collectionItemSpan">
-              {collection?.createdAt?.slice(0, 10)}
+              <h5>{collection?.createdAt?.slice(0, 10)}</h5>
             </span>
           </li>
         </ul>

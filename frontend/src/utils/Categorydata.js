@@ -3,14 +3,15 @@ const categories = [
     id: 1,
     img: "https://www.clubmahindra.com/blog/media/section_images/naturephot-ec32e94608f809e.webp",
     name: "Photography",
-    description: "Get the biggest collection of photo Nfts of best photographers in the world..."
-
+    description:
+      "Get the biggest collection of photo Nfts of best photographers in the world...",
   },
   {
     id: 2,
     img: "https://www.moonstats.com/news/wp-content/uploads/2022/02/nfts-in-sports.jpeg",
     name: "Sports",
-    description: "Get the biggest collection of best sports team of the world...",
+    description:
+      "Get the biggest collection of best sports team of the world...",
   },
   {
     id: 3,
@@ -45,3 +46,4 @@ const categories = [
 ];
 
 export default categories;
+

@@ -27,6 +27,7 @@ const Shop = ({ search }) => {
     minPrice: 0,
     maxPrice: 0,
     currency: null,
+    category: [],
   });
 
   const [sort, setSort] = useState(null);
@@ -48,10 +49,13 @@ const Shop = ({ search }) => {
     })();
   }, [page]);
 
-  console.log(filteredNfts);
-
   const handleSearch = () => {
     const data = nfts?.filter((nft) => nft?.name?.includes(search));
+    setFilteredNfts(data);
+  };
+
+  const handleSelectCategoryFilter = () => {
+    const data = nfts?.filter((nft) => nft?.category === filter.category);
     setFilteredNfts(data);
   };
 
@@ -63,6 +67,8 @@ const Shop = ({ search }) => {
     handleFilteredNfts(filter.maxPrice, filter.minPrice).then((data) =>
       setFilteredNfts(data)
     );
+
+    handleSelectCategoryFilter();
   }, [filter]);
 
   useEffect(() => {

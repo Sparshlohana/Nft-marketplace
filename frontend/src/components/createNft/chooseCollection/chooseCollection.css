@@ -24,13 +24,14 @@
   margin-top: 10px !important;
 }
 
-.ChooseCollectionItemsSelectBtnBtn {
+.ChooseCollectionItemsSelectBtn {
   width: 100%;
   padding: 10px;
   border: 1px solid #fff;
   border-radius: 20px;
   background-color: rgba(17, 11, 11, 0.14);
   color: #fff;
+  font-size: 1.3rem;
 }
 
 .chooseCollectionCreateCancelBtn {

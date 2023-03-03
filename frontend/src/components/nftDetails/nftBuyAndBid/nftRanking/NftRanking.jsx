@@ -6,7 +6,7 @@ import { NFTMarketplaceContext } from "../../../../context/NFTMarketplaceContext
 import axios from "../../../../utils/axios";
 import "./nftRanking.css";
 
-const NftRanking = ({ like, likes, toggleLikHandler, setLikeHandler }) => {
+const NftRanking = ({ like, likes, toggleLikHandler, setLikeHandler, nft }) => {
   const { currentAccount } = useContext(NFTMarketplaceContext);
   const { id } = useParams();
 
@@ -27,7 +27,7 @@ const NftRanking = ({ like, likes, toggleLikHandler, setLikeHandler }) => {
   return (
     <div className="nftRankingContainer">
       <div className="rankingContainer">
-        <p className="ranking">#1000</p>
+        <p className="ranking">#{nft?.tokenId}</p>
       </div>
       <div className="favoritesContainer">
         {like ? (

@@ -5,8 +5,8 @@ import { Link } from "react-router-dom";
 const CollectionCards = ({ collections }) => {
   return (
     <div className="CollectionCardsContainerMain">
-      {collections?.map((collection) => (
-        <Link to={"/collection/" + collection?._id}>
+      {collections?.map((collection, i) => (
+        <Link key={i} to={"/collection/" + collection?._id}>
           <CollectionCard collection={collection} />
         </Link>
       ))}

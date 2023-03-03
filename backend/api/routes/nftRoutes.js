@@ -13,7 +13,6 @@ import {
   updateNFT,
   uploadImgToIPFS,
   uploadNftToIPFS,
-  getLikeOrDislike
 } from "../controller/nftController.js";
 
 import multer from "multer";

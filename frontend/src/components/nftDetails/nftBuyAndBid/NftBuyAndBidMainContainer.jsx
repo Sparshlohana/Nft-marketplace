@@ -12,7 +12,6 @@ const NftBuyAndBidMainContainer = ({
   toggleLikHandler,
   setLikeHandler,
 }) => {
-  console.log(nft);
   return (
     <div className="NftBuyAndBidMainContainer">
       <NftAuthorName nft={nft} />

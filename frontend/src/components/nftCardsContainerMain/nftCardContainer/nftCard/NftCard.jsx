@@ -23,9 +23,7 @@ const NftCard = ({ nft, filter }) => {
       } else {
         setPrice(nft?.price + " ETH ");
       }
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   };
 
   useEffect(() => {

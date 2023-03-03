@@ -41,7 +41,10 @@ export const getNftsFromCollection = async (req, res) => {
     const exist = await Collection.findById(id);
 
     if (exist) {
-      const nfts = new APIFeatures(NFT.find({ collectionId: id }), req.query)
+      const nfts = new APIFeatures(
+        NFT.find({ collectionId: id, sold: false }),
+        req.query
+      )
         .filter()
         .sort()
         .limitFeilds()
@@ -50,6 +53,7 @@ export const getNftsFromCollection = async (req, res) => {
       const allNfts = await nfts.query;
 
       const totalVolume = await NFT.aggregate([
+        { $match: { sold: false } },
         {
           $group: {
             _id: "",
@@ -74,7 +78,6 @@ export const getNftsFromCollection = async (req, res) => {
       });
     }
   } catch (error) {
-    console.log(error);
     res.status(500).json({
       status: "failed",
       message: "Something went wrong while fetching collection nfts",

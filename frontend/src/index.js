@@ -7,11 +7,9 @@ import NFTMarketplaceProvider from "./context/NFTMarketplaceContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
-    <Router>
-      <NFTMarketplaceProvider>
-        <App />
-      </NFTMarketplaceProvider>
-    </Router>
-  </React.StrictMode>
+  <Router>
+    <NFTMarketplaceProvider>
+      <App />
+    </NFTMarketplaceProvider>
+  </Router>
 );

@@ -19,7 +19,7 @@ import UserDetailPage from "./Pages/userDetailPage/UserDetailPage";
 
 function App() {
   const [openSidebar, setOpenSidebar] = useState(false);
-  const [search, setSearch] = useState(null);
+  const [search, setSearch] = useState("");
   const {
     checkIfWalletIsConnected,
     currentAccount,
@@ -30,7 +30,9 @@ function App() {
   } = useContext(NFTMarketplaceContext);
 
   useEffect(() => {
-    (async () => await checkIfWalletIsConnected())();
+    (async () => {
+      await checkIfWalletIsConnected();
+    })();
   });
 
   return (
@@ -46,35 +48,28 @@ function App() {
       {isSuccess && <SuccessHandler msg={success} />}
       <Routes>
         <Route path="/" element={<HomePage />}></Route>
-      </Routes>
-      <Routes>
+
         <Route
           path="/shop"
           element={<Shop search={search} setSearch={setSearch} />}
         ></Route>
-      </Routes>
-      <Routes>
+
         <Route path="/nft/:id" element={<Details />}></Route>
-      </Routes>
-      <Routes>
+
         <Route path="/create" element={<CreateNftPage />}></Route>
-      </Routes>
-      <Routes>
+
         <Route
           path="/user"
           element={<UserDetailPage search={search} setSearch={setSearch} />}
         ></Route>
-      </Routes>
-      <Routes>
+
         <Route path="/resell/:id" element={<ResellNftPage />}></Route>
-      </Routes>
-      <Routes>
+
         <Route
           path="/categories/:category"
           element={<CategoryPage search={search} setSearch={setSearch} />}
         ></Route>
-      </Routes>
-      <Routes>
+
         <Route
           path="/collection/:id"
           element={<CollectionPage search={search} setSearch={setSearch} />}

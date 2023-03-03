@@ -30,14 +30,11 @@ const CreateNftDataCollection = ({
       const formData = new FormData();
       formData.append("media", acceptedFile[0]);
 
-      const postUrl = "/api/v1/nfts/uploadToIPFS";
-
-      const url = await axios.post(postUrl, formData, {
+      const url = await axios.post("/api/v1/nfts/uploadToIPFS", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
       });
-
       setMedia(url.data.url);
 
       if (

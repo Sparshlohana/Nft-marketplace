@@ -26,9 +26,7 @@ const NFTResellInput = ({ nft }) => {
       );
 
       setUsd(usdPrice.data.USD);
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   };
 
   useEffect(() => {

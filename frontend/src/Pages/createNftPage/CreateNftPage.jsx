@@ -1,11 +1,7 @@
 import CreateNft from "../../components/createNft/CreateNft";
 import "./createNftPage.css";
 const CreateNftPage = () => {
-  return (
-    <>
-      <CreateNft />
-    </>
-  );
+  return <CreateNft />;
 };
 
 export default CreateNftPage;

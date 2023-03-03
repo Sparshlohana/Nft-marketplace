@@ -41,7 +41,5 @@ export const handleSortFilter = async (sort) => {
       const data = response?.data?.data?.nfts;
       return data;
     }
-  } catch (error) {
-    console.log("error while sorting");
-  }
+  } catch (error) {}
 };

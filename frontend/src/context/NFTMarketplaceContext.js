@@ -41,7 +41,6 @@ const NFTMarketplaceProvider = ({ children }) => {
     try {
       const provider = await getProvider();
       const signer = provider.getSigner();
-      console.log(signer);
       const contract = fetchContract(signer);
 
       return contract;
@@ -54,28 +53,26 @@ const NFTMarketplaceProvider = ({ children }) => {
   const checkIfWalletIsConnected = async () => {
     try {
       if (!window.ethereum) {
-        console.log("install metamask");
+        setIsError(true);
+        setError("install metamask");
       }
-      console.log(currentAccount);
       const accounts = await window.ethereum.request({
         method: "eth_accounts",
       });
       if (accounts.length > 0) {
         setCurrentAccount(accounts[0]);
-      } else {
-        console.log("No account found");
       }
-
-      // console.log(currentAccount);
     } catch (error) {
-      console.log(error);
+      setIsError(true);
+      setError("wallet can't connect");
     }
   };
 
   const connectWallet = async () => {
     try {
       if (!window.ethereum) {
-        console.log("install metamask");
+        setIsError(true);
+        setError("install metamask");
       }
       const accounts = await window.ethereum.request({
         method: "eth_requestAccounts",
@@ -121,6 +118,11 @@ const NFTMarketplaceProvider = ({ children }) => {
       setError("Missing required felids");
       setIsError(true);
     }
+  };
+
+  const withdrawn = async () => {
+    const contract = await connectingWithSmartContract();
+    const res = await contract.withdrawn();
   };
 
   const createSale = async (
@@ -202,13 +204,10 @@ const NFTMarketplaceProvider = ({ children }) => {
             price: Number(String(ethers.utils.formatUnits(price, "ether"))),
           };
 
-          console.log(data);
-
           const res = await axios.patch(
             `http://localhost:5000/api/v1/nfts/${tokenId}`,
             data
           );
-          console.log(res);
         });
 
         transaction.wait();
@@ -371,10 +370,7 @@ const NFTMarketplaceProvider = ({ children }) => {
           sold: true,
         };
 
-        const res = await axios.patch(
-          `http://localhost:5000/api/v1/nfts/${tokenId}`,
-          data
-        );
+        await axios.patch(`http://localhost:5000/api/v1/nfts/${tokenId}`, data);
       });
 
       await transaction.wait();
@@ -401,6 +397,7 @@ const NFTMarketplaceProvider = ({ children }) => {
           buyNft,
           setError,
           error,
+          withdrawn,
           isError,
           successMsg,
           setSuccessMsg,

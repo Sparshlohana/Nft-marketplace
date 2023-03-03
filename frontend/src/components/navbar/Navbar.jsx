@@ -65,7 +65,7 @@ const Navbar = ({ openSidebar, setOpenSidebar, search, setSearch }) => {
             <button className="signIn">Create</button>
           </Link>
         ) : (
-          <button className="signIn" onClick={connectWallet}>
+          <button className="signInBtn" onClick={connectWallet}>
             Sign In
           </button>
         )}

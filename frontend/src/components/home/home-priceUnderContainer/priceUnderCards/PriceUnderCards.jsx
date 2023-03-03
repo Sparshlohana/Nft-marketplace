@@ -13,8 +13,6 @@ const PriceUnderCards = ({ minPrice, maxPrice }) => {
     handleFilteredNfts(minPrice, maxPrice).then((data) => setNfts(data));
   }, []);
 
-  console.log(nfts);
-
   return (
     <>
       <div className="nftCardContainer priceUnderCardsContainer">

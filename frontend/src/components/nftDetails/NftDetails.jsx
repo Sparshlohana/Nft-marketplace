@@ -11,7 +11,7 @@ const NftDetails = () => {
   const { id } = useParams();
   const [nft, setNft] = useState(null);
 
-  const { currentAccount } = useContext(NFTMarketplaceContext);
+  const { currentAccount, withdrawn } = useContext(NFTMarketplaceContext);
 
   const [like, setLike] = useState(false);
   const [likes, setLikes] = useState(0);
@@ -29,9 +29,7 @@ const NftDetails = () => {
         }
       });
       setLikes(data.wishlist.length);
-    } catch (error) {
-      console.log("error while fetching nft from api");
-    }
+    } catch (error) {}
   };
   // For toggle the like
   const toggleLikHandler = () => {
@@ -47,7 +45,10 @@ const NftDetails = () => {
   // };
 
   useEffect(() => {
-    (async () => await fetchNFTFromApi())();
+    (async () => {
+      await fetchNFTFromApi();
+      // await withdrawn();
+    })();
   }, [currentAccount]);
 
   return (
