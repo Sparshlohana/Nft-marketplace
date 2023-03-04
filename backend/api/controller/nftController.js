@@ -34,8 +34,12 @@ export const aliasTopNFTs = (req, res, next) => {
 
 export const getAllNFTs = async (req, res) => {
   try {
-    const features = new APIFeatures(NFT.findOne({ sold: false }), req.query)
+    const features = new APIFeatures(
+      NFT.findOne({ sold: false, isPublished: true }),
+      req.query
+    )
       .filter()
+      .search()
       .sort()
       .limitFeilds()
       .pagination();
@@ -64,6 +68,7 @@ export const getUsersNft = async (req, res) => {
       req.query
     )
       .filter()
+      .search()
       .sort()
       .limitFeilds()
       .pagination();
@@ -77,6 +82,7 @@ export const getUsersNft = async (req, res) => {
       req.query
     )
       .filter()
+      .search()
       .sort()
       .limitFeilds()
       .pagination();
@@ -88,6 +94,7 @@ export const getUsersNft = async (req, res) => {
       req.query
     )
       .filter()
+      .search()
       .sort()
       .limitFeilds()
       .pagination();
@@ -172,41 +179,6 @@ export const createNFT = async (req, res) => {
     }
   } catch (error) {
     res.status(400).json({
-      status: "fail",
-      message: error.message,
-    });
-  }
-};
-
-export const getByCategory = async (req, res) => {
-  try {
-    const category = req.params?.category;
-
-    const data = new APIFeatures(NFT.findOne({ category }), req.query)
-      .filter()
-      .sort()
-      .limitFeilds()
-      .pagination();
-
-    // const created = await createdFeatures.query;
-
-    // const collectedFeatures = new APIFeatures(
-    //   NFT.findOne({ owner: account }),
-    //   req.query
-    // )
-    //   .filter()
-    //   .sort()
-    //   .limitFeilds()
-    //   .pagination();
-
-    const allNFTs = await data.query;
-
-    res.status(200).json({
-      message: "Success",
-      data: { nfts: allNFTs },
-    });
-  } catch (error) {
-    res.status(404).json({
       status: "fail",
       message: error.message,
     });
@@ -385,10 +357,10 @@ export const uploadImgToIPFS = async (req, res) => {
 
 export const uploadNftToIPFS = async (req, res) => {
   try {
-    const { name, description, media, fileType, category } = req.body;
+    const { name, description, media, fileType } = req.body;
 
-    if ((name && description && media, fileType && category)) {
-      const data = { name, description, media, fileType, category };
+    if ((name && description && media, fileType)) {
+      const data = { name, description, media, fileType };
 
       const added = await client.add(JSON.stringify(data));
 
@@ -437,5 +409,22 @@ export const likeOrDislike = async (req, res) => {
     }
   } catch (e) {
     res.status(400).json({ status: "fail", message: "something gone wrong" });
+  }
+};
+
+export const publishOrUnpublishNFT = async (req, res) => {
+  const isPublish = req.query.publish;
+  const id = req.params.id;
+
+  try {
+    await NFT.updateOne(
+      { _id: id },
+      { isPublished: isPublish },
+      { new: true, runValidators: true }
+    );
+
+    res.status(200).json({ status: "success", message: "successfully" });
+  } catch (error) {
+    res.status(400).json({ status: "failed", message: "Something Went Wrong" });
   }
 };

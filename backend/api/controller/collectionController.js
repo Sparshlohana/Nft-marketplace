@@ -3,10 +3,18 @@ import NFT from "../models/nftSchema.js";
 import APIFeatures from "../utils/apiFeatures.js";
 
 export const createCollection = async (req, res) => {
-  const { collectionName, collectionDescription, image, creator } = req.body;
+  console.log(req.body);
+  const { collectionName, collectionDescription, image, creator, category } =
+    req.body;
 
   try {
-    if (collectionName && collectionDescription && image && creator) {
+    if (
+      collectionName &&
+      collectionDescription &&
+      image &&
+      creator &&
+      category
+    ) {
       const data = await Collection.create(req.body);
 
       res.status(200).json({ status: "success", data });
@@ -34,6 +42,28 @@ export const getCollection = async (req, res) => {
   }
 };
 
+export const getCollectionByCategory = async (req, res) => {
+  const category = req.params.category;
+
+  try {
+    if (category) {
+      const collections = await Collection.find({
+        category: category,
+      });
+
+      res.status(200).json({ status: "success", collections: collections });
+    } else {
+      res
+        .status(403)
+        .json({ status: "failed", message: "category must be specified" });
+    }
+  } catch (error) {
+    res
+      .status(500)
+      .json({ status: "failed", message: "Internal Server Error" });
+  }
+};
+
 export const getNftsFromCollection = async (req, res) => {
   const id = req.params.id;
 
@@ -42,7 +72,7 @@ export const getNftsFromCollection = async (req, res) => {
 
     if (exist) {
       const nfts = new APIFeatures(
-        NFT.find({ collectionId: id, sold: false }),
+        NFT.find({ collectionId: id, sold: false, isPublished: true }),
         req.query
       )
         .filter()

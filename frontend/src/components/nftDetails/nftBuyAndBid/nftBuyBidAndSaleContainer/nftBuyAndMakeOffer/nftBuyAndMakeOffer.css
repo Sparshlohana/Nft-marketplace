@@ -47,6 +47,24 @@
   color: #fff;
 }
 
+.OwnedNftPublishNft {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.publishOrUnpublishBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 7px 15px;
+  cursor: pointer;
+  border-radius: 20px;
+  color: #fff;
+  background: hsla(0, 0%, 99%, 0.107);
+  border: 1px solid #ffffff11;
+}
+
 .buyNowContainerMain {
   display: flex;
   margin: 10px 10px 0 0;

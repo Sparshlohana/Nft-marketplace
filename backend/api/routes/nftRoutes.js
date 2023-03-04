@@ -4,7 +4,6 @@ import {
   createNFT,
   deleteNFT,
   getAllNFTs,
-  getByCategory,
   getMonthlyStats,
   getNFTsStats,
   getSingleNFT,
@@ -13,6 +12,7 @@ import {
   updateNFT,
   uploadImgToIPFS,
   uploadNftToIPFS,
+  publishOrUnpublishNFT,
 } from "../controller/nftController.js";
 
 import multer from "multer";
@@ -21,11 +21,13 @@ const upload = multer();
 
 const router = express.Router();
 
+router.get("/", getAllNFTs);
+
+router.post("/", createNFT);
+
 router.get("/user/:account", getUsersNft);
 
-router.get("/categories/:category", getByCategory);
-
-router.route("/nfts-stats").get(getNFTsStats);
+router.get("/nfts-stats", getNFTsStats);
 
 router.post("/favorites", likeOrDislike);
 
@@ -33,12 +35,16 @@ router.post("/uploadToIPFS", upload.single("media"), uploadImgToIPFS);
 
 router.post("/uploadNFT", uploadNftToIPFS);
 
-router.route("/monthly-stats/:year").get(getMonthlyStats);
+router.get("/monthly-stats/:year", getMonthlyStats);
 
-router.route("/top-5-nfts").get(aliasTopNFTs, getAllNFTs);
+router.get("/top-5-nfts", aliasTopNFTs, getAllNFTs);
 
-router.route("/").get(getAllNFTs).post(createNFT);
+router.get("/:id", getSingleNFT);
 
-router.route("/:id").get(getSingleNFT).patch(updateNFT).delete(deleteNFT);
+router.patch("/:id", updateNFT);
+
+router.delete("/:id", deleteNFT);
+
+router.post("/pusblishOrUnpublish/:id", publishOrUnpublishNFT);
 
 export default router;

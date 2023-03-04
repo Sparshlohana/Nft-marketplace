@@ -4,19 +4,19 @@ import { FaRegHandshake } from "react-icons/fa";
 import { MdOutlineLocalOffer } from "react-icons/md";
 import "./nftBuyAndMakeOffer.css";
 import axios from "axios";
+import axiosInstance from "../../../../../utils/axios";
+
 import { NFTMarketplaceContext } from "../../../../../context/NFTMarketplaceContext";
 import { Link, useParams } from "react-router-dom";
 import { NFTMarketplaceAddress } from "../../../../../context/contanst";
 
-const NftBuyAndMakeOffer = ({ nft }) => {
+const NftBuyAndMakeOffer = ({ nft, setIsPublished, isPublised }) => {
   const [usd, setUsd] = useState(0);
   const [inr, setInr] = useState(0);
 
   const { id } = useParams();
 
-  const { buyNft, currentAccount, createSale } = useContext(
-    NFTMarketplaceContext
-  );
+  const { buyNft, currentAccount } = useContext(NFTMarketplaceContext);
 
   const fetchCurrentPriceOfEth = async () => {
     try {
@@ -30,6 +30,22 @@ const NftBuyAndMakeOffer = ({ nft }) => {
       );
 
       setUsd(usdPrice.data.USD);
+    } catch (error) {}
+  };
+
+  const handlePublish = async () => {
+    try {
+      if (isPublised) {
+        await axiosInstance.post(
+          `/api/v1/nfts/pusblishOrUnpublish/${id}?publish=false`
+        );
+        setIsPublished(false);
+      } else {
+        await axiosInstance.post(
+          `/api/v1/nfts/pusblishOrUnpublish/${id}?publish=true`
+        );
+        setIsPublished(true);
+      }
     } catch (error) {}
   };
 
@@ -61,9 +77,26 @@ const NftBuyAndMakeOffer = ({ nft }) => {
         )}
         {NFTMarketplaceAddress.toLowerCase() === nft?.owner &&
           currentAccount?.toLowerCase() === nft?.seller && (
-            <p style={{ color: "white", marginRight: "20px" }}>
-              You owned this NFT
-            </p>
+            <div className="OwnedNftPublishNft">
+              <p style={{ color: "white", marginRight: "20px" }}>
+                You owned this NFT
+              </p>
+              {!isPublised ? (
+                <button
+                  className="publishOrUnpublishBtn"
+                  onClick={handlePublish}
+                >
+                  Publish
+                </button>
+              ) : (
+                <button
+                  className="publishOrUnpublishBtn"
+                  onClick={handlePublish}
+                >
+                  Unpublish
+                </button>
+              )}
+            </div>
           )}
 
         {currentAccount?.toLowerCase() === nft?.owner ||

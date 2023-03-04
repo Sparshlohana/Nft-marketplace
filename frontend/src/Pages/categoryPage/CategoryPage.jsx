@@ -6,15 +6,17 @@ import categoryData from "../../utils/Categorydata";
 const CategoryPage = () => {
   const { category } = useParams();
 
-  const data = categoryData.find((cat) => cat.name.toLowerCase() === category);
+  const menuData = categoryData.find(
+    (cat) => cat.name.toLowerCase() === category
+  );
 
   return (
     <>
       <Categories
-        data={categoryData}
-        name={data.name}
-        img={data.img}
-        description={data.description}
+        menuData={categoryData}
+        name={menuData.name}
+        img={menuData.img}
+        description={menuData.description}
       />
     </>
   );

@@ -1,4 +1,4 @@
-import { useCallback, useContext,  } from "react";
+import { useCallback, useContext } from "react";
 import { useDropzone } from "react-dropzone";
 import { FaDropbox } from "react-icons/fa";
 import { NFTMarketplaceContext } from "../../../context/NFTMarketplaceContext";
@@ -9,7 +9,6 @@ const CreateCollection = ({
   setOpenCreateCollection,
   collectionData,
   setCollectionData,
-  category,
   name,
   fileType,
   media,
@@ -115,6 +114,66 @@ const CreateCollection = ({
               </div>
               <div className="createNftDataCollectionFormItemContainer">
                 <h2 className="createNftDataCollectionFormPriceHeading">
+                  Category Name
+                </h2>
+                <select
+                  className="createNftDataCollectionFormInput"
+                  onChange={(e) =>
+                    setCollectionData({
+                      ...collectionData,
+                      category: e.target.value,
+                    })
+                  }
+                >
+                  <option value="" className="createNftDataCollectionOption">
+                    -- Select Category --
+                  </option>
+                  <option
+                    className="createNftDataCollectionOption"
+                    value={"art"}
+                  >
+                    Art
+                  </option>
+                  <option
+                    className="createNftDataCollectionOption"
+                    value={"music"}
+                  >
+                    Music
+                  </option>
+                  <option
+                    className="createNftDataCollectionOption"
+                    value={"video"}
+                  >
+                    Video
+                  </option>
+                  <option
+                    className="createNftDataCollectionOption"
+                    value={"fashion"}
+                  >
+                    Fashion
+                  </option>
+                  <option
+                    className="createNftDataCollectionOption"
+                    value={"sports"}
+                  >
+                    Sports
+                  </option>
+                  <option
+                    className="createNftDataCollectionOption"
+                    value={"photography"}
+                  >
+                    Photography
+                  </option>
+                  <option
+                    className="createNftDataCollectionOption"
+                    value={"collectibles"}
+                  >
+                    Collectibles
+                  </option>
+                </select>
+              </div>
+              <div className="createNftDataCollectionFormItemContainer">
+                <h2 className="createNftDataCollectionFormPriceHeading">
                   Collection description
                 </h2>
                 <input
@@ -142,7 +201,6 @@ const CreateCollection = ({
                     media,
                     fileType,
                     description,
-                    category,
                     collectionData
                   );
                 }}

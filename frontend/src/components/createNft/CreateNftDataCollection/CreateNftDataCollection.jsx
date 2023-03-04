@@ -17,8 +17,6 @@ const CreateNftDataCollection = ({
   setFileType,
   setPrice,
   setDescription,
-  setCategory,
-  category,
   name,
   fileType,
   media,
@@ -112,46 +110,6 @@ const CreateNftDataCollection = ({
         </div>
         <div className="createNftDataCollectionFormItemContainer">
           <h2 className="createNftDataCollectionFormPriceHeading">
-            Category Name
-          </h2>
-          <select
-            className="createNftDataCollectionFormInput"
-            onChange={(e) => setCategory(e.target.value)}
-          >
-            <option value="" className="createNftDataCollectionOption">
-              -- Select Category --
-            </option>
-            <option className="createNftDataCollectionOption" value={"art"}>
-              Art
-            </option>
-            <option className="createNftDataCollectionOption" value={"music"}>
-              Music
-            </option>
-            <option className="createNftDataCollectionOption" value={"video"}>
-              Video
-            </option>
-            <option className="createNftDataCollectionOption" value={"fashion"}>
-              Fashion
-            </option>
-            <option className="createNftDataCollectionOption" value={"sports"}>
-              Sports
-            </option>
-            <option
-              className="createNftDataCollectionOption"
-              value={"photography"}
-            >
-              Photography
-            </option>
-            <option
-              className="createNftDataCollectionOption"
-              value={"collectibles"}
-            >
-              Collectibles
-            </option>
-          </select>
-        </div>
-        <div className="createNftDataCollectionFormItemContainer">
-          <h2 className="createNftDataCollectionFormPriceHeading">
             Description
           </h2>
           <input
@@ -171,7 +129,7 @@ const CreateNftDataCollection = ({
               type="text"
               value={price}
               onChange={(e) => setPrice(e.target.value)}
-              placeholder="Enter Amount.."
+              placeholder="Enter Eth Amount.."
               required
             />
           </div>
@@ -216,7 +174,7 @@ const CreateNftDataCollection = ({
             className="createNftBtn"
             onClick={(e) => {
               e.preventDefault();
-              createNFT(name, price, media, fileType, description, category);
+              createNFT(name, price, media, fileType, description);
             }}
           >
             Create NFT

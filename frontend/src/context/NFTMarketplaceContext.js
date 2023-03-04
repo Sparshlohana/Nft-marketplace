@@ -96,16 +96,17 @@ const NFTMarketplaceProvider = ({ children }) => {
     media,
     fileType,
     description,
-    category,
     collectionData
   ) => {
     try {
-      if (!name && !description && !media && !fileType && !price && !category) {
+      if (!name && !description && !media && !fileType && !price) {
         setIsError(true);
         setError("Missing required fields!");
       }
 
-      const data = { name, description, media, fileType, category };
+      console.log("=======>", collectionData);
+
+      const data = { name, description, media, fileType };
 
       const response = await axios.post("/api/v1/nfts/uploadNFT", data);
 

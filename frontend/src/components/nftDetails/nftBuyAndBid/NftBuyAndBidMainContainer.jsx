@@ -8,6 +8,8 @@ import NftDetailContainer from "./nftDetails/NftDetailContainer";
 const NftBuyAndBidMainContainer = ({
   nft,
   like,
+  setIsPublished,
+  isPublised,
   likes,
   toggleLikHandler,
   setLikeHandler,
@@ -23,7 +25,11 @@ const NftBuyAndBidMainContainer = ({
         toggleLikHandler={toggleLikHandler}
         setLikeHandler={setLikeHandler}
       ></NftRanking>
-      <NftBuyBidAndSaleContainer nft={nft} />
+      <NftBuyBidAndSaleContainer
+        isPublised={isPublised}
+        setIsPublished={setIsPublished}
+        nft={nft}
+      />
       <NftDetailContainer nft={nft} />
     </div>
   );

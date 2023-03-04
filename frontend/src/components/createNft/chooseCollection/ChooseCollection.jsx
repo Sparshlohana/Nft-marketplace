@@ -11,7 +11,6 @@ const ChooseCollection = ({
   setOpenChooseCollection,
   collectionData,
   setCollectionData,
-  category,
   name,
   fileType,
   media,
@@ -84,7 +83,6 @@ const ChooseCollection = ({
                     media,
                     fileType,
                     description,
-                    category,
                     collectionData
                   );
                   setOpenChooseCollection(false);

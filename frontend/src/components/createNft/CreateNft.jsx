@@ -10,23 +10,19 @@ const CreateNft = () => {
   const [openCreateCollection, setOpenCreateCollection] = useState(false);
   const [openChooseCollection, setOpenChooseCollection] = useState(false);
 
-  const { currentAccount, createNFT, setError, setIsError } = useContext(
-    NFTMarketplaceContext
-  );
+  const { createNFT, setError, setIsError } = useContext(NFTMarketplaceContext);
 
   const [media, setMedia] = useState(null);
   const [fileType, setFileType] = useState(null);
   const [price, setPrice] = useState("");
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-  const [royalties, setRoyalties] = useState("");
-  const [category, setCategory] = useState(0);
 
   const [collectionData, setCollectionData] = useState({
     collectionName: "",
     collectionDescription: "",
     image: "",
-    creator: currentAccount.toLowerCase(),
+    category: "",
     created: false,
   });
 
@@ -41,7 +37,6 @@ const CreateNft = () => {
           name={name}
           fileType={fileType}
           media={media}
-          category={category}
           price={price}
           description={description}
           createNFT={createNFT}
@@ -54,7 +49,6 @@ const CreateNft = () => {
           name={name}
           fileType={fileType}
           media={media}
-          category={category}
           price={price}
           description={description}
           createNFT={createNFT}
@@ -71,11 +65,9 @@ const CreateNft = () => {
           setFileType={setFileType}
           setPrice={setPrice}
           setDescription={setDescription}
-          setCategory={setCategory}
           name={name}
           fileType={fileType}
           media={media}
-          category={category}
           price={price}
           description={description}
           createNFT={createNFT}

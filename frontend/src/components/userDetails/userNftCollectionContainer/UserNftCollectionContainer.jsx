@@ -5,18 +5,23 @@ import FilterContainer from "../../filterContainer/FilterContainer";
 import NftCardsContainerMain from "../../nftCardsContainerMain/NftCardsContainerMain";
 import SortByContainer from "../../sortByContainer/SortByContainer";
 import { NFTMarketplaceContext } from "../../../context/NFTMarketplaceContext";
+import CategoriesCardContainer from "../../categories/categoriesCardContainer/CategoriesCardContainer";
 
-const UserNftCollectionContainer = ({ active, search }) => {
+const UserNftCollectionContainer = ({
+  active,
+  search,
+  created,
+  setCollected,
+  setCreated,
+  collected,
+  favorites,
+  setFavorites,
+  collections,
+}) => {
   const [openSort, setOpenSort] = useState(false);
   const [openFilter, setOpenFilter] = useState(false);
 
   const { currentAccount } = useContext(NFTMarketplaceContext);
-
-  const [collected, setCollected] = useState([]);
-
-  const [created, setCreated] = useState([]);
-
-  const [favorites, setFavorites] = useState([]);
 
   const [filter, setFilter] = useState({
     minPrice: 0,
@@ -120,7 +125,7 @@ const UserNftCollectionContainer = ({ active, search }) => {
   };
 
   useEffect(() => {
-    handleSearch();
+    // handleSearch();
   }, [search]);
 
   useEffect(() => {
@@ -156,26 +161,31 @@ const UserNftCollectionContainer = ({ active, search }) => {
           {openFilter && (
             <FilterContainer filter={filter} setFilter={setFilter} />
           )}
-
-          <NftCardsContainerMain
-            filter={filter}
-            nfts={
-              collectedFilteredNfts?.length > 0 ||
-              createdFilteredNfts?.length > 0 ||
-              favoriteFilteredNfts?.length > 0
-                ? active === 1
-                  ? collectedFilteredNfts
+          {active !== 4 && (
+            <NftCardsContainerMain
+              filter={filter}
+              nfts={
+                collectedFilteredNfts?.length > 0 ||
+                createdFilteredNfts?.length > 0 ||
+                favoriteFilteredNfts?.length > 0
+                  ? active === 1
+                    ? collectedFilteredNfts
+                    : active === 2
+                    ? createdFilteredNfts
+                    : favoriteFilteredNfts
+                  : active === 1
+                  ? collected
                   : active === 2
-                  ? createdFilteredNfts
-                  : favoriteFilteredNfts
-                : active === 1
-                ? collected
-                : active === 2
-                ? created
-                : favorites
-            }
-            openFilter={openFilter}
-          />
+                  ? created
+                  : favorites
+              }
+              openFilter={openFilter}
+            />
+          )}
+
+          {collections.length > 0 && active === 4 && (
+            <CategoriesCardContainer collections={collections} />
+          )}
         </div>
       </div>
     </div>

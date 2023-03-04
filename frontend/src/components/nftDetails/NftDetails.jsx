@@ -11,10 +11,12 @@ const NftDetails = () => {
   const { id } = useParams();
   const [nft, setNft] = useState(null);
 
-  const { currentAccount, withdrawn } = useContext(NFTMarketplaceContext);
+  const { currentAccount } = useContext(NFTMarketplaceContext);
 
   const [like, setLike] = useState(false);
   const [likes, setLikes] = useState(0);
+
+  const [isPublised, setIsPublished] = useState(false);
 
   const fetchNFTFromApi = async () => {
     try {
@@ -28,6 +30,8 @@ const NftDetails = () => {
           return false;
         }
       });
+      console.log(data.isPublished);
+      setIsPublished(data.isPublished);
       setLikes(data.wishlist.length);
     } catch (error) {}
   };
@@ -47,7 +51,6 @@ const NftDetails = () => {
   useEffect(() => {
     (async () => {
       await fetchNFTFromApi();
-      // await withdrawn();
     })();
   }, [currentAccount]);
 
@@ -56,6 +59,8 @@ const NftDetails = () => {
       <NftPhotoAndDetails nft={nft} />
       <NftBuyAndBidMainContainer
         like={like}
+        isPublised={isPublised}
+        setIsPublished={setIsPublished}
         toggleLikHandler={toggleLikHandler}
         setLikeHandler={setLikeHandler}
         likes={likes}

@@ -1,18 +1,20 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
-/node_modules
-/src/smartcontract/build/
-/src/smartcontract/node_modules/
+/frontend/node_modules
+/frontend/src/smartcontract/build
+/frontend/src/smartcontract/node_modules
+
 /.pnp
 .pnp.js
-/src/context/contanst.js
-/src/smartcontract/.env
 
+/frontend/src/context/contanst.js
+/frontend/src/smartcontract/.env
+
+/backend/api/node_modules
+/backend/api/.env
 # testing
 /coverage
-/src/smartcontract/build
-/src/smartcontract/node_modules
 
 # production
 /build

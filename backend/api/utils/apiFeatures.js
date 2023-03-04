@@ -7,7 +7,7 @@ class APIFeatures {
   filter() {
     //destructure query
     const queryObj = { ...this.queryString };
-    const excludeFields = ["page", "limit", "sort", "fields"];
+    const excludeFields = ["page", "limit", "sort", "fields", "search"];
 
     excludeFields.forEach((el) => delete queryObj[el]);
 
@@ -30,6 +30,15 @@ class APIFeatures {
       this.query = this.query.sort("-createdAt");
     }
 
+    return this;
+  }
+
+  search() {
+    if (this.queryString.search) {
+      this.query = this.query.find({
+        name: { $regex: this.queryString.search, $options: "i" },
+      });
+    }
     return this;
   }
 

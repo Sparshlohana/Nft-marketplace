@@ -1,99 +1,79 @@
 import React, { useEffect, useState } from "react";
 
-import { useParams } from "react-router-dom";
-
-import axios from "../../../utils/axios";
 import FilterButton from "../../filterButton/FilterButton";
 import FilterContainer from "../../filterContainer/FilterContainer";
 import NftCardsContainerMain from "../../nftCardsContainerMain/NftCardsContainerMain";
 import SortByContainer from "../../sortByContainer/SortByContainer";
 
 const CategoryItems = () => {
-  const [openSort, setOpenSort] = useState(false);
-  const [openFilter, setOpenFilter] = useState(false);
+  // const [openSort, setOpenSort] = useState(false);
+  // const [openFilter, setOpenFilter] = useState(false);
 
-  const { category } = useParams();
+  // const [filter, setFilter] = useState({
+  //   minPrice: 0,
+  //   maxPrice: 0,
+  //   currency: null,
+  // });
 
-  const [categoryNfts, setCategoryNfts] = useState([]);
+  // const [sort, setSort] = useState(null);
 
-  const [filter, setFilter] = useState({
-    minPrice: 0,
-    maxPrice: 0,
-    currency: null,
-  });
+  // const [categoryFilteredNfts, setCategoryFilteredNfts] = useState([]);
 
-  const [sort, setSort] = useState(null);
+  // const handleFilteredNfts = async (filter) => {
+  //   try {
+  //     const response = await axios.get(
+  //       `/api/v1/nfts/categories/${category}?price[gte]=${filter.minPrice}&price[lte]=${filter.maxPrice}`
+  //     );
+  //     const data = response?.data?.data;
 
-  const [categoryFilteredNfts, setCategoryFilteredNfts] = useState([]);
+  //     setCategoryFilteredNfts(data?.nfts);
+  //   } catch (error) {}
+  // };
 
-  const fetchByCategoryNFTsFromApi = async (category) => {
-    try {
-      const response = await axios.get(`/api/v1/nfts/categories/${category}`);
+  // const handleSortFilter = async (sort) => {
+  //   try {
+  //     if (sort === "Price: Lowest") {
+  //       const response = await axios.get(
+  //         `/api/v1/nfts/categories/${category}?sort=price`
+  //       );
 
-      const data = response?.data?.data;
-      setCategoryNfts(data?.nfts);
-    } catch (error) {}
-  };
+  //       const data = response?.data?.data;
+  //       setCategoryFilteredNfts(data?.nfts);
+  //     }
+  //     if (sort === "Price: Highest") {
+  //       const response = await axios.get(
+  //         `/api/v1/nfts/categories/${category}?sort=-price`
+  //       );
 
-  const handleFilteredNfts = async (filter) => {
-    try {
-      const response = await axios.get(
-        `/api/v1/nfts/categories/${category}?price[gte]=${filter.minPrice}&price[lte]=${filter.maxPrice}`
-      );
-      const data = response?.data?.data;
+  //       const data = response?.data?.data;
+  //       setCategoryFilteredNfts(data?.nfts);
+  //     }
+  //     if (sort === "Listed: Recent") {
+  //       const response = await axios.get(
+  //         `/api/v1/nfts/categories/${category}?sort=-createdAt`
+  //       );
 
-      setCategoryFilteredNfts(data?.nfts);
-    } catch (error) {}
-  };
+  //       const data = response?.data?.data;
+  //       setCategoryFilteredNfts(data?.nfts);
+  //     }
+  //     if (sort === "Listed: Recent") {
+  //       const response = await axios.get(
+  //         `/api/v1/nfts/categories/${category}?sort=createdAt`
+  //       );
 
-  const handleSortFilter = async (sort) => {
-    try {
-      if (sort === "Price: Lowest") {
-        const response = await axios.get(
-          `/api/v1/nfts/categories/${category}?sort=price`
-        );
+  //       const data = response?.data?.data;
+  //       setCategoryFilteredNfts(data?.nfts);
+  //     }
+  //   } catch (error) {}
+  // };
 
-        const data = response?.data?.data;
-        setCategoryFilteredNfts(data?.nfts);
-      }
-      if (sort === "Price: Highest") {
-        const response = await axios.get(
-          `/api/v1/nfts/categories/${category}?sort=-price`
-        );
+  // useEffect(() => {
+  //   // handleFilteredNfts(filter);
+  // }, [filter]);
 
-        const data = response?.data?.data;
-        setCategoryFilteredNfts(data?.nfts);
-      }
-      if (sort === "Listed: Recent") {
-        const response = await axios.get(
-          `/api/v1/nfts/categories/${category}?sort=-createdAt`
-        );
-
-        const data = response?.data?.data;
-        setCategoryFilteredNfts(data?.nfts);
-      }
-      if (sort === "Listed: Recent") {
-        const response = await axios.get(
-          `/api/v1/nfts/categories/${category}?sort=createdAt`
-        );
-
-        const data = response?.data?.data;
-        setCategoryFilteredNfts(data?.nfts);
-      }
-    } catch (error) {}
-  };
-
-  useEffect(() => {
-    fetchByCategoryNFTsFromApi(category);
-  }, [category]);
-
-  useEffect(() => {
-    handleFilteredNfts(filter);
-  }, [filter]);
-
-  useEffect(() => {
-    handleSortFilter(sort);
-  }, [sort]);
+  // useEffect(() => {
+  //   // handleSortFilter(sort);
+  // }, [sort]);
 
   return (
     <div className="filterContainerMain">
@@ -104,28 +84,22 @@ const CategoryItems = () => {
         }}
       >
         <div className="shop">
-          <SortByContainer
+          {/* <SortByContainer
             openSort={openSort}
             sort={sort}
             setSort={setSort}
             setOpenSort={setOpenSort}
-          />
+          /> */}
         </div>
-        <FilterButton openFilter={openFilter} setOpenFilter={setOpenFilter} />
+        {/* <FilterButton openFilter={openFilter} setOpenFilter={setOpenFilter} /> */}
         <div className="shopContainerFlex">
-          {openFilter && (
-            <FilterContainer filter={filter} setFilter={setFilter} />
-          )}
-
-          <NftCardsContainerMain
+          {/* {openFilter && */}
+          {/* <FilterContainer filter={filter} setFilter={setFilter} /> */}}
+          {/* <NftCardsContainerMain
             filter={filter}
-            nfts={
-              categoryFilteredNfts?.length > 0
-                ? categoryFilteredNfts
-                : categoryNfts
-            }
+            nfts={collections}
             openFilter={openFilter}
-          />
+          /> */}
         </div>
       </div>
     </div>

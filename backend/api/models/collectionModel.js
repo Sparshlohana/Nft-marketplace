@@ -11,6 +11,10 @@ const collectionSchema = new mongoose.Schema({
     trim: true,
     required: [true, "must provide nft description"],
   },
+  category: {
+    type: String,
+    required: [true, "must provide a category"],
+  },
   image: {
     type: String,
     required: [true, "must provide collection Image"],

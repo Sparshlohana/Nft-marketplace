@@ -16,9 +16,8 @@ const nftSchema = new mongoose.Schema(
       trim: true,
       required: [true, "must provide nft description"],
     },
-    category: {
+    collectionId: {
       type: String,
-      required: [true, "must provide a category"],
     },
     media: {
       type: String,
@@ -50,38 +49,16 @@ const nftSchema = new mongoose.Schema(
     sold: {
       type: Boolean,
     },
-    collectionId: {
-      type: String,
+    isPublished: {
+      type: Boolean,
+      default: false,
+      required: [true, "must provide NFT is published or not"],
     },
+    slug: String,
+
     // duration: {
     //   type: String,
     //   required: [true, "must provide a duration"],
-    // },
-    slug: String,
-    // maxGroupSize: {
-    //   type: Number,
-    //   required: [true, "must have a group size"],
-    // },
-
-    // difficulty: {
-    //   type: String,
-    //   required: [true, "must have a difficulty"],
-    // },
-
-    // ratingsAverage: {
-    //   type: Number,
-    //   default: 0,
-    // },
-
-    // ratingsQuantity: {
-    //   type: Number,
-    //   default: 0,
-    // },
-
-    // summary: {
-    //   type: String,
-    //   trim: true,
-    //   required: [true, "must provide a summary"],
     // },
 
     // priceDiscount: { type: Number, default: 0 },
@@ -91,14 +68,12 @@ const nftSchema = new mongoose.Schema(
     //   required: [true, "must provide a cover image"],
     // },
 
-    // images: [String],
-
     createdAt: {
       type: Date,
       default: Date.now(),
     },
 
-    startDates: [Date],
+    // startDates: [Date],
   },
   {
     toJSON: { virtuals: true },

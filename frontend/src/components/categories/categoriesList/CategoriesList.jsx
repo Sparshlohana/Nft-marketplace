@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
 import "./categoriesList.css";
 
-const CategoriesList = ({ data }) => {
+const CategoriesList = ({ menuData }) => {
   return (
     <div className="categoriesListContainer">
       <ul className="categoriesListUl">
-        {data?.map((cat, i) => (
+        {menuData?.map((cat, i) => (
           <Link
             style={{ textDecoration: "none" }}
             key={i}
