@@ -46,6 +46,7 @@ const Footer = () => {
         </div>
         <form action="post">
           <input
+            autocomplete="off"
             type="email"
             className="footerNewsletterInput"
             placeholder="Enter your email here.."

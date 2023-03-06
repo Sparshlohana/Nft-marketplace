@@ -78,7 +78,11 @@ const CreateCollection = ({
                       <div className="dropFileContainer" {...getRootProps()}>
                         {collectionData.image && (
                           <>
-                            <input required {...getInputProps()} />
+                            <input
+                              autocomplete="off"
+                              required
+                              {...getInputProps()}
+                            />
                             <img
                               className="NftImgDisplay"
                               src={collectionData.image}
@@ -98,7 +102,11 @@ const CreateCollection = ({
                   >
                     {({ getRootProps, getInputProps }) => (
                       <div className="dropFileContainer" {...getRootProps()}>
-                        <input required {...getInputProps()} />
+                        <input
+                          autocomplete="off"
+                          required
+                          {...getInputProps()}
+                        />
                         <BiCloudUpload className="dropFileIcon" />
                       </div>
                     )}
@@ -119,7 +127,11 @@ const CreateCollection = ({
                         className="dropFileBannerContainer "
                         {...getRootProps()}
                       >
-                        <input required {...getInputProps()} />
+                        <input
+                          autocomplete="off"
+                          required
+                          {...getInputProps()}
+                        />
                         {collectionData.banner && (
                           <img
                             className="NftBannerDisplay"
@@ -145,7 +157,11 @@ const CreateCollection = ({
                         className="dropFileBannerContainer"
                         {...getRootProps()}
                       >
-                        <input required {...getInputProps()} />
+                        <input
+                          autocomplete="off"
+                          required
+                          {...getInputProps()}
+                        />
 
                         <BiCloudUpload className="dropFileIcon" />
                       </div>
@@ -158,6 +174,7 @@ const CreateCollection = ({
                   Collection Name
                 </h2>
                 <input
+                  autocomplete="off"
                   className="createNftDataCollectionFormInput"
                   type="text"
                   placeholder="Enter Collection Name.."
@@ -237,6 +254,7 @@ const CreateCollection = ({
                   Collection description
                 </h2>
                 <input
+                  autocomplete="off"
                   className="createNftDataCollectionFormInput"
                   type="text"
                   required

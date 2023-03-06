@@ -10,6 +10,7 @@ const ProfileForm = () => {
         </div>
         <div className="profileFormContainerInputContainer">
           <input
+            autocomplete="off"
             type="text"
             placeholder="Username..."
             className="profileFormContainerInput"
@@ -39,6 +40,7 @@ const ProfileForm = () => {
         </div>
         <div className="profileFormContainerInputContainer">
           <input
+            autocomplete="off"
             type="email"
             name=""
             placeholder="Email..."
@@ -91,6 +93,7 @@ const ProfileForm = () => {
         </div>
         <div className="profileFormContainerInputContainer">
           <input
+            autocomplete="off"
             type="text"
             placeholder="yourwebsite.com"
             className="profileFormContainerInput"
@@ -102,7 +105,12 @@ const ProfileForm = () => {
             <p className="profileFormItemHeading">Wallet Address</p>
           </div>
           <div className="profileFormContainerInputContainer">
-            <input type="text" className="profileFormContainerInput" readOnly />
+            <input
+              autocomplete="off"
+              type="text"
+              className="profileFormContainerInput"
+              readOnly
+            />
           </div>
         </div>
       </div>

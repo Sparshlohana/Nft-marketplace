@@ -14,6 +14,7 @@ const Searchbar = ({
       onClick={() => setOpenCollectionItems(!openCollectionItems)}
     >
       <input
+        autocomplete="off"
         type="search"
         name="search"
         id="search"

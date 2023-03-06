@@ -10,6 +10,7 @@ const CategoriesFilter = ({ setFilter, filter }) => {
         {data?.map((category) => (
           <>
             <input
+              autocomplete="off"
               type="checkbox"
               value={category.name.toLowerCase()}
               className="categoriesCheckbox"

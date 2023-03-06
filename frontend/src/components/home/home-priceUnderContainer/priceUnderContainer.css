@@ -5,6 +5,7 @@
 .priceUnderCardsContainer {
   display: flex;
   justify-content: flex-start;
+  flex-wrap: nowrap;
 }
 
 .priceUnderContainerHr {

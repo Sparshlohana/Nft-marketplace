@@ -82,7 +82,7 @@ const CreateNftDataCollection = ({
           <Dropzone onDrop={onDrop}>
             {({ getRootProps, getInputProps }) => (
               <div className="dropFileContainer" {...getRootProps()}>
-                <input required {...getInputProps()} />
+                <input autocomplete="off" required {...getInputProps()} />
                 <BiCloudUpload className="dropFileIcon" />
               </div>
             )}
@@ -92,6 +92,7 @@ const CreateNftDataCollection = ({
         <div className="createNftDataCollectionFormItemContainer">
           <h2 className="createNftDataCollectionFormPriceHeading">NFT Name</h2>
           <input
+            autocomplete="off"
             className="createNftDataCollectionFormInput"
             type="text"
             value={name}
@@ -105,6 +106,7 @@ const CreateNftDataCollection = ({
             Description
           </h2>
           <input
+            autocomplete="off"
             className="createNftDataCollectionFormInput"
             type="text"
             value={description}
@@ -116,6 +118,7 @@ const CreateNftDataCollection = ({
           <div className="createNftDataCollectionFormItemContainer">
             <h2 className="createNftDataCollectionFormPriceHeading">Price</h2>
             <input
+              autocomplete="off"
               className="createNftDataCollectionFormInput"
               type="text"
               value={price}
@@ -130,6 +133,7 @@ const CreateNftDataCollection = ({
               Royalty Amount
             </h2>
             <input
+              autocomplete="off"
               className="createNftDataCollectionFormInput"
               type="text"
               placeholder="%"
@@ -144,6 +148,7 @@ const CreateNftDataCollection = ({
             Royalty recipient
           </h2>
           <input
+            autocomplete="off"
             className="createNftDataCollectionFormInput"
             type="text"
             placeholder="Royalty recipient"

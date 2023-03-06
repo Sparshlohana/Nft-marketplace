@@ -6,6 +6,7 @@ const RangeFilter = ({ filter, setFilter }) => {
     <div className="rangeFilterContainer">
       <h3 className="priceRangeHeading">Price Range</h3>
       <input
+        autocomplete="off"
         type="number"
         placeholder="Min.."
         value={filter.minPrice}
@@ -17,6 +18,7 @@ const RangeFilter = ({ filter, setFilter }) => {
       />
       <p className="colon">:</p>
       <input
+        autocomplete="off"
         type="number"
         value={filter?.maxPrice}
         onChange={(e) => setFilter({ ...filter, maxPrice: e.target.value })}

@@ -52,6 +52,7 @@ const NFTResellInput = ({ nft }) => {
 
       <div className="ResellNftInputContainers">
         <input
+          autocomplete="off"
           className="ResellNftInput"
           value={price}
           type="number"
