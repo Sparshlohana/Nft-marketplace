@@ -34,8 +34,6 @@ const Categories = ({ name, img, description, menuData }) => {
       <CategoriesBanner img={img} />
       <CategoriesHeadingAndDetails name={name} description={description} />
       <CategoriesCardContainer collections={collections} />
-      <CategoriesCardContainer collections={collections} />
-      {/* <CategoryItems></CategoryItems> */}
     </div>
   );
 };

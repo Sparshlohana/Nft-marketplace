@@ -17,6 +17,7 @@ import HomePage from "./Pages/homePage/HomePage";
 import ResellNftPage from "./Pages/resellNftPage/ResellNftPage";
 import UserDetailPage from "./Pages/userDetailPage/UserDetailPage";
 import SearchItemsContainer from "./components/searchItemsContainer/SearchItemsContainer";
+import ProfilePage from "./Pages/profilePage/ProfilePage";
 
 function App() {
   const [openSidebar, setOpenSidebar] = useState(false);
@@ -117,6 +118,8 @@ function App() {
           path="/collection/:id"
           element={<CollectionPage search={search} setSearch={setSearch} />}
         ></Route>
+
+        <Route path="/profile/edit" element={<ProfilePage />}></Route>
       </Routes>
       <FooterContainer />
     </div>

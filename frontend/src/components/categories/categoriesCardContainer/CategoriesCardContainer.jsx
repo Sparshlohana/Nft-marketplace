@@ -7,7 +7,10 @@ const CategoriesCardContainer = ({ collections }) => {
   return (
     <div className="categoriesCardsContainerMains">
       {collections?.map((collection, i) => (
-        <Link to={"/collection/" + collection?._id}>
+        <Link
+          className="categoriesCardsLink"
+          to={"/collection/" + collection?._id}
+        >
           <CategoriesCards key={i} collection={collection} />
         </Link>
       ))}

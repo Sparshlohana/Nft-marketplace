@@ -6,3 +6,7 @@
   flex-wrap: wrap;
   margin-bottom: 60px;
 }
+
+.categoriesCardsLink {
+  text-decoration: none;
+}
