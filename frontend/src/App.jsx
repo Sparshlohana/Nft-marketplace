@@ -16,6 +16,7 @@ import CollectionPage from "./Pages/collectionPage/CollectionPage";
 import HomePage from "./Pages/homePage/HomePage";
 import ResellNftPage from "./Pages/resellNftPage/ResellNftPage";
 import UserDetailPage from "./Pages/userDetailPage/UserDetailPage";
+import ProfilePage from "./Pages/profilePage/ProfilePage";
 import useDebounce from "./utils/debounce";
 
 function App() {
@@ -101,6 +102,8 @@ function App() {
           path="/collection/:id"
           element={<CollectionPage search={search} setSearch={setSearch} />}
         ></Route>
+
+        <Route path="/profile/edit" element={<ProfilePage />}></Route>
       </Routes>
       <FooterContainer />
     </div>
