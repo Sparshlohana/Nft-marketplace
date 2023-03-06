@@ -96,14 +96,14 @@ const CollectionMain = ({ search }) => {
     setFilteredNfts(data);
   };
   useEffect(() => {
-    handleSearch();
+    // handleSearch();
   }, [search]);
 
   useEffect(() => {
     (async () => {
       await fetchSingleCollection();
     })();
-  }, []);
+  }, [nfts]);
 
   useEffect(() => {
     handleFilteredNfts(filter);

@@ -57,7 +57,7 @@ function App() {
       fetchSearchData();
     },
     [search],
-    3000
+    800
   );
 
   return (

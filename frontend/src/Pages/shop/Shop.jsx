@@ -47,7 +47,7 @@ const Shop = ({ search }) => {
     (async () => {
       await fetchCollections();
     })();
-  }, [page]);
+  }, [page, nfts]);
 
   const handleSearch = () => {
     const data = nfts?.filter((nft) => nft?.name?.includes(search));
