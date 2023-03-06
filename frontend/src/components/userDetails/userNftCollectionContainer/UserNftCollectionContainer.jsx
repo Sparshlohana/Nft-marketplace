@@ -29,6 +29,7 @@ const UserNftCollectionContainer = ({
     currency: null,
   });
 
+  const token = localStorage.getItem("token");
   const [sort, setSort] = useState(null);
 
   const [collectedFilteredNfts, setCollectedFilteredNfts] = useState([]);
@@ -37,7 +38,8 @@ const UserNftCollectionContainer = ({
 
   const fetchUsersNFTsFromApi = async (currentAccount) => {
     const response = await axios.get(
-      `/api/v1/nfts/user/${currentAccount?.toLowerCase()}`
+      `/api/v1/nfts/user/${currentAccount?.toLowerCase()}`,
+      { headers: { Authorization: token } }
     );
     const data = response?.data?.data;
     setCollected(data?.nftsCollected);
@@ -49,7 +51,8 @@ const UserNftCollectionContainer = ({
     const response = await axios.get(
       `/api/v1/nfts/user/${currentAccount?.toLowerCase()}?price[gte]=${
         filter.minPrice
-      }&price[lte]=${filter.maxPrice}`
+      }&price[lte]=${filter.maxPrice}`,
+      { headers: { Authorization: token } }
     );
 
     const data = response?.data?.data;
@@ -63,7 +66,8 @@ const UserNftCollectionContainer = ({
     try {
       if (sort === "Price: Lowest") {
         const response = await axios.get(
-          `/api/v1/nfts/user/${currentAccount?.toLowerCase()}?sort=price`
+          `/api/v1/nfts/user/${currentAccount?.toLowerCase()}?sort=price`,
+          { headers: { Authorization: token } }
         );
 
         const data = response?.data?.data;
@@ -75,7 +79,8 @@ const UserNftCollectionContainer = ({
       }
       if (sort === "Price: Highest") {
         const response = await axios.get(
-          `/api/v1/nfts/user/${currentAccount?.toLowerCase()}?sort=-price`
+          `/api/v1/nfts/user/${currentAccount?.toLowerCase()}?sort=-price`,
+          { headers: { Authorization: token } }
         );
 
         const data = response?.data?.data;
@@ -87,7 +92,8 @@ const UserNftCollectionContainer = ({
       }
       if (sort === "Listed: Recent") {
         const response = await axios.get(
-          `/api/v1/nfts/user/${currentAccount?.toLowerCase()}?sort=-createdAt`
+          `/api/v1/nfts/user/${currentAccount?.toLowerCase()}?sort=-createdAt`,
+          { headers: { Authorization: token } }
         );
 
         const data = response?.data?.data;
@@ -98,7 +104,8 @@ const UserNftCollectionContainer = ({
       }
       if (sort === "Listed: Recent") {
         const response = await axios.get(
-          `/api/v1/nfts/user/${currentAccount?.toLowerCase()}?sort=createdAt`
+          `/api/v1/nfts/user/${currentAccount?.toLowerCase()}?sort=createdAt`,
+          { headers: { Authorization: token } }
         );
 
         const data = response?.data?.data;

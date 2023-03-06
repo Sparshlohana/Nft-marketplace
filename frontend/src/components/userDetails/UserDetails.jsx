@@ -25,9 +25,11 @@ const UserDetails = ({ search }) => {
   const { currentAccount } = useContext(NFTMarketplaceContext);
 
   const fetchUserCollections = async () => {
+    const token = localStorage.getItem("token");
     try {
       const res = await axios.get(
-        "/api/v1/collections/user/" + currentAccount?.toLowerCase()
+        "/api/v1/collections/user/" + currentAccount?.toLowerCase(),
+        { headers: { Authorization: token } }
       );
 
       setCollections(res.data?.collections);

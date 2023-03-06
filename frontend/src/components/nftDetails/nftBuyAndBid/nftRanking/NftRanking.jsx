@@ -10,13 +10,17 @@ const NftRanking = ({ like, likes, toggleLikHandler, setLikeHandler, nft }) => {
   const { currentAccount } = useContext(NFTMarketplaceContext);
   const { id } = useParams();
 
+  const token = localStorage.getItem("token");
+
   const handleLike = async () => {
     let isLoading = false;
     if (currentAccount !== "") {
       toggleLikHandler();
       const data = { like, account: currentAccount, id };
       isLoading = true;
-      await axios.post("/api/v1/nfts/favorites", data);
+      await axios.post("/api/v1/nfts/favorites", data, {
+        headers: { Authorization: token },
+      });
       isLoading = false;
       if (!isLoading) {
         setLikeHandler(like ? likes - 1 : likes + 1);

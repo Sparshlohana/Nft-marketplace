@@ -24,6 +24,11 @@
   align-items: center;
 }
 
+.searchContainerMain {
+  width: 40%;
+  position: relative;
+}
+
 .searchBar {
   padding: 8px 15px;
   border-radius: 20px;
@@ -40,6 +45,12 @@
   width: 5%;
   position: absolute;
   right: 10px;
+  cursor: pointer;
+}
+.searchColseIcon {
+  color: black;
+  position: absolute;
+  right: 50px;
   cursor: pointer;
 }
 

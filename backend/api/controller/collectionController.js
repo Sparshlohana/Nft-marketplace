@@ -3,7 +3,6 @@ import NFT from "../models/nftSchema.js";
 import APIFeatures from "../utils/apiFeatures.js";
 
 export const createCollection = async (req, res) => {
-  console.log(req.body);
   const { collectionName, collectionDescription, image, creator, category } =
     req.body;
 
@@ -27,8 +26,16 @@ export const createCollection = async (req, res) => {
 };
 
 export const getCollection = async (req, res) => {
+  const search = req.query.search;
+
   try {
-    const collections = await Collection.find();
+    let collections = await Collection.find();
+
+    if (req.query.search) {
+      collections = await Collection.find({
+        collectionName: { $regex: search, $options: "i" },
+      });
+    }
 
     res.status(200).json({
       status: "success",
@@ -117,10 +124,18 @@ export const getNftsFromCollection = async (req, res) => {
 
 export const getCollectionsOfUser = async (req, res) => {
   const account = req.params.account;
+  const search = req.query.search;
   try {
-    const collections = await Collection.find({
+    let collections = await Collection.find({
       creator: account?.toLowerCase(),
     });
+
+    if (req.query.search) {
+      collections = await Collection.find({
+        creator: account?.toLowerCase(),
+        collectionName: { $regex: search, $options: "i" },
+      });
+    }
 
     res.status(200).json({ status: "success", collections });
   } catch (error) {

@@ -3,12 +3,10 @@ import CreateNftDataCollection from "./CreateNftDataCollection/CreateNftDataColl
 import "./createNft.css";
 import CreateCollection from "./createCollection/CreateCollection";
 import { useContext, useState } from "react";
-import ChooseCollection from "./chooseCollection/ChooseCollection";
 import { NFTMarketplaceContext } from "../../context/NFTMarketplaceContext";
 
 const CreateNft = () => {
   const [openCreateCollection, setOpenCreateCollection] = useState(false);
-  const [openChooseCollection, setOpenChooseCollection] = useState(false);
 
   const { createNFT, setError, setIsError } = useContext(NFTMarketplaceContext);
 
@@ -41,29 +39,16 @@ const CreateNft = () => {
           description={description}
           createNFT={createNFT}
         />
-      ) : openChooseCollection ? (
-        <ChooseCollection
-          collectionData={collectionData}
-          setCollectionData={setCollectionData}
-          setOpenChooseCollection={setOpenChooseCollection}
-          name={name}
-          fileType={fileType}
-          media={media}
-          price={price}
-          description={description}
-          createNFT={createNFT}
-        />
       ) : (
         <CreateNftDataCollection
           collectionData={collectionData}
           openCreateCollection={openCreateCollection}
           setOpenCreateCollection={setOpenCreateCollection}
-          openChooseCollection={openChooseCollection}
-          setOpenChooseCollection={setOpenChooseCollection}
           setMedia={setMedia}
           setName={setName}
           setFileType={setFileType}
           setPrice={setPrice}
+          setCollectionData={setCollectionData}
           setDescription={setDescription}
           name={name}
           fileType={fileType}

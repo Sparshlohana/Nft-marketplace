@@ -7,10 +7,13 @@ const CategoriesCards = ({ collection }) => {
 
   const [stats, setStats] = useState({ total: 0, avg: 0, owners: 0 });
 
+  const token = localStorage.getItem("token");
+
   const fetchSingleCollection = async () => {
     try {
-      const res = await axios.get(`/api/v1/collections/${collection?._id}`);
-      console.log(res);
+      const res = await axios.get(`/api/v1/collections/${collection?._id}`, {
+        headers: { Authorization: token },
+      });
       const total = res?.data?.total[0];
 
       setNfts(res?.data?.nfts);

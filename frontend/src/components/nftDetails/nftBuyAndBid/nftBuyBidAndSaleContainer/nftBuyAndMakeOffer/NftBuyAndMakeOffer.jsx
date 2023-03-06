@@ -18,6 +18,8 @@ const NftBuyAndMakeOffer = ({ nft, setIsPublished, isPublised }) => {
 
   const { buyNft, currentAccount } = useContext(NFTMarketplaceContext);
 
+  const token = localStorage.getItem("token");
+
   const fetchCurrentPriceOfEth = async () => {
     try {
       const inrPrice = await axios.get(
@@ -37,12 +39,16 @@ const NftBuyAndMakeOffer = ({ nft, setIsPublished, isPublised }) => {
     try {
       if (isPublised) {
         await axiosInstance.post(
-          `/api/v1/nfts/pusblishOrUnpublish/${id}?publish=false`
+          `/api/v1/nfts/pusblishOrUnpublish/${id}?publish=false`,
+          {},
+          { headers: { Authorization: token } }
         );
         setIsPublished(false);
       } else {
         await axiosInstance.post(
-          `/api/v1/nfts/pusblishOrUnpublish/${id}?publish=true`
+          `/api/v1/nfts/pusblishOrUnpublish/${id}?publish=true`,
+          {},
+          { headers: { Authorization: token } }
         );
         setIsPublished(true);
       }

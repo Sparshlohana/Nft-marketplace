@@ -3,7 +3,6 @@ import { useParams } from "react-router-dom";
 import { NFTMarketplaceContext } from "../../context/NFTMarketplaceContext";
 import axios from "../../utils/axios";
 import NftAuthorName from "../nftDetails/nftBuyAndBid/nftAuthorName/NftAuthorName";
-import NftBuyAndBidMainContainer from "../nftDetails/nftBuyAndBid/NftBuyAndBidMainContainer";
 import NftTokenName from "../nftDetails/nftBuyAndBid/nftTokenName/NftTokenName";
 import NftPhotoAndDetails from "../nftDetails/NftPhotoAndDetails/NftPhotoAndDetails";
 import NFTResellInput from "./nftResell-input/NFTResellInput";

@@ -17,6 +17,7 @@ const CreateCollection = ({
   createNFT,
 }) => {
   const { setError, setIsError } = useContext(NFTMarketplaceContext);
+  const token = localStorage.getItem("token");
 
   const onDrop = useCallback(async (acceptedFile) => {
     try {
@@ -32,6 +33,7 @@ const CreateCollection = ({
         const res = await axios.post(postUrl, formData, {
           headers: {
             "Content-Type": "multipart/form-data",
+            Authorization: token,
           },
         });
         setCollectionData({ ...collectionData, image: res?.data?.url });

@@ -13,6 +13,7 @@ import nftRoute from "./routes/nftRoutes.js";
 import userRoute from "./routes/userRoutes.js";
 import collectionRoute from "./routes/collectionRoute.js";
 
+import { verify } from "./middlewares/verifySignature.js";
 // config dotenv
 dotenv.config();
 
@@ -32,6 +33,8 @@ app.use(express.static(path.dirname(__filename) + "/nft-data/img"));
 app.use("/api/v1/nfts", nftRoute);
 app.use("/api/v1/collections", collectionRoute);
 app.use("/api/v1/users", userRoute);
+
+// app.use("/api/v1/token", authRoute);
 
 const PORT = process.env.PORT || 5000;
 

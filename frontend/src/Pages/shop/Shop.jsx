@@ -64,7 +64,7 @@ const Shop = ({ search }) => {
   }, [search]);
 
   useEffect(() => {
-    handleFilteredNfts(filter.maxPrice, filter.minPrice).then((data) =>
+    handleFilteredNfts(filter.minPrice, filter.maxPrice).then((data) =>
       setFilteredNfts(data)
     );
 

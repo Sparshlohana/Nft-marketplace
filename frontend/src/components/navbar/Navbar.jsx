@@ -4,9 +4,18 @@ import lucentLogo from "./lucentLogo.png";
 import { NFTMarketplaceContext } from "../../context/NFTMarketplaceContext";
 import { useContext } from "react";
 import { Link } from "react-router-dom";
+import Searchbar from "../searchbar/Searchbar";
+import SearchItemsContainer from "../searchItemsContainer/SearchItemsContainer";
 import { CgProfile } from "react-icons/cg";
 
-const Navbar = ({ openSidebar, setOpenSidebar, search, setSearch }) => {
+const Navbar = ({
+  openSidebar,
+  setOpenSidebar,
+  search,
+  setSearch,
+  collections,
+  nfts,
+}) => {
   const { connectWallet, currentAccount } = useContext(NFTMarketplaceContext);
 
   return (
@@ -28,22 +37,11 @@ const Navbar = ({ openSidebar, setOpenSidebar, search, setSearch }) => {
         {/* <p className="logo">LOGO</p> */}
         <img src={lucentLogo} alt="logo" className="logo"></img>
       </div>
-
-      <div className="searchContainer">
-        <input
-          type="search"
-          name="search"
-          id="search"
-          className="searchBar"
-          placeholder="Search.."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-        />
-        <img
-          src="https://cdn-icons-png.flaticon.com/512/3917/3917754.png"
-          alt=""
-          className="searchIcon"
-        />
+      <div className="searchContainerMain">
+        <Searchbar search={search} setSearch={setSearch}></Searchbar>
+        {search !== "" && (
+          <SearchItemsContainer collections={collections} nfts={nfts} />
+        )}
       </div>
       <ul className="navUl">
         <Link to="/" className="navItemsLink">

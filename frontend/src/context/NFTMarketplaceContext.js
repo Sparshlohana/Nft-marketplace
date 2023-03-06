@@ -6,6 +6,7 @@ import Web3Modal from "web3modal";
 
 import { NFTMarketplaceAddress, NFTMarketplaceABI } from "./contanst";
 import { useNavigate } from "react-router-dom";
+import { generateAuthToken } from "../utils/generateToken";
 
 export const NFTMarketplaceContext = createContext();
 
@@ -25,6 +26,13 @@ const NFTMarketplaceProvider = ({ children }) => {
     const connection = await web3modal.connect();
     const provider = new ethers.providers.Web3Provider(connection);
     return provider;
+  };
+
+  const getSigner = async () => {
+    const provider = await getProvider();
+    const signer = provider.getSigner();
+
+    return signer;
   };
 
   // fetch Contract
@@ -70,6 +78,8 @@ const NFTMarketplaceProvider = ({ children }) => {
 
   const connectWallet = async () => {
     try {
+      const signer = await getSigner();
+
       if (!window.ethereum) {
         setIsError(true);
         setError("install metamask");
@@ -80,6 +90,14 @@ const NFTMarketplaceProvider = ({ children }) => {
 
       if (accounts.length > 0) {
         setCurrentAccount(accounts[0]);
+
+        const token = await generateAuthToken(signer, accounts[0]);
+
+        await axios.post("/api/v1/users", {
+          account: accounts[0],
+        });
+
+        localStorage.setItem("token", token);
       }
       setIsSuccess(true);
       setSuccessMsg("Wallet Connected!");
@@ -104,11 +122,15 @@ const NFTMarketplaceProvider = ({ children }) => {
         setError("Missing required fields!");
       }
 
-      console.log("=======>", collectionData);
-
       const data = { name, description, media, fileType };
 
-      const response = await axios.post("/api/v1/nfts/uploadNFT", data);
+      const token = localStorage.getItem("token");
+
+      const response = await axios.post("/api/v1/nfts/uploadNFT", data, {
+        headers: {
+          Authorization: token,
+        },
+      });
 
       const url = response.data.url;
 
@@ -135,6 +157,7 @@ const NFTMarketplaceProvider = ({ children }) => {
     collectionData
   ) => {
     try {
+      const token = localStorage.getItem("token");
       if (isReselling === false) {
         const contract = await connectingWithSmartContract();
 
@@ -150,10 +173,16 @@ const NFTMarketplaceProvider = ({ children }) => {
 
         if (collectionData !== undefined || collectionData !== null) {
           if (collectionData?.created === false) {
-            const res = await axios.post("/api/v1/collections", {
-              ...collectionData,
-              creator: currentAccount?.toLowerCase(),
-            });
+            const res = await axios.post(
+              "/api/v1/collections",
+              {
+                ...collectionData,
+                creator: currentAccount?.toLowerCase(),
+              },
+              {
+                headers: { Authorization: token },
+              }
+            );
 
             collectionId = res?.data?.data?._id;
           } else {
@@ -175,7 +204,9 @@ const NFTMarketplaceProvider = ({ children }) => {
               collectionId,
             };
 
-            await axios.post("/api/v1/nfts", data);
+            await axios.post("/api/v1/nfts", data, {
+              headers: { Authorization: token },
+            });
           }
         );
 
@@ -205,9 +236,14 @@ const NFTMarketplaceProvider = ({ children }) => {
             price: Number(String(ethers.utils.formatUnits(price, "ether"))),
           };
 
-          const res = await axios.patch(
+          await axios.patch(
             `http://localhost:5000/api/v1/nfts/${tokenId}`,
-            data
+            data,
+            {
+              headers: {
+                Authorization: token,
+              },
+            }
           );
         });
 
@@ -224,131 +260,6 @@ const NFTMarketplaceProvider = ({ children }) => {
       } else {
         setError("Something went wrong while Creating NFT!");
       }
-    }
-  };
-
-  // fetch nfts
-
-  const fetchNFT = async (id) => {
-    const contract = await connectingWithSmartContract();
-
-    const {
-      tokenId,
-      seller,
-      owner,
-      price: unformattedPrice,
-    } = await contract.fetchSingleNft(id);
-
-    const tokenURI = await contract.tokenURI(tokenId);
-
-    const { data } = await axios.get(tokenURI);
-
-    const { media, name, description, fileType } = data;
-
-    const price = ethers.utils.formatUnits(
-      unformattedPrice.toString(),
-      "ether"
-    );
-
-    return {
-      price,
-      tokenId: tokenId.toNumber(),
-      seller,
-      owner,
-      media,
-      fileType,
-      name,
-      description,
-      tokenURI,
-    };
-  };
-
-  const fetchNFTs = async () => {
-    try {
-      const contract = await connectingWithSmartContract();
-
-      const data = await contract.fetchMarketItems();
-
-      const items = await Promise.all(
-        data?.map(
-          async ({ tokenId, seller, owner, price: unformattedPrice }) => {
-            const tokenURI = await contract.tokenURI(tokenId);
-
-            const { data } = await axios.get(tokenURI);
-
-            const { media, name, description, fileType } = data;
-
-            const price = ethers.utils.formatUnits(
-              unformattedPrice.toString(),
-              "ether"
-            );
-
-            return {
-              price,
-              tokenId: tokenId.toNumber(),
-              seller,
-              owner,
-              media,
-              fileType,
-              name,
-              description,
-              tokenURI,
-            };
-          }
-        )
-      );
-
-      return items;
-    } catch (error) {
-      setIsError(true);
-      setIsError("internal Server Error!");
-    }
-  };
-
-  // fetch myNfts or listed nfts
-
-  const fetchMyNFTsOrListedNFTs = async (type) => {
-    try {
-      const contract = await connectingWithSmartContract();
-
-      const data =
-        type === "fetchItemsListed"
-          ? await contract.fetchItemsListed()
-          : await contract.fetchMyNFTs();
-
-      const items = await Promise.all(
-        data.map(
-          async ({ tokenId, seller, owner, price: unformattedPrice }) => {
-            const tokenURI = await contract.tokenURI(tokenId);
-
-            const {
-              data: { media, fileType, name, description },
-            } = await axios.get(tokenURI);
-
-            const price = ethers.utils.formatUnits(
-              unformattedPrice.toString(),
-              "ether"
-            );
-
-            return {
-              tokenId: tokenId.toNumber(),
-              price,
-              media,
-              fileType,
-              description,
-              seller,
-              owner,
-              tokenURI,
-              name,
-            };
-          }
-        )
-      );
-
-      return items;
-    } catch (error) {
-      setIsError(true);
-      setIsError("internal Server Error!");
     }
   };
 
@@ -371,7 +282,13 @@ const NFTMarketplaceProvider = ({ children }) => {
           sold: true,
         };
 
-        await axios.patch(`http://localhost:5000/api/v1/nfts/${tokenId}`, data);
+        const token = localStorage.getItem("token");
+
+        await axios.patch(
+          `http://localhost:5000/api/v1/nfts/${tokenId}`,
+          data,
+          { headers: { Authorization: token } }
+        );
       });
 
       await transaction.wait();
@@ -394,7 +311,6 @@ const NFTMarketplaceProvider = ({ children }) => {
           currentAccount,
           createNFT,
           createSale,
-          fetchNFT,
           buyNft,
           setError,
           error,
@@ -405,8 +321,6 @@ const NFTMarketplaceProvider = ({ children }) => {
           setIsSuccess,
           isSuccess,
           setIsError,
-          fetchNFTs,
-          fetchMyNFTsOrListedNFTs,
         }}
       >
         {children}

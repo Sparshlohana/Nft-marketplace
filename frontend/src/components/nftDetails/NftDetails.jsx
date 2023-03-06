@@ -30,7 +30,6 @@ const NftDetails = () => {
           return false;
         }
       });
-      console.log(data.isPublished);
       setIsPublished(data.isPublished);
       setLikes(data.wishlist.length);
     } catch (error) {}

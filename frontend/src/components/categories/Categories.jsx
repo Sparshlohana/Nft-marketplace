@@ -19,7 +19,7 @@ const Categories = ({ name, img, description, menuData }) => {
         `/api/v1/collections/categories/${category}`
       );
       const data = response.data.collections;
-      console.log(data);
+
       setCollections(data);
     } catch (error) {}
   };

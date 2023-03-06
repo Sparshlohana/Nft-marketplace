@@ -3,32 +3,38 @@ import { NFTMarketplaceContext } from "../../../context/NFTMarketplaceContext";
 import "./chooseCollection.css";
 
 import { AiFillCaretDown, AiFillCaretUp } from "react-icons/ai";
-
+import Searchbar from "../../searchbar/Searchbar";
 import axios from "../../../utils/axios";
-import ChooseCollectionItems from "./chooseCollectionItems/ChooseCollectionItems";
+import ChooseSearchItems from "./chooseSearchItems/ChooseSearchItems";
 
-const ChooseCollection = ({
-  setOpenChooseCollection,
-  collectionData,
-  setCollectionData,
-  name,
-  fileType,
-  media,
-  price,
-  description,
-  createNFT,
-}) => {
-  const [openChooseCollectionItems, setOpenChooseCollectionItems] =
-    useState(false);
+const ChooseCollection = ({ collectionData, setCollectionData }) => {
+  const [search, setSearch] = useState("");
 
   const { currentAccount } = useContext(NFTMarketplaceContext);
 
   const [collections, setCollections] = useState([]);
+  const token = localStorage.getItem("token");
 
-  const fetchUsersCollection = async () => {
+  const fetchUsersSearchCollection = async () => {
     try {
       const res = await axios.get(
-        "/api/v1/collections/user/" + currentAccount?.toLowerCase()
+        `/api/v1/collections/user/${currentAccount?.toLowerCase()}?search=${search}`,
+        {
+          headers: { Authorization: token },
+        }
+      );
+
+      setCollections(res.data?.collections);
+    } catch (error) {}
+  };
+
+  const fetchUsersCollections = async () => {
+    try {
+      const res = await axios.get(
+        `/api/v1/collections/user/${currentAccount?.toLowerCase()}`,
+        {
+          headers: { Authorization: token },
+        }
       );
 
       setCollections(res.data?.collections);
@@ -37,72 +43,30 @@ const ChooseCollection = ({
 
   useEffect(() => {
     (async () => {
-      await fetchUsersCollection();
+      await fetchUsersCollections();
     })();
   }, []);
 
+  useEffect(() => {
+    (async () => {
+      await fetchUsersSearchCollection();
+    })();
+  }, [search]);
+
   return (
     <>
-      <div className="createCollectionContainerMain">
-        <div className="createCollectionContainer">
-          <div action="" className="createNftDataCollectionForm">
-            <h2 className="createNftDataCollectionFormPriceHeading">
-              Choose Collection
-            </h2>
-            <div className="ChooseCollectionItemsSelectContainer">
-              <button
-                className="ChooseCollectionItemsSelectBtn"
-                onClick={() => {
-                  setOpenChooseCollectionItems(!openChooseCollectionItems);
-                }}
-              >
-                {openChooseCollectionItems ? (
-                  <AiFillCaretUp className="arrow" />
-                ) : (
-                  <AiFillCaretDown className="arrow" />
-                )}
-                Choose Collection
-              </button>
-              {openChooseCollectionItems && (
-                <ChooseCollectionItems
-                  collections={collections}
-                  collectionData={collectionData}
-                  setCollectionData={setCollectionData}
-                />
-              )}
-            </div>
-            <div className="chooseCollectionCreateCancelBtn">
-              <button
-                className="createNftBtn chooseCollection"
-                onClick={(e) => {
-                  e.preventDefault();
+      <div className="ChooseCollectionItemsSelectContainer">
+        <Searchbar
+          title={"Find Your Collections.."}
+          search={search}
+          setSearch={setSearch}
+        ></Searchbar>
 
-                  createNFT(
-                    name,
-                    price,
-                    media,
-                    fileType,
-                    description,
-                    collectionData
-                  );
-                  setOpenChooseCollection(false);
-                }}
-              >
-                Create NFT
-              </button>
-
-              <button
-                className="createNftBtn chooseCollection"
-                onClick={(e) => {
-                  e.preventDefault();
-                  setOpenChooseCollection(false);
-                }}
-              >
-                Cancel
-              </button>
-            </div>
-          </div>
-        </div>
+        <ChooseSearchItems
+          collectionData={collectionData}
+          setCollectionData={setCollectionData}
+          collections={collections}
+        />
       </div>
     </>
   );

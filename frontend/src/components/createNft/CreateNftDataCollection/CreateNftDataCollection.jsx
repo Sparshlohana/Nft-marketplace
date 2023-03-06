@@ -1,14 +1,15 @@
 import { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { FaDropbox } from "react-icons/fa";
+import ChooseCollection from "../chooseCollection/ChooseCollection";
 
 import axios from "../../../utils/axios";
 
 const CreateNftDataCollection = ({
   openCreateCollection,
   setOpenCreateCollection,
-  setOpenChooseCollection,
-  openChooseCollection,
+  collectionData,
+  setCollectionData,
   createNFT,
   setError,
   setIsError,
@@ -23,6 +24,8 @@ const CreateNftDataCollection = ({
   price,
   description,
 }) => {
+  const token = localStorage.getItem("token");
+
   const onDrop = useCallback(async (acceptedFile) => {
     try {
       const formData = new FormData();
@@ -31,6 +34,7 @@ const CreateNftDataCollection = ({
       const url = await axios.post("/api/v1/nfts/uploadToIPFS", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
+          Authorization: token,
         },
       });
       setMedia(url.data.url);
@@ -155,6 +159,17 @@ const CreateNftDataCollection = ({
             placeholder="Royalty recipient"
           />
         </div>
+
+        <ChooseCollection
+          collectionData={collectionData}
+          setCollectionData={setCollectionData}
+          name={name}
+          fileType={fileType}
+          media={media}
+          price={price}
+          description={description}
+          createNFT={createNFT}
+        />
         <>
           <div className="createNftDataCollectionBtnContainer">
             <button
@@ -163,18 +178,20 @@ const CreateNftDataCollection = ({
             >
               Create Collection
             </button>
-            <button
-              className="createNftBtn createNftDataCollectionBtn"
-              onClick={() => setOpenChooseCollection(!openChooseCollection)}
-            >
-              Choose Collection
-            </button>
           </div>
+
           <button
             className="createNftBtn"
             onClick={(e) => {
               e.preventDefault();
-              createNFT(name, price, media, fileType, description);
+              createNFT(
+                name,
+                price,
+                media,
+                fileType,
+                description,
+                collectionData
+              );
             }}
           >
             Create NFT
