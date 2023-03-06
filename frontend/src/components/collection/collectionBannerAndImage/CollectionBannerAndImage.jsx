@@ -4,7 +4,7 @@ import CollectionProfile from "./collectionProfile/CollectionProfile";
 const CollectionBannerAndImage = ({ collection }) => {
   return (
     <div className="collectionBannerAndImageContainer">
-      <CollectionBanner />
+      <CollectionBanner banner={collection?.banner} />
       <CollectionProfile img={collection?.image} />
     </div>
   );

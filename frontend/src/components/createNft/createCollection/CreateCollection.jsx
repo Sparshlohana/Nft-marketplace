@@ -1,6 +1,8 @@
-import { useCallback, useContext } from "react";
-import { useDropzone } from "react-dropzone";
-import { FaDropbox } from "react-icons/fa";
+import { useRef } from "react";
+import { useCallback, useContext, useState } from "react";
+import Dropzone from "react-dropzone";
+
+import { BiCloudUpload } from "react-icons/bi";
 import { NFTMarketplaceContext } from "../../../context/NFTMarketplaceContext";
 import axios from "../../../utils/axios";
 import "./createCollection.css";
@@ -19,7 +21,7 @@ const CreateCollection = ({
   const { setError, setIsError } = useContext(NFTMarketplaceContext);
   const token = localStorage.getItem("token");
 
-  const onDrop = useCallback(async (acceptedFile) => {
+  const handleDrop = async (acceptedFile, type) => {
     try {
       const formData = new FormData();
       formData.append("media", acceptedFile[0]);
@@ -36,7 +38,12 @@ const CreateCollection = ({
             Authorization: token,
           },
         });
-        setCollectionData({ ...collectionData, image: res?.data?.url });
+        if (type === "image") {
+          setCollectionData({ ...collectionData, image: res?.data?.url });
+        }
+        if (type === "banner") {
+          setCollectionData({ ...collectionData, banner: res?.data?.url });
+        }
       } else if (acceptedFile[0].type.startsWith("audio")) {
         setError("audio Cant be uploaded");
         setIsError(true);
@@ -48,12 +55,9 @@ const CreateCollection = ({
       setError("Cant'upload  Nft try again ");
       setIsError(true);
     }
-  }, []);
+  };
 
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({
-    accept: "image/*, video/*, .gif",
-    onDrop,
-  });
+  console.log(collectionData);
 
   return (
     <>
@@ -64,38 +68,91 @@ const CreateCollection = ({
               <h1 className="createCollectionHeading">Create Collection</h1>
             </div>
             <div className="createCollectionInputContainer">
-              <div className="NftImgVidDisplayContainer">
-                {collectionData.image && (
-                  <img
-                    className="NftImgDisplay"
-                    src={collectionData.image}
-                    alt="Uploaded "
-                  />
-                )}
-              </div>{" "}
-              <div
-                className="createNftDataCollectionFormItemContainer"
-                {...getRootProps()}
-              >
-                <input required {...getInputProps()} />
+              {collectionData.image !== "" ? (
+                <div>
+                  <label className="dropFileHeading">Choose Image</label>
+                  <Dropzone
+                    onDrop={(acceptedFile) => handleDrop(acceptedFile, "image")}
+                  >
+                    {({ getRootProps, getInputProps }) => (
+                      <div className="dropFileContainer" {...getRootProps()}>
+                        {collectionData.image && (
+                          <>
+                            <input required {...getInputProps()} />
+                            <img
+                              className="NftImgDisplay"
+                              src={collectionData.image}
+                              alt="Uploaded "
+                            />
+                          </>
+                        )}
+                      </div>
+                    )}
+                  </Dropzone>
+                </div>
+              ) : (
+                <div className="createNftDataCollectionFormItemContainer">
+                  <label className="dropFileHeading">Choose Image</label>
+                  <Dropzone
+                    onDrop={(acceptedFile) => handleDrop(acceptedFile, "image")}
+                  >
+                    {({ getRootProps, getInputProps }) => (
+                      <div className="dropFileContainer" {...getRootProps()}>
+                        <input required {...getInputProps()} />
+                        <BiCloudUpload className="dropFileIcon" />
+                      </div>
+                    )}
+                  </Dropzone>
+                </div>
+              )}
+              {collectionData.banner !== "" ? (
+                <div>
+                  <label className="dropFileHeading">Choose Banner</label>
 
-                {isDragActive ? (
-                  <div className="dropFileContainer">
-                    <FaDropbox className="dropFileIcon" />
-                    <p className="dropYourFilePara">
-                      Choose Collection Image...
-                    </p>
-                  </div>
-                ) : (
-                  <div className="dropFileContainer">
-                    <FaDropbox className="dropFileIcon" />
-                    <p className="dropYourFilePara">
-                      {" "}
-                      Choose Collection Image...
-                    </p>
-                  </div>
-                )}
-              </div>
+                  <Dropzone
+                    onDrop={(acceptedFile) =>
+                      handleDrop(acceptedFile, "banner")
+                    }
+                  >
+                    {({ getRootProps, getInputProps }) => (
+                      <div
+                        className="dropFileBannerContainer "
+                        {...getRootProps()}
+                      >
+                        <input required {...getInputProps()} />
+                        {collectionData.banner && (
+                          <img
+                            className="NftBannerDisplay"
+                            src={collectionData.banner}
+                            alt="Uploaded "
+                          />
+                        )}
+                      </div>
+                    )}
+                  </Dropzone>
+                </div>
+              ) : (
+                <div className="createNftDataCollectionFormItemContainer">
+                  <label className="dropFileHeading">Choose Banner</label>
+
+                  <Dropzone
+                    onDrop={(acceptedFile) =>
+                      handleDrop(acceptedFile, "banner")
+                    }
+                  >
+                    {({ getRootProps, getInputProps }) => (
+                      <div
+                        className="dropFileBannerContainer"
+                        {...getRootProps()}
+                      >
+                        <input required {...getInputProps()} />
+
+                        <BiCloudUpload className="dropFileIcon" />
+                      </div>
+                    )}
+                  </Dropzone>
+                </div>
+              )}
               <div className="createNftDataCollectionFormItemContainer">
                 <h2 className="createNftDataCollectionFormPriceHeading">
                   Collection Name
@@ -119,6 +176,7 @@ const CreateCollection = ({
                   Category Name
                 </h2>
                 <select
+                  required
                   className="createNftDataCollectionFormInput"
                   onChange={(e) =>
                     setCollectionData({
@@ -196,7 +254,6 @@ const CreateCollection = ({
                 className="createNftBtn"
                 onClick={(e) => {
                   e.preventDefault();
-
                   createNFT(
                     name,
                     price,

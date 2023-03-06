@@ -3,14 +3,21 @@ import NFT from "../models/nftSchema.js";
 import APIFeatures from "../utils/apiFeatures.js";
 
 export const createCollection = async (req, res) => {
-  const { collectionName, collectionDescription, image, creator, category } =
-    req.body;
+  const {
+    collectionName,
+    collectionDescription,
+    image,
+    banner,
+    creator,
+    category,
+  } = req.body;
 
   try {
     if (
       collectionName &&
       collectionDescription &&
       image &&
+      banner &&
       creator &&
       category
     ) {
@@ -90,7 +97,7 @@ export const getNftsFromCollection = async (req, res) => {
       const allNfts = await nfts.query;
 
       const totalVolume = await NFT.aggregate([
-        { $match: { sold: false } },
+        { $match: { sold: false, isPublished: true, collectionId: id } },
         {
           $group: {
             _id: "",

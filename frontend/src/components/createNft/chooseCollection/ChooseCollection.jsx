@@ -10,6 +10,8 @@ import ChooseSearchItems from "./chooseSearchItems/ChooseSearchItems";
 const ChooseCollection = ({ collectionData, setCollectionData }) => {
   const [search, setSearch] = useState("");
 
+  const [openCollectionItems, setOpenCollectionItems] = useState(false);
+
   const { currentAccount } = useContext(NFTMarketplaceContext);
 
   const [collections, setCollections] = useState([]);
@@ -59,14 +61,18 @@ const ChooseCollection = ({ collectionData, setCollectionData }) => {
         <Searchbar
           title={"Find Your Collections.."}
           search={search}
+          openCollectionItems={openCollectionItems}
+          setOpenCollectionItems={setOpenCollectionItems}
           setSearch={setSearch}
         ></Searchbar>
 
-        <ChooseSearchItems
-          collectionData={collectionData}
-          setCollectionData={setCollectionData}
-          collections={collections}
-        />
+        {openCollectionItems && (
+          <ChooseSearchItems
+            collectionData={collectionData}
+            setCollectionData={setCollectionData}
+            collections={collections}
+          />
+        )}
       </div>
     </>
   );

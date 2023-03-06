@@ -19,6 +19,10 @@ const collectionSchema = new mongoose.Schema({
     type: String,
     required: [true, "must provide collection Image"],
   },
+  banner: {
+    type: String,
+    required: [true, "must provide a banner Image"],
+  },
   creator: {
     type: String,
     required: [true, "must provide nft creator address"],

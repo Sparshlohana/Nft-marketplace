@@ -1,11 +1,15 @@
 import "./collectionBanner.css";
 
-const CollectionBanner = () => {
+const CollectionBanner = ({ banner }) => {
   return (
     <div className="collectionBannerContainer">
       <img
         className="collectionBanner"
-        src="https://bbdu.ac.in/wp-content/uploads/2020/05/banner-background-5.jpg"
+        src={
+          banner
+            ? banner
+            : "https://bbdu.ac.in/wp-content/uploads/2020/05/banner-background-5.jpg"
+        }
         alt=""
       />
     </div>

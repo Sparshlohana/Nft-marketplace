@@ -28,12 +28,23 @@
 }
 
 .dropFileContainer {
+  margin-top: 5px;
   display: flex;
+  width: 150px;
+  height: 150px;
   justify-content: center;
   align-items: center;
   border: 1px dotted #fff;
   border-radius: 10px;
-  padding: 10px;
+  padding: 7px;
+
+  margin-bottom: 20px;
+}
+
+.dropFileHeading {
+  color: #fff;
+  font-size: 1.2rem;
+  font-weight: 400;
 }
 
 .dropFileIcon {
@@ -54,6 +65,7 @@
 .createNftDataCollectionFormPriceHeading {
   color: #fff;
   margin-bottom: 5px;
+  font-size: 1.3rem;
 }
 
 .createNftDataCollectionFormInput {
@@ -91,6 +103,7 @@
 }
 
 .NftImgDisplay {
+  object-fit: cover;
   width: 100%;
   border-radius: 10px;
   border: 1px solid #fff;

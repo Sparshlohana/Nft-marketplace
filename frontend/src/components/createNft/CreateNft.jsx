@@ -20,6 +20,7 @@ const CreateNft = () => {
     collectionName: "",
     collectionDescription: "",
     image: "",
+    banner: "",
     category: "",
     created: false,
   });

@@ -1,9 +1,18 @@
 import React from "react";
 import { CgClose } from "react-icons/cg";
 
-const Searchbar = ({ search, setSearch, title }) => {
+const Searchbar = ({
+  search,
+  setSearch,
+  title,
+  openCollectionItems,
+  setOpenCollectionItems,
+}) => {
   return (
-    <div className="searchContainer">
+    <div
+      className="searchContainer"
+      onClick={() => setOpenCollectionItems(!openCollectionItems)}
+    >
       <input
         type="search"
         name="search"

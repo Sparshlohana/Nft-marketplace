@@ -16,7 +16,7 @@ import CollectionPage from "./Pages/collectionPage/CollectionPage";
 import HomePage from "./Pages/homePage/HomePage";
 import ResellNftPage from "./Pages/resellNftPage/ResellNftPage";
 import UserDetailPage from "./Pages/userDetailPage/UserDetailPage";
-import SearchItemsContainer from "./components/searchItemsContainer/SearchItemsContainer";
+import useDebounce from "./utils/debounce";
 
 function App() {
   const [openSidebar, setOpenSidebar] = useState(false);
@@ -24,16 +24,8 @@ function App() {
   const [collections, setCollections] = useState([]);
   const [nfts, setNfts] = useState([]);
 
-  const [show, setShow] = useState(true);
-
-  const {
-    checkIfWalletIsConnected,
-    currentAccount,
-    isSuccess,
-    success,
-    error,
-    isError,
-  } = useContext(NFTMarketplaceContext);
+  const { checkIfWalletIsConnected, isSuccess, success, error, isError } =
+    useContext(NFTMarketplaceContext);
 
   const fetchSearchData = async () => {
     const token = localStorage.getItem("token");
@@ -54,26 +46,18 @@ function App() {
   };
 
   useEffect(() => {
-    const timeId = setTimeout(() => {
-      setShow(false);
-    }, 3000);
-
-    return () => {
-      clearTimeout(timeId);
-    };
-  }, []);
-
-  useEffect(() => {
     (async () => {
       await checkIfWalletIsConnected();
     })();
   });
 
-  useEffect(() => {
-    setTimeout(async () => {
+  useDebounce(
+    () => {
       fetchSearchData();
-    }, 2000);
-  }, [search]);
+    },
+    [search],
+    3000
+  );
 
   return (
     <div className="App">
@@ -87,8 +71,8 @@ function App() {
       />
 
       {openSidebar && <NavSideBar />}
-      {isError && show ? <ErrorHandler msg={error} /> : null}
-      {isSuccess && show ? <SuccessHandler msg={success} /> : null}
+      {isError ? <ErrorHandler msg={error} /> : null}
+      {isSuccess ? <SuccessHandler msg={success} /> : null}
       <Routes>
         <Route path="/" element={<HomePage />}></Route>
 
