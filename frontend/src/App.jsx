@@ -103,7 +103,7 @@ function App() {
           element={<CollectionPage search={search} setSearch={setSearch} />}
         ></Route>
 
-        <Route path="/profile/edit" element={<ProfilePage />}></Route>
+        <Route path="/user/edit" element={<ProfilePage />}></Route>
       </Routes>
       <FooterContainer />
     </div>

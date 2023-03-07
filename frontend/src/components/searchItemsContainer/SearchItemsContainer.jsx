@@ -3,9 +3,10 @@ import { Link } from "react-router-dom";
 import "./searchItemsContainer.css";
 
 const SearchItemsContainer = ({ collections, nfts }) => {
+  console.log(collections.length);
   return (
     <div className="searchItemsContainer">
-      {collections?.length > 0 && (
+      {collections?.length > 0 ? (
         <div>
           <h5 className="searchItemsContainerHeading">Collectinons</h5>
           <div className="searchItem">
@@ -26,6 +27,15 @@ const SearchItemsContainer = ({ collections, nfts }) => {
                 </div>
               </Link>
             ))}
+          </div>
+        </div>
+      ) : (
+        <div>
+          <div
+            className="searchItem"
+            style={{ color: "gray", textAlign: "center" }}
+          >
+            <p>No Result Found!</p>
           </div>
         </div>
       )}

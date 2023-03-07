@@ -6,7 +6,6 @@ import UserDetailJoiningDate from "./userDetailJoiningDate/UserDetailJoiningDate
 import UserNftCollectionAndCreationBtnContainer from "./userNftCollectionAndCreationBtnContainer/UserNftCollectionAndCreationBtnContainer";
 import UserNftCollectionContainer from "./userNftCollectionContainer/UserNftCollectionContainer";
 import UserSocialMedia from "./userSocialMedia/UserSocialMedia";
-import CategoriesCardContainer from "../categories/categoriesCardContainer/CategoriesCardContainer";
 import { NFTMarketplaceContext } from "../../context/NFTMarketplaceContext";
 
 import axios from "../../utils/axios";
