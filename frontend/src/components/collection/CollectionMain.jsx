@@ -118,8 +118,8 @@ const CollectionMain = ({ search }) => {
       <CollectionBannerAndImage collection={collection} />
       <CollectionHeading collection={collection} />
       <CollectionOwner collection={collection} />
-      <CollectionItems collection={collection} nfts={nfts} />
       <CollectionDescription collection={collection} />
+      <CollectionItems collection={collection} nfts={nfts} />
       <CollectionSpecification stats={stats} />
       <CollectionNftsSectionContainer
         setOpenSort={setOpenSort}

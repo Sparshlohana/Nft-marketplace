@@ -1,13 +1,16 @@
 import ProfileHeading from "./profileHeading/ProfileHeading";
 import "./profileContainer.css";
 import ProfileForm from "./profileForm/ProfileForm";
+import ProfileBannerAndPhoto from "./profileBannerAndPhoto/ProfileBannerAndPhoto";
 
 const ProfileContainer = () => {
   return (
-    <div className="profileContainer">
-      <ProfileHeading />
-      <ProfileForm />
-    </div>
+    <>
+      <ProfileBannerAndPhoto />
+      <div className="profileContainer">
+        <ProfileForm />
+      </div>
+    </>
   );
 };
 
