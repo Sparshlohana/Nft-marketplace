@@ -6,6 +6,7 @@ import { AiFillCaretDown, AiFillCaretUp } from "react-icons/ai";
 import Searchbar from "../../searchbar/Searchbar";
 import axios from "../../../utils/axios";
 import ChooseSearchItems from "./chooseSearchItems/ChooseSearchItems";
+import useDebounce from "../../../utils/debounce";
 
 const ChooseCollection = ({ collectionData, setCollectionData }) => {
   const [search, setSearch] = useState("");
@@ -15,7 +16,7 @@ const ChooseCollection = ({ collectionData, setCollectionData }) => {
   const { currentAccount } = useContext(NFTMarketplaceContext);
 
   const [collections, setCollections] = useState([]);
-  const token = localStorage.getItem("token");
+  const token = sessionStorage.getItem("token");
 
   const fetchUsersSearchCollection = async () => {
     try {
@@ -55,10 +56,23 @@ const ChooseCollection = ({ collectionData, setCollectionData }) => {
     })();
   }, [search]);
 
+  useDebounce(
+    async () => {
+      await fetchUsersSearchCollection();
+    },
+    [search],
+    800
+  );
+
   return (
     <>
       <div className="ChooseCollectionItemsSelectContainer">
         <Searchbar
+          background={"#1c1c1c"}
+          color={"#fff"}
+          marginTop={"15px"}
+          borderRadius={"0"}
+          borderBottom={"1px solid white"}
           title={"Find Your Collections.."}
           search={search}
           openCollectionItems={openCollectionItems}

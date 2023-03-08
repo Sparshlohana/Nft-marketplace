@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import "./searchItemsContainer.css";
 
 const SearchItemsContainer = ({ collections, nfts }) => {
-  console.log(collections.length);
   return (
     <div className="searchItemsContainer">
       {collections?.length > 0 ? (

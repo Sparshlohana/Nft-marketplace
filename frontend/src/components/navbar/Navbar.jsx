@@ -41,6 +41,7 @@ const Navbar = ({
       </div>
       <div className="searchContainerMain">
         <Searchbar
+          title={"Search items and collections"}
           search={search}
           openCollectionItems={openCollectionItems}
           setOpenCollectionItems={setOpenCollectionItems}

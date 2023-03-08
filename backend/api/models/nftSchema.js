@@ -56,33 +56,15 @@ const nftSchema = new mongoose.Schema(
     },
     slug: String,
 
-    // duration: {
-    //   type: String,
-    //   required: [true, "must provide a duration"],
-    // },
-
-    // priceDiscount: { type: Number, default: 0 },
-
-    // imageCover: {
-    //   type: String,
-    //   required: [true, "must provide a cover image"],
-    // },
-
     createdAt: {
       type: Date,
       default: Date.now(),
     },
-
-    // startDates: [Date],
   },
   {
     toJSON: { virtuals: true },
   }
 );
-
-// nftSchema.virtual("durationWeeks").get(function () {
-//   return Math.floor(this.duration / 7);
-// });
 
 nftSchema.pre("save", function (next) {
   this.slug = slugify(this.name, { lower: true });
@@ -92,9 +74,3 @@ nftSchema.pre("save", function (next) {
 const NFT = mongoose.model("NFT", nftSchema);
 
 export default NFT;
-
-// const collectionSchema = new mongoose.Schema({
-//   name: {
-//     type: "String",
-//   },
-// });

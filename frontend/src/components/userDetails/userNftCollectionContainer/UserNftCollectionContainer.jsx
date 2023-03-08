@@ -1,17 +1,20 @@
-import axios from "../../../utils/axios";
 import { useContext, useEffect, useState } from "react";
+import { NFTMarketplaceContext } from "../../../context/NFTMarketplaceContext";
+import axios from "../../../utils/axios";
+import CategoriesCardContainer from "../../categories/categoriesCardContainer/CategoriesCardContainer";
 import FilterButton from "../../filterButton/FilterButton";
 import FilterContainer from "../../filterContainer/FilterContainer";
 import NftCardsContainerMain from "../../nftCardsContainerMain/NftCardsContainerMain";
 import SortByContainer from "../../sortByContainer/SortByContainer";
-import { NFTMarketplaceContext } from "../../../context/NFTMarketplaceContext";
-import CategoriesCardContainer from "../../categories/categoriesCardContainer/CategoriesCardContainer";
 
 const UserNftCollectionContainer = ({
   active,
   search,
   created,
   setCollected,
+
+  isPublised,
+  setIsPublished,
   setCreated,
   collected,
   favorites,
@@ -21,7 +24,7 @@ const UserNftCollectionContainer = ({
   const [openSort, setOpenSort] = useState(false);
   const [openFilter, setOpenFilter] = useState(false);
 
-  const { currentAccount } = useContext(NFTMarketplaceContext);
+  const { currentAccount, random } = useContext(NFTMarketplaceContext);
 
   const [filter, setFilter] = useState({
     minPrice: 0,
@@ -29,7 +32,7 @@ const UserNftCollectionContainer = ({
     currency: null,
   });
 
-  const token = localStorage.getItem("token");
+  const token = sessionStorage.getItem("token");
   const [sort, setSort] = useState(null);
 
   const [collectedFilteredNfts, setCollectedFilteredNfts] = useState([]);
@@ -137,7 +140,7 @@ const UserNftCollectionContainer = ({
 
   useEffect(() => {
     fetchUsersNFTsFromApi(currentAccount);
-  }, [currentAccount, active]);
+  }, [currentAccount, active, random]);
 
   useEffect(() => {
     handleFilteredNfts(filter);

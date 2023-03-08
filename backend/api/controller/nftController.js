@@ -1,5 +1,5 @@
 import NFT from "../models/nftSchema.js";
-
+import NFTLOGS from "../models/nftLogsModel.js";
 import APIFeatures from "../utils/apiFeatures.js";
 import dotenv from "dotenv";
 import axios from "axios";
@@ -26,10 +26,45 @@ const client = IPFS.create({
 });
 
 export const aliasTopNFTs = (req, res, next) => {
-  req.query.limit = "5";
-  req.query.sort = "-ratingsAverage,price";
-  req.query.fields = "name,price,ratingsAverage,difficulty";
+  req.query.limit = "15";
+  req.query.sort = "-createdAt,price";
   next();
+};
+
+export const addNftLog = async (req, res) => {
+  const { seller, owner, price, _id, status } = req.body;
+
+  try {
+    if (seller && owner && price && _id) {
+      const log = await NFTLOGS.create({
+        seller,
+        owner,
+        price,
+        nftId: _id,
+        status,
+      });
+      res
+        .status(200)
+        .json({ status: "success", message: "logs created successfully" });
+    } else {
+      res.status(400).json({ status: "failed", message: "missing data" });
+    }
+  } catch (error) {
+    res
+      .status(500)
+      .json({ status: "failed", message: "internal server error" });
+  }
+};
+
+export const getLogs = async (req, res) => {
+  try {
+    const logs = await NFTLOGS.find();
+    res.status(200).json({ status: "success", logs, result: logs.length });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ status: "failed", message: "Internal Server error" });
+  }
 };
 
 export const getAllNFTs = async (req, res) => {
@@ -218,7 +253,7 @@ export const updateNFT = async (req, res) => {
       sold: req.body?.sold,
     };
 
-    const updatedNft = await NFT.updateOne({ tokenId }, data, {
+    const updatedNft = await NFT.findOneAndUpdate({ tokenId }, data, {
       new: true,
       runValidators: true,
     });
@@ -250,6 +285,50 @@ export const deleteNFT = async (req, res) => {
     });
   } catch (error) {
     res.status(400).json({
+      status: "fail",
+      message: error.message,
+    });
+  }
+};
+
+export const getTopFavoriteNfts = async (req, res) => {
+  const likes = req.query.likes;
+
+  try {
+    const stats = await NFT.aggregate([
+      {
+        $addFields: {
+          arrayLength: { $size: "$wishlist" },
+        },
+      },
+      {
+        $match: {
+          sold: false,
+          isPublished: true,
+          arrayLength: { $gte: Number(likes) },
+        },
+      },
+      // {
+      //   $group: {
+      //     _id: { $toUpper: "$difficulty" },
+      //     numNft: { $sum: 1 },
+      //     numRatings: { $sum: "ratingsQuantity" },
+      //     avgRating: { $avg: "$ratingsAverage" },
+      //     avgPrice: { $avg: "$price" },
+      //     minPrice: { $min: "$price" },
+      //     maxPrice: { $max: "$price" },
+      //   },
+      // },
+      // { $sort: { ratingsAverage: 1 } },
+    ]);
+
+    res.status(200).json({
+      status: "success",
+      result: stats.length,
+      data: { stats },
+    });
+  } catch (error) {
+    res.status(404).json({
       status: "fail",
       message: error.message,
     });
@@ -395,17 +474,26 @@ export const likeOrDislike = async (req, res) => {
         { _id: id },
         { $pull: { wishlist: accountIdInLowercase } }
       );
-      res
-        .status(200)
-        .json({ status: "success", message: "post disliked successfully" });
+
+      const nftPost = await NFT.findOne({ _id: id });
+      res.status(200).json({
+        status: "success",
+        message: "post disliked successfully",
+        count: nftPost.wishlist.length,
+      });
     } else {
       await NFT.updateOne(
         { _id: id },
         { $push: { wishlist: accountIdInLowercase } }
       );
-      res
-        .status(200)
-        .json({ status: "success", message: "post liked successfully" });
+
+      const nftPost = await NFT.findOne({ _id: id });
+
+      res.status(200).json({
+        status: "success",
+        message: "post liked successfully",
+        count: nftPost.wishlist.length,
+      });
     }
   } catch (e) {
     res.status(400).json({ status: "fail", message: "something gone wrong" });

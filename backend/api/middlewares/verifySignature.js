@@ -13,8 +13,7 @@ export const verify = async (req, res, next) => {
     }
 
     const { address, body } = Web3Token.verify(token);
-
-    req.user = await User.findOne({ address });
+    req.user = await User.findOne({ account: address });
 
     next();
   } catch (error) {}

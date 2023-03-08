@@ -1,11 +1,28 @@
 import "./profileBanner.css";
 
-const ProfileBanner = () => {
+import { useDropzone } from "react-dropzone";
+import { useCallback } from "react";
+
+const ProfileBanner = ({ handleDrop, userDetails }) => {
+  const onDrop = useCallback(async (acceptedFile) => {
+    handleDrop(acceptedFile, "banner");
+  });
+
+  const { getRootProps, getInputProps } = useDropzone({
+    accept: "image,gif,avif",
+    onDrop,
+  });
+
   return (
-    <div className="profileBannerContainer">
+    <div className="profileBannerContainer" {...getRootProps()}>
+      <input type={"hidden"} {...getInputProps()}></input>
       <img
         className="profileBanner"
-        src="https://cdn.pixabay.com/photo/2015/11/19/08/52/banner-1050629__340.jpg"
+        src={
+          userDetails.banner
+            ? userDetails.banner
+            : "https://wallpapercave.com/wp/wp5281122.jpg"
+        }
         alt=""
       />
     </div>

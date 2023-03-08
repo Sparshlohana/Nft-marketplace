@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import CollectionBannerAndImage from "./collectionBannerAndImage/CollectionBannerAndImage";
 import CollectionDescription from "./collectionDescription/CollectionDescription";
@@ -8,6 +8,7 @@ import axios from "../../utils/axios";
 import CollectionOwner from "./collectionOwner/CollectionOwner";
 import CollectionSpecification from "./collectionSpecification/CollectionSpecification";
 import CollectionNftsSectionContainer from "./collectionNftsSectionContainer/CollectionNftsSectionContainer";
+import { NFTMarketplaceContext } from "../../context/NFTMarketplaceContext";
 
 const CollectionMain = ({ search }) => {
   const { id } = useParams();
@@ -15,6 +16,8 @@ const CollectionMain = ({ search }) => {
   const [sort, setSort] = useState(null);
 
   const [filteredNfts, setFilteredNfts] = useState([]);
+
+  const { random } = useContext(NFTMarketplaceContext);
 
   const [openSort, setOpenSort] = useState(false);
   const [openFilter, setOpenFilter] = useState(false);
@@ -103,7 +106,7 @@ const CollectionMain = ({ search }) => {
     (async () => {
       await fetchSingleCollection();
     })();
-  }, [nfts]);
+  }, [random]);
 
   useEffect(() => {
     handleFilteredNfts(filter);

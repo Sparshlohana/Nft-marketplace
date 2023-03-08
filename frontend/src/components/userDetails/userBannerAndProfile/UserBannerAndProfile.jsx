@@ -2,11 +2,11 @@ import React from "react";
 import UserBanner from "./userBanner/UserBanner";
 import UserProfile from "./userProfile/UserProfile";
 
-const UserBannerAndProfile = () => {
+const UserBannerAndProfile = ({ userDetails }) => {
   return (
     <div className="userBannerAndProfileContainer">
-      <UserBanner />
-      <UserProfile />
+      <UserBanner userDetails={userDetails} />
+      <UserProfile userDetails={userDetails} />
     </div>
   );
 };

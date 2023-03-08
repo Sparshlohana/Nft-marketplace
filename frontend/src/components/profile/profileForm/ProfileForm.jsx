@@ -1,8 +1,39 @@
+import { useContext } from "react";
 import { FaTwitter, FaInstagram } from "react-icons/fa";
+import { MdOutlineContentCopy } from "react-icons/md";
+import { NFTMarketplaceContext } from "../../../context/NFTMarketplaceContext";
 import ProfileHeading from "../profileHeading/ProfileHeading";
+import axios from "../../../utils/axios";
 import "./profileForm.css";
+import { useNavigate } from "react-router-dom";
 
-const ProfileForm = () => {
+const ProfileForm = ({ userDetails, setUserDetails }) => {
+  const token = sessionStorage.getItem("token");
+
+  const { currentAccount, setIsSuccess, setSuccessMsg } = useContext(
+    NFTMarketplaceContext
+  );
+  const navigate = useNavigate();
+
+  const handleProfile = async () => {
+    try {
+      await axios.patch(
+        "/api/v1/users/" + currentAccount.toLowerCase(),
+        { ...userDetails, account: currentAccount.toLowerCase() },
+        {
+          headers: { Authorization: token },
+        }
+      );
+
+      setIsSuccess(true);
+      setTimeout(() => {
+        setIsSuccess(false);
+      }, 3000);
+      setSuccessMsg("Profile updated Successfully!");
+      navigate("/user");
+    } catch (error) {}
+  };
+
   return (
     <>
       <div className="profileFormContainerMain">
@@ -17,6 +48,10 @@ const ProfileForm = () => {
               autocomplete="off"
               type="text"
               placeholder="Username..."
+              value={userDetails.username}
+              onChange={(e) =>
+                setUserDetails({ ...userDetails, username: e.target.value })
+              }
               className="profileFormContainerInput"
             />
           </div>
@@ -32,6 +67,10 @@ const ProfileForm = () => {
               name="profileFormContainerInput"
               placeholder="Bio..."
               id=""
+              value={userDetails.bio}
+              onChange={(e) =>
+                setUserDetails({ ...userDetails, bio: e.target.value })
+              }
               cols="21"
               rows="5"
             ></textarea>
@@ -47,6 +86,10 @@ const ProfileForm = () => {
               autocomplete="off"
               type="email"
               name=""
+              value={userDetails.email}
+              onChange={(e) =>
+                setUserDetails({ ...userDetails, email: e.target.value })
+              }
               placeholder="Email..."
               className="profileFormContainerInput"
               id=""
@@ -112,19 +155,45 @@ const ProfileForm = () => {
             <div className="profileFormItemHeadingContainer">
               <p className="profileFormItemHeading">Wallet Address</p>
             </div>
-            <div className="profileFormContainerInputContainer">
+            <div
+              className="profileFormContainerInput"
+              style={{ display: "flex", justifyContent: "space-between" }}
+            >
               <input
+                style={{
+                  fontSize: "14px",
+                  width: "100%",
+
+                  border: "none",
+                  color: "white",
+                  outline: "none",
+                  background: "#1a1a1a",
+                  "&:hover": {
+                    background: "#292929",
+                  },
+                }}
+                value={currentAccount.toLowerCase()}
                 autocomplete="off"
                 type="text"
-                className="profileFormContainerInput"
                 readOnly
-              />
+              ></input>
+              <MdOutlineContentCopy
+                onClick={(e) =>
+                  navigator.clipboard.writeText(currentAccount.toLowerCase())
+                }
+                style={{ color: "white", cursor: "pointer" }}
+              ></MdOutlineContentCopy>
             </div>
           </div>
         </div>
 
         <div className="profileSaveBtnContainer">
-          <button className="profileSaveBtn">Save</button>
+          <button
+            className="profileSaveBtn"
+            onClick={async () => await handleProfile()}
+          >
+            Save
+          </button>
         </div>
       </div>
     </>

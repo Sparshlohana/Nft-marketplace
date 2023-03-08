@@ -1,9 +1,11 @@
 import "./userBio.css";
 
-const UserBio = () => {
+const UserBio = ({ userDetails }) => {
   return (
     <div className="userBioContainer">
-      <p className="userBio">Myself Deep</p>
+      <p className="userBio" style={{ fontSize: "1rem" }}>
+        {userDetails?.bio}
+      </p>
     </div>
   );
 };

@@ -13,6 +13,8 @@ import axios from "../../utils/axios";
 const UserDetails = ({ search }) => {
   const [active, setActive] = useState(1);
 
+  const [userDetails, setUserDetails] = useState(null);
+
   const [collected, setCollected] = useState([]);
 
   const [created, setCreated] = useState([]);
@@ -21,10 +23,11 @@ const UserDetails = ({ search }) => {
 
   const [collections, setCollections] = useState([]);
 
-  const { currentAccount } = useContext(NFTMarketplaceContext);
+  const { currentAccount, random } = useContext(NFTMarketplaceContext);
+
+  const token = sessionStorage.getItem("token");
 
   const fetchUserCollections = async () => {
-    const token = localStorage.getItem("token");
     try {
       const res = await axios.get(
         "/api/v1/collections/user/" + currentAccount?.toLowerCase(),
@@ -35,19 +38,28 @@ const UserDetails = ({ search }) => {
     } catch (error) {}
   };
 
+  const fetchUserDetails = async () => {
+    const res = await axios.get(
+      "/api/v1/users/" + currentAccount?.toLowerCase(),
+      { headers: { Authorization: token } }
+    );
+    setUserDetails(res.data?.user);
+  };
+
   useEffect(() => {
     (async () => {
+      fetchUserDetails();
       fetchUserCollections();
     })();
-  }, [currentAccount, active]);
+  }, [currentAccount, active, random]);
 
   return (
     <div className="UserDetailsContainerMain">
-      <UserBannerAndProfile />
-      <UserDetailHeading />
-      <UserSocialMedia />
-      <UserDetailJoiningDate />
-      <UserBio />
+      <UserBannerAndProfile userDetails={userDetails} />
+      <UserDetailHeading userDetails={userDetails} />
+      <UserSocialMedia userDetails={userDetails} />
+      <UserDetailJoiningDate userDetails={userDetails} />
+      <UserBio userDetails={userDetails} />
       <UserNftCollectionAndCreationBtnContainer
         active={active}
         created={created.length}

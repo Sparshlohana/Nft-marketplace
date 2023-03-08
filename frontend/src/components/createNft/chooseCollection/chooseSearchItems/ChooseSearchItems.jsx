@@ -1,13 +1,9 @@
 import React from "react";
 import "./chooseSearchItems.css";
 
-const ChooseSearchItems = ({
-  collections,
-  collectionData,
-  setCollectionData,
-}) => (
+const ChooseSearchItems = ({ collections, setCollectionData }) => (
   <div className="chooseSearchItemsContainer">
-    {collections?.length > 0 && (
+    {collections?.length > 0 ? (
       <div>
         <h5 className="searchItemsContainerHeading">Your Collectinons</h5>
         <div className="searchItem">
@@ -36,6 +32,13 @@ const ChooseSearchItems = ({
             </div>
           ))}
         </div>
+      </div>
+    ) : (
+      <div
+        className="searchItem"
+        style={{ color: "gray", textAlign: "center" }}
+      >
+        <p>No Result Found!</p>
       </div>
     )}
   </div>

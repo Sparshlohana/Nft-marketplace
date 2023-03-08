@@ -20,6 +20,7 @@
 .favoritesContainer {
   display: flex;
   width: 20%;
+  cursor: pointer;
   justify-content: center;
   align-items: center;
   border: 1px solid #fff;
@@ -50,6 +51,7 @@
   }
   .favoritesContainer {
     width: 30%;
+    cursor: pointer;
   }
 }
 
