@@ -9,7 +9,6 @@ const HomeContainerMain = () => {
     <div className="homeContainerMain">
       <HomeCarousel />
       <HomeCategoriesContainer />
-      <hr className="homeContainerHr" />
       {/* <HomeTrendingCollection />
       <hr className="homeContainerHr" /> */}
       <PriceUnderContainer />

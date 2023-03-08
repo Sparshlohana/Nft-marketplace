@@ -2,13 +2,25 @@
   margin-top: 10px;
   margin-bottom: 20px;
   display: flex;
-  flex-wrap: wrap;
+  overflow-x: scroll;
+  height: 32vh;
+}
+
+.homeCategoriesContainer::-webkit-scrollbar {
+  height: 3px;
+}
+
+.homeCategoriesContainer::-webkit-scrollbar-track {
+  background: #ffffff3f;
+}
+
+.homeCategoriesContainer::-webkit-scrollbar-thumb {
+  border-radius: 10px;
 }
 
 .homeCategoriesCards {
-  width: 30%;
-  height: 100%;
-  height: 20vh;
+  width: 300px;
+  height: 25vh;
   border-radius: 10px;
   margin: 10px;
   cursor: pointer;
@@ -16,7 +28,7 @@
 
 .homeCategoriesCardImageContainer {
   height: 100%;
-  width: 100%;
+  width: 300px;
 }
 
 .homeCategoriesCardImage {
@@ -37,7 +49,7 @@
   font-size: 1.2rem;
 }
 
-@media (max-width: 630px) {
+/* @media (max-width: 630px) {
   .homeCategoriesCards {
     width: 27%;
   }
@@ -65,4 +77,4 @@
     width: 26%;
     height: 13vh;
   }
-}
+} */

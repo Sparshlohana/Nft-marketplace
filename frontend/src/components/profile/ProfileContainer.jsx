@@ -1,4 +1,3 @@
-import ProfileHeading from "./profileHeading/ProfileHeading";
 import "./profileContainer.css";
 import ProfileForm from "./profileForm/ProfileForm";
 import ProfileBannerAndPhoto from "./profileBannerAndPhoto/ProfileBannerAndPhoto";

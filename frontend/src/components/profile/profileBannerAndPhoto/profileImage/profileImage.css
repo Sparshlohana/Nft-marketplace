@@ -1,6 +1,7 @@
 .profileImageContainer {
   width: 10%;
   height: 20vh;
+  position: relative;
 }
 
 .profileImage {
@@ -10,4 +11,16 @@
   border-radius: 50%;
   border: 1px solid #fff;
   object-fit: cover;
+  position: relative;
+}
+
+.profileImageEditIcon {
+  color: #fff;
+  font-size: 2.5rem;
+  transform: translate(260px, -150px);
+  right: 0;
+  border: 1px solid rgb(255, 255, 255);
+  border-radius: 50%;
+  padding: 5px;
+  background: #0a0a0a73;
 }
