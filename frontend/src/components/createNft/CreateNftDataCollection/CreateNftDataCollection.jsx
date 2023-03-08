@@ -24,7 +24,7 @@ const CreateNftDataCollection = ({
   price,
   description,
 }) => {
-  const token = localStorage.getItem("token");
+  const token = sessionStorage.getItem("token");
 
   const onDrop = async (acceptedFile) => {
     try {
@@ -52,6 +52,10 @@ const CreateNftDataCollection = ({
     } catch (error) {
       setError("Cant'upload  Nft try again ");
       setIsError(true);
+
+      setTimeout(() => {
+        setIsError(false);
+      }, 5000);
     }
   };
 

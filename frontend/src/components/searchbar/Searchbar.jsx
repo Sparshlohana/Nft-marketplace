@@ -1,19 +1,32 @@
 import React from "react";
 import { CgClose } from "react-icons/cg";
+import { BiSearch } from "react-icons/bi";
 
 const Searchbar = ({
   search,
   setSearch,
   title,
+  marginTop,
+  color,
+  borderRadius,
+  background,
+  borderBottom,
   openCollectionItems,
   setOpenCollectionItems,
 }) => {
   return (
     <div
-      className="searchContainer"
+      className="searchContainer "
       onClick={() => setOpenCollectionItems(!openCollectionItems)}
     >
       <input
+        style={{
+          marginTop: marginTop && marginTop,
+          background: background,
+          color: color,
+          borderRadius: borderRadius && borderRadius,
+          borderBottom: borderBottom && borderBottom,
+        }}
         autocomplete="off"
         type="search"
         name="search"
@@ -25,15 +38,17 @@ const Searchbar = ({
       />
       {search !== "" && (
         <CgClose
+          style={{ color: color && color }}
           className="searchColseIcon"
           onClick={() => setSearch("")}
         ></CgClose>
       )}
-      <img
-        src="https://cdn-icons-png.flaticon.com/512/3917/3917754.png"
-        alt=""
-        className="searchIcon"
-      />
+      <div>
+        <BiSearch
+          className="searchIcon"
+          style={{ color: color && color }}
+        ></BiSearch>
+      </div>
     </div>
   );
 };

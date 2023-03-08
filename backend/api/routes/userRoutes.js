@@ -5,13 +5,17 @@ import {
   updateUser,
   deleteUser,
 } from "../controller/userController.js";
-
+import { verify } from "../middlewares/verifySignature.js";
 import express from "express";
 
 const router = express.Router();
 
-router.route("/").get(getAllUsers).post(createUser);
+router.patch("/:account", verify, updateUser);
 
-router.route("/:id").get(getSingleUser).patch(updateUser).delete(deleteUser);
+router.get("/:account", getSingleUser);
+
+router.get("/", getAllUsers);
+router.post("/", verify, createUser);
+router.delete("/", verify, deleteUser);
 
 export default router;

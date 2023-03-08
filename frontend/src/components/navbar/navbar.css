@@ -42,11 +42,15 @@
 }
 
 .searchIcon {
+  font-size: 1.4rem;
   width: 5%;
   position: absolute;
+  color: black;
+  bottom: 10%;
   right: 10px;
   cursor: pointer;
 }
+
 .searchColseIcon {
   color: black;
   position: absolute;

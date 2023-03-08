@@ -11,8 +11,10 @@ import { FaRegHandshake } from "react-icons/fa";
 const NftCard = ({ nft, filter }) => {
   const [price, setPrice] = useState(nft?.price + " ETH ");
 
-  const { buyNft, currentAccount } = useContext(NFTMarketplaceContext);
-  const token = localStorage.getItem("token");
+  const { buyNft, currentAccount, setRandom } = useContext(
+    NFTMarketplaceContext
+  );
+  const token = sessionStorage.getItem("token");
 
   const [isPublised, setIsPublished] = useState(nft.isPublised);
 
@@ -22,13 +24,13 @@ const NftCard = ({ nft, filter }) => {
         const inrPrice = await axios.get(
           "https://api.coinconvert.net/convert/eth/inr?amount=" + nft?.price
         );
-        setPrice("₹ " + Math.floor(inrPrice?.data?.INR) + " INR ");
+        setPrice("₹ " + Math.floor(inrPrice?.data?.INR));
       } else if (filter?.currency === "USD") {
         const usdPrice = await axios.get(
           "https://api.coinconvert.net/convert/eth/usd?amount=" + nft?.price
         );
 
-        setPrice("$ " + usdPrice?.data?.USD + " USD ");
+        setPrice("$ " + usdPrice?.data?.USD);
       } else {
         setPrice(nft?.price + " ETH ");
       }
@@ -43,7 +45,9 @@ const NftCard = ({ nft, filter }) => {
           {},
           { headers: { Authorization: token } }
         );
+
         setIsPublished(false);
+        setRandom(Math.random() * 600000);
       } else {
         await axiosInstance.post(
           `/api/v1/nfts/pusblishOrUnpublish/${nft?._id}?publish=true`,
@@ -51,9 +55,11 @@ const NftCard = ({ nft, filter }) => {
           { headers: { Authorization: token } }
         );
         setIsPublished(true);
+        setRandom(Math.random() * 600000);
       }
     } catch (error) {}
   };
+
   useEffect(() => {
     setIsPublished(nft.isPublished);
   }, []);

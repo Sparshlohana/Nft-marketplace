@@ -1,5 +1,4 @@
-import { useRef } from "react";
-import { useCallback, useContext, useState } from "react";
+import { useContext } from "react";
 import Dropzone from "react-dropzone";
 
 import { BiCloudUpload } from "react-icons/bi";
@@ -19,7 +18,7 @@ const CreateCollection = ({
   createNFT,
 }) => {
   const { setError, setIsError } = useContext(NFTMarketplaceContext);
-  const token = localStorage.getItem("token");
+  const token = sessionStorage.getItem("token");
 
   const handleDrop = async (acceptedFile, type) => {
     try {
@@ -47,17 +46,27 @@ const CreateCollection = ({
       } else if (acceptedFile[0].type.startsWith("audio")) {
         setError("audio Cant be uploaded");
         setIsError(true);
+
+        setTimeout(() => {
+          setIsError(false);
+        }, 3000);
       } else if (acceptedFile[0].type.startsWith("video")) {
         setError("Video Cant be uploaded");
         setIsError(true);
+
+        setTimeout(() => {
+          setIsError(false);
+        }, 3000);
       }
     } catch (error) {
       setError("Cant'upload  Nft try again ");
       setIsError(true);
+
+      setTimeout(() => {
+        setIsError(false);
+      }, 5000);
     }
   };
-
-  console.log(collectionData);
 
   return (
     <>

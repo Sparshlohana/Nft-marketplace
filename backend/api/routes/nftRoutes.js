@@ -13,6 +13,9 @@ import {
   uploadImgToIPFS,
   uploadNftToIPFS,
   publishOrUnpublishNFT,
+  getTopFavoriteNfts,
+  addNftLog,
+  getLogs,
 } from "../controller/nftController.js";
 
 import multer from "multer";
@@ -25,6 +28,10 @@ const router = express.Router();
 router.get("/", getAllNFTs);
 
 router.post("/", verify, createNFT);
+
+router.post("/update/logs", verify, addNftLog);
+
+router.get("/getLogs", getLogs);
 
 router.get("/user/:account", verify, getUsersNft);
 
@@ -39,6 +46,8 @@ router.post("/uploadNFT", verify, uploadNftToIPFS);
 router.get("/monthly-stats/:year", verify, getMonthlyStats);
 
 router.get("/top-5-nfts", aliasTopNFTs, getAllNFTs);
+
+router.get("/popular-nfts", aliasTopNFTs, getTopFavoriteNfts);
 
 router.get("/:id", getSingleNFT);
 

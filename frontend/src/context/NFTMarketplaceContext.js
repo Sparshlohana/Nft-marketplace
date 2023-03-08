@@ -18,6 +18,7 @@ const NFTMarketplaceProvider = ({ children }) => {
 
   const [isSuccess, setIsSuccess] = useState(false);
   const [successMsg, setSuccessMsg] = useState("");
+  const [random, setRandom] = useState(0);
 
   const navigate = useNavigate();
 
@@ -55,6 +56,10 @@ const NFTMarketplaceProvider = ({ children }) => {
     } catch (error) {
       setIsError(true);
       setError("Internal Server Error!");
+
+      setTimeout(() => {
+        setIsError(false);
+      }, 5000);
     }
   };
 
@@ -63,6 +68,10 @@ const NFTMarketplaceProvider = ({ children }) => {
       if (!window.ethereum) {
         setIsError(true);
         setError("install metamask");
+
+        setTimeout(() => {
+          setIsError(false);
+        }, 3000);
       }
       const accounts = await window.ethereum.request({
         method: "eth_accounts",
@@ -73,6 +82,10 @@ const NFTMarketplaceProvider = ({ children }) => {
     } catch (error) {
       setIsError(true);
       setError("wallet can't connect");
+
+      setTimeout(() => {
+        setIsError(false);
+      }, 5000);
     }
   };
 
@@ -83,6 +96,10 @@ const NFTMarketplaceProvider = ({ children }) => {
       if (!window.ethereum) {
         setIsError(true);
         setError("install metamask");
+
+        setTimeout(() => {
+          setIsError(false);
+        }, 3000);
       }
       const accounts = await window.ethereum.request({
         method: "eth_requestAccounts",
@@ -93,18 +110,33 @@ const NFTMarketplaceProvider = ({ children }) => {
 
         const token = await generateAuthToken(signer, accounts[0]);
 
-        await axios.post("/api/v1/users", {
-          account: accounts[0],
-        });
-
-        localStorage.setItem("token", token);
+        await axios.post(
+          "/api/v1/users",
+          {
+            account: accounts[0],
+          },
+          {
+            headers: {
+              Authorization: token,
+            },
+          }
+        );
+        sessionStorage.setItem("token", token);
       }
+
       setIsSuccess(true);
+      setTimeout(() => {
+        setIsSuccess(false);
+      }, 3000);
       setSuccessMsg("Wallet Connected!");
       navigate(window.location.pathname);
     } catch (error) {
       setError("wallet can't connect");
       setIsError(true);
+
+      setTimeout(() => {
+        setIsError(false);
+      }, 5000);
     }
   };
 
@@ -120,11 +152,15 @@ const NFTMarketplaceProvider = ({ children }) => {
       if (!name && !description && !media && !fileType && !price) {
         setIsError(true);
         setError("Missing required fields!");
+
+        setTimeout(() => {
+          setIsError(false);
+        }, 3000);
       }
 
       const data = { name, description, media, fileType };
 
-      const token = localStorage.getItem("token");
+      const token = sessionStorage.getItem("token");
 
       const response = await axios.post("/api/v1/nfts/uploadNFT", data, {
         headers: {
@@ -140,6 +176,10 @@ const NFTMarketplaceProvider = ({ children }) => {
     } catch (error) {
       setError("Missing required felids");
       setIsError(true);
+
+      setTimeout(() => {
+        setIsError(false);
+      }, 5000);
     }
   };
 
@@ -157,7 +197,7 @@ const NFTMarketplaceProvider = ({ children }) => {
     collectionData
   ) => {
     try {
-      const token = localStorage.getItem("token");
+      const token = sessionStorage.getItem("token");
       if (isReselling === false) {
         const contract = await connectingWithSmartContract();
 
@@ -171,7 +211,12 @@ const NFTMarketplaceProvider = ({ children }) => {
 
         let collectionId = "";
 
-        if (collectionData !== undefined || collectionData !== null) {
+        if (
+          collectionData.collectionName !== "" &&
+          !collectionData.collectionDescription !== "" &&
+          !collectionData.image !== "" &&
+          !collectionData.banner !== ""
+        ) {
           if (collectionData?.created === false) {
             const res = await axios.post(
               "/api/v1/collections",
@@ -204,15 +249,28 @@ const NFTMarketplaceProvider = ({ children }) => {
               collectionId,
             };
 
-            await axios.post("/api/v1/nfts", data, {
+            const res = await axios.post("/api/v1/nfts", data, {
               headers: { Authorization: token },
             });
+
+            const nftData = res.data.data.nft;
+
+            await axios.post(
+              "/api/v1/nfts/update/logs",
+              { ...nftData, status: "minted" },
+              {
+                headers: { Authorization: token },
+              }
+            );
           }
         );
 
         await transaction.wait();
 
         setIsSuccess(true);
+        setTimeout(() => {
+          setIsSuccess(false);
+        }, 3000);
         setSuccessMsg("NFT Created Successfull!");
 
         navigate("/user");
@@ -236,7 +294,7 @@ const NFTMarketplaceProvider = ({ children }) => {
             price: Number(String(ethers.utils.formatUnits(price, "ether"))),
           };
 
-          await axios.patch(
+          const res = await axios.patch(
             `http://localhost:5000/api/v1/nfts/${tokenId}`,
             data,
             {
@@ -250,8 +308,10 @@ const NFTMarketplaceProvider = ({ children }) => {
         transaction.wait();
 
         setIsSuccess(true);
+        setTimeout(() => {
+          setIsSuccess(false);
+        }, 3000);
         setSuccessMsg("NFT Resell Successful!");
-        navigate("/user");
       }
     } catch (error) {
       setIsError(true);
@@ -260,6 +320,10 @@ const NFTMarketplaceProvider = ({ children }) => {
       } else {
         setError("Something went wrong while Creating NFT!");
       }
+
+      setTimeout(() => {
+        setIsError(false);
+      }, 5000);
     }
   };
 
@@ -282,22 +346,39 @@ const NFTMarketplaceProvider = ({ children }) => {
           sold: true,
         };
 
-        const token = localStorage.getItem("token");
+        const token = sessionStorage.getItem("token");
 
-        await axios.patch(
+        const res = await axios.patch(
           `http://localhost:5000/api/v1/nfts/${tokenId}`,
           data,
           { headers: { Authorization: token } }
+        );
+
+        const nftData = res.data?.data?.nft;
+
+        await axios.post(
+          "/api/v1/nfts/update/logs",
+          { ...nftData, status: "transfer" },
+          {
+            headers: { Authorization: token },
+          }
         );
       });
 
       await transaction.wait();
       setIsSuccess(true);
+      setTimeout(() => {
+        setIsSuccess(false);
+      }, 3000);
       setSuccessMsg("NFT Purchased Successfully");
       navigate("/user");
     } catch (error) {
       setIsError(true);
       setIsError("Something went wrong while purchasing NFT!");
+
+      setTimeout(() => {
+        setIsError(false);
+      }, 5000);
     }
   };
 
@@ -316,6 +397,8 @@ const NFTMarketplaceProvider = ({ children }) => {
           error,
           withdrawn,
           isError,
+          random,
+          setRandom,
           successMsg,
           setSuccessMsg,
           setIsSuccess,

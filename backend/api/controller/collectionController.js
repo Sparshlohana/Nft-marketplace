@@ -140,7 +140,7 @@ export const getCollectionsOfUser = async (req, res) => {
     if (req.query.search) {
       collections = await Collection.find({
         creator: account?.toLowerCase(),
-        collectionName: { $regex: search, $options: "i" },
+        collectionName: { $regex: search, $options: "ig" },
       });
     }
 

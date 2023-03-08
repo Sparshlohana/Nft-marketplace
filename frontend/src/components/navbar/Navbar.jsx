@@ -2,7 +2,7 @@ import "./navbar.css";
 import { RiCloseLine, RiEqualizerLine } from "react-icons/ri";
 import lucentLogo from "./lucentLogo.png";
 import { NFTMarketplaceContext } from "../../context/NFTMarketplaceContext";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import Searchbar from "../searchbar/Searchbar";
 import SearchItemsContainer from "../searchItemsContainer/SearchItemsContainer";
@@ -17,6 +17,8 @@ const Navbar = ({
   nfts,
 }) => {
   const { connectWallet, currentAccount } = useContext(NFTMarketplaceContext);
+
+  const [openCollectionItems, setOpenCollectionItems] = useState(false);
 
   return (
     <nav className="navContainer">
@@ -38,7 +40,13 @@ const Navbar = ({
         <img src={lucentLogo} alt="logo" className="logo"></img>
       </div>
       <div className="searchContainerMain">
-        <Searchbar search={search} setSearch={setSearch}></Searchbar>
+        <Searchbar
+          title={"Search items and collections"}
+          search={search}
+          openCollectionItems={openCollectionItems}
+          setOpenCollectionItems={setOpenCollectionItems}
+          setSearch={setSearch}
+        ></Searchbar>
         {search !== "" && (
           <SearchItemsContainer collections={collections} nfts={nfts} />
         )}

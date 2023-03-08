@@ -15,6 +15,8 @@ import {
   fetchNFTsFromApi,
   handleSortFilter,
 } from "../../apiFunctions/nftsApi";
+import { useContext } from "react";
+import { NFTMarketplaceContext } from "../../context/NFTMarketplaceContext";
 // import fetch from "axios";
 
 const Shop = ({ search }) => {
@@ -22,6 +24,8 @@ const Shop = ({ search }) => {
   const [openFilter, setOpenFilter] = useState(false);
   const [nfts, setNfts] = useState([]);
   const [collections, setCollections] = useState([]);
+
+  const { random } = useContext(NFTMarketplaceContext);
 
   const [filter, setFilter] = useState({
     minPrice: 0,
@@ -47,7 +51,7 @@ const Shop = ({ search }) => {
     (async () => {
       await fetchCollections();
     })();
-  }, [page, nfts]);
+  }, [page, random]);
 
   const handleSearch = () => {
     const data = nfts?.filter((nft) => nft?.name?.includes(search));

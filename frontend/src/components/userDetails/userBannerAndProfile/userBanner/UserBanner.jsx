@@ -1,11 +1,15 @@
 import "./userBanner.css";
 
-const UserBanner = () => {
+const UserBanner = ({ userDetails }) => {
   return (
     <div className="userBannerContainer">
       <img
         className="userBannerImage"
-        src="https://cdn.pixabay.com/photo/2015/11/19/08/52/banner-1050629__340.jpg"
+        src={
+          userDetails?.banner
+            ? userDetails.banner
+            : "https://wallpapercave.com/wp/wp5281122.jpg"
+        }
         alt=""
       />
     </div>

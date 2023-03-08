@@ -5,13 +5,17 @@ import NftAudioCard from "../../../nftCardsContainerMain/nftCardContainer/nftCar
 import "./priceUnderCards.css";
 
 import { handleFilteredNfts } from "../../../../apiFunctions/nftsApi";
+import { useContext } from "react";
+import { NFTMarketplaceContext } from "../../../../context/NFTMarketplaceContext";
 
 const PriceUnderCards = ({ minPrice, maxPrice }) => {
   const [nfts, setNfts] = useState([]);
-  
+
+  const { random } = useContext(NFTMarketplaceContext);
+
   useEffect(() => {
     handleFilteredNfts(minPrice, maxPrice).then((data) => setNfts(data));
-  }, []);
+  }, [random]);
 
   return (
     <>
