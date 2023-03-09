@@ -10,3 +10,9 @@
 .categoriesCardsLink {
   text-decoration: none;
 }
+
+/* @media (max-width: 600px) {
+  .categoriesCardsContainerMains {
+    flex-direction: column;
+  }
+} */

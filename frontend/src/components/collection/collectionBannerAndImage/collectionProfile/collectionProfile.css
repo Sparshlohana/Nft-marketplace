@@ -24,3 +24,10 @@
     transform: translateX(70%) translateY(-70%);
   }
 }
+
+@media (max-width: 340px) {
+  .collectionProfileContainer {
+    width: 30%;
+    transform: translateX(30%) translateY(-70%);
+  }
+}
