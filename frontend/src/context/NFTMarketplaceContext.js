@@ -16,6 +16,8 @@ const NFTMarketplaceProvider = ({ children }) => {
   const [isError, setIsError] = useState(false);
   const [error, setError] = useState("");
 
+  const [nftEventData, setNftEventData] = useState(null);
+
   const [isSuccess, setIsSuccess] = useState(false);
   const [successMsg, setSuccessMsg] = useState("");
   const [random, setRandom] = useState(0);
@@ -234,8 +236,7 @@ const NFTMarketplaceProvider = ({ children }) => {
             collectionId = collectionData?._id;
           }
         }
-
-        contract.on(
+        contract.once(
           "MarketItemCreated",
           async (tokenId, seller, owner, price, sold) => {
             const data = {
@@ -253,15 +254,15 @@ const NFTMarketplaceProvider = ({ children }) => {
               headers: { Authorization: token },
             });
 
-            const nftData = res.data.data.nft;
+            // const nftData = res.data.data.nft;
 
-            await axios.post(
-              "/api/v1/nfts/update/logs",
-              { ...nftData, status: "minted" },
-              {
-                headers: { Authorization: token },
-              }
-            );
+            // await axios.post(
+            //   "/api/v1/nfts/update/logs",
+            //   { ...nftData, status: "minted" },
+            //   {
+            //     headers: { Authorization: token },
+            //   }
+            // );
           }
         );
 
@@ -273,7 +274,7 @@ const NFTMarketplaceProvider = ({ children }) => {
         }, 3000);
         setSuccessMsg("NFT Created Successfull!");
 
-        navigate("/user");
+        // navigate("/user");
       } else {
         const contract = await connectingWithSmartContract();
 

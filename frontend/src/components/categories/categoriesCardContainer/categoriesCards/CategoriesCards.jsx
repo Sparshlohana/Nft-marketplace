@@ -62,7 +62,7 @@ const CategoriesCards = ({ collection }) => {
 
       <div className="categoriesCardsDataContainer">
         <p className="categoriesCardsData">
-          {collection?.collectionDescription}
+          {collection?.collectionDescription.slice(0, 35) + " ..."}
         </p>
       </div>
 

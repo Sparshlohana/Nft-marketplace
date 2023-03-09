@@ -1,6 +1,5 @@
 .categoriesCardsContainer {
   width: 25vw;
-  height: 35vh;
   background: #ffffff22;
   margin: 10px;
   border-radius: 10px;
@@ -61,7 +60,7 @@
 
 .categoriesCardsData {
   color: #fff;
-  font-size: 1.1rem;
+  font-size: 1rem;
 }
 
 .categoriesCardsImageContainer {

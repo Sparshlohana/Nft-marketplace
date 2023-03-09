@@ -31,6 +31,3 @@ const ProfileImage = ({ userDetails, handleDrop }) => {
 };
 
 export default ProfileImage;
-
-
- 

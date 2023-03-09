@@ -1,16 +1,16 @@
-import { useCallback, useState } from "react";
 import Dropzone from "react-dropzone";
 import ChooseCollection from "../chooseCollection/ChooseCollection";
 
 import axios from "../../../utils/axios";
 import { BiCloudUpload } from "react-icons/bi";
+import { NFTMarketplaceContext } from "../../../context/NFTMarketplaceContext";
+import { useContext } from "react";
 
 const CreateNftDataCollection = ({
   openCreateCollection,
   setOpenCreateCollection,
   collectionData,
   setCollectionData,
-  createNFT,
   setError,
   setIsError,
   setMedia,
@@ -25,6 +25,8 @@ const CreateNftDataCollection = ({
   description,
 }) => {
   const token = sessionStorage.getItem("token");
+
+  const { createNFT } = useContext(NFTMarketplaceContext);
 
   const onDrop = async (acceptedFile) => {
     try {
@@ -180,9 +182,9 @@ const CreateNftDataCollection = ({
 
           <button
             className="createNftBtn"
-            onClick={(e) => {
+            onClick={async (e) => {
               e.preventDefault();
-              createNFT(
+              await createNFT(
                 name,
                 price,
                 media,
