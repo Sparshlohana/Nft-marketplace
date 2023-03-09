@@ -3,7 +3,7 @@ import "./priceUnderHeading.css";
 const PriceUnderHeading = ({ title }) => {
   return (
     <div className="priceUnderHeadingContainer">
-      <h1 className="priceUnderHeading  ">{title}</h1>
+      <p className="priceUnderHeading  ">{title}</p>
     </div>
   );
 };

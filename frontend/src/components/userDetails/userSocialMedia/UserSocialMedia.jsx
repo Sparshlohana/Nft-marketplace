@@ -8,7 +8,7 @@ import { BiDotsHorizontalRounded } from "react-icons/bi";
 import "./userSocialMedia.css";
 import { useState } from "react";
 import { AiFillFlag, AiFillSetting } from "react-icons/ai";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 
 const UserSocialMedia = () => {
   const [openSettings, setOpenSettings] = useState(false);
@@ -52,11 +52,11 @@ const UserSocialMedia = () => {
       </div>
       {openSettings && (
         <div className="settingItemContainer">
-          <Link to={"/user/edit"}>
-            <button className="SettingItemBtn">
-              <MdEdit></MdEdit> &nbsp; &nbsp; Edit Profile
-            </button>
-          </Link>
+          {/* <Link className="settingItemContainerLink" to={"/user/edit"}> */}
+          <button className="SettingItemBtn">
+            <MdEdit></MdEdit> &nbsp; &nbsp; Edit Profile
+          </button>
+          {/* </Link> */}
           <button className="SettingItemBtn">
             <AiFillSetting></AiFillSetting> &nbsp; &nbsp; Settings
           </button>

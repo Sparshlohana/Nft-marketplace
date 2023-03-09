@@ -40,7 +40,7 @@ const categories = [
   {
     id: 7,
     img: "https://nftnewspro.com/wp-content/uploads/2022/03/Warner-Bros.-to-make-DC-Comics-NFT-Trading-Cards-.jpg",
-    name: "Trading Cards",
+    name: "Cards",
     description: "Get the biggest collections of trading cards here...",
   },
 ];
