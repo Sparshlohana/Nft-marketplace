@@ -254,15 +254,15 @@ const NFTMarketplaceProvider = ({ children }) => {
               headers: { Authorization: token },
             });
 
-            // const nftData = res.data.data.nft;
+            const nftData = res.data.data.nft;
 
-            // await axios.post(
-            //   "/api/v1/nfts/update/logs",
-            //   { ...nftData, status: "minted" },
-            //   {
-            //     headers: { Authorization: token },
-            //   }
-            // );
+            await axios.post(
+              "/api/v1/nfts/update/logs",
+              { ...nftData, status: "minted" },
+              {
+                headers: { Authorization: token },
+              }
+            );
           }
         );
 
@@ -286,13 +286,14 @@ const NFTMarketplaceProvider = ({ children }) => {
           value: listingPrice.toString(),
         });
 
-        contract.on("resellEvent", async (tokenId, seller, owner, price) => {
+        contract.once("resellEvent", async (tokenId, seller, owner, price) => {
           const data = {
             tokenId: Number(String(tokenId)),
             seller,
             owner,
             sold: false,
             price: Number(String(ethers.utils.formatUnits(price, "ether"))),
+            status: "resell",
           };
 
           const res = await axios.patch(
@@ -338,13 +339,14 @@ const NFTMarketplaceProvider = ({ children }) => {
         value: price,
       });
 
-      contract.on("buyEvent", async (tokenId, seller, owner) => {
+      contract.once("buyEvent", async (tokenId, seller, owner) => {
         const data = {
           tokenId: Number(String(tokenId)),
           seller: seller?.toLowerCase(),
           owner: owner?.toLowerCase(),
           price: nft.price,
           sold: true,
+          status: "buy",
         };
 
         const token = sessionStorage.getItem("token");
@@ -359,7 +361,7 @@ const NFTMarketplaceProvider = ({ children }) => {
 
         await axios.post(
           "/api/v1/nfts/update/logs",
-          { ...nftData, status: "transfer" },
+          { ...nftData, status: "buy" },
           {
             headers: { Authorization: token },
           }

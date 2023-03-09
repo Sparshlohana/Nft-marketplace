@@ -7,9 +7,9 @@ const UserBio = ({ userDetails }) => {
   return (
     <div className="userBioContainer">
       <p className="userBio" style={{ fontSize: "1rem" }}>
-        {userDetails?.bio.length > 100 && (
+        {userDetails?.bio?.length > 100 && (
           <>
-            <span>{userDetails?.bio.slice(0, 100)}</span>
+            <span>{userDetails?.bio?.slice(0, 100)}</span>
 
             {!openDesc && (
               <span
@@ -21,7 +21,7 @@ const UserBio = ({ userDetails }) => {
             )}
             {openDesc && (
               <>
-                <span>{userDetails?.bio.slice(100)}</span>
+                <span>{userDetails?.bio?.slice(100)}</span>
                 <br />
                 <span
                   style={{
