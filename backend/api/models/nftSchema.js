@@ -19,6 +19,10 @@ const nftSchema = new mongoose.Schema(
     collectionId: {
       type: String,
     },
+    totalSold: {
+      type: Number,
+      default: 0,
+    },
     media: {
       type: String,
       required: [true, "must provide a media"],

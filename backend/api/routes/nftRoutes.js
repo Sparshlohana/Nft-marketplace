@@ -16,6 +16,7 @@ import {
   getTopFavoriteNfts,
   addNftLog,
   getLogs,
+  getTopSelledNfts,
 } from "../controller/nftController.js";
 
 import multer from "multer";
@@ -48,6 +49,8 @@ router.get("/monthly-stats/:year", verify, getMonthlyStats);
 router.get("/top-5-nfts", aliasTopNFTs, getAllNFTs);
 
 router.get("/popular-nfts", aliasTopNFTs, getTopFavoriteNfts);
+
+router.get("/trending-nfts", aliasTopNFTs, getTopSelledNfts);
 
 router.get("/:id", getSingleNFT);
 

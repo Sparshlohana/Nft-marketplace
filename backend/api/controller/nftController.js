@@ -245,6 +245,8 @@ export const updateNFT = async (req, res) => {
   try {
     const tokenId = req.params.id;
 
+    const status = req.body.status;
+
     const data = {
       tokenId: req.body?.tokenId,
       seller: req.body?.seller?.toLowerCase(),
@@ -253,17 +255,34 @@ export const updateNFT = async (req, res) => {
       sold: req.body?.sold,
     };
 
-    const updatedNft = await NFT.findOneAndUpdate({ tokenId }, data, {
-      new: true,
-      runValidators: true,
-    });
+    if (status === "buy") {
+      const updatedNft = await NFT.findOneAndUpdate(
+        { tokenId },
+        { ...data, $inc: { totalSold: 1 } },
+        {
+          new: true,
+          runValidators: true,
+        }
+      );
+      res.status(200).json({
+        status: "success",
+        data: {
+          nft: updatedNft,
+        },
+      });
+    } else {
+      const updatedNft = await NFT.findOneAndUpdate({ tokenId }, data, {
+        new: true,
+        runValidators: true,
+      });
 
-    res.status(200).json({
-      status: "success",
-      data: {
-        nft: updatedNft,
-      },
-    });
+      res.status(200).json({
+        status: "success",
+        data: {
+          nft: updatedNft,
+        },
+      });
+    }
   } catch (error) {
     res.status(400).json({
       status: "fail",
@@ -292,8 +311,6 @@ export const deleteNFT = async (req, res) => {
 };
 
 export const getTopFavoriteNfts = async (req, res) => {
-  const likes = req.query.likes;
-
   try {
     const stats = await NFT.aggregate([
       {
@@ -305,27 +322,43 @@ export const getTopFavoriteNfts = async (req, res) => {
         $match: {
           sold: false,
           isPublished: true,
-          arrayLength: { $gte: Number(likes) },
+          // arrayLength: { $gte: Number(likes) },
         },
       },
-      // {
-      //   $group: {
-      //     _id: { $toUpper: "$difficulty" },
-      //     numNft: { $sum: 1 },
-      //     numRatings: { $sum: "ratingsQuantity" },
-      //     avgRating: { $avg: "$ratingsAverage" },
-      //     avgPrice: { $avg: "$price" },
-      //     minPrice: { $min: "$price" },
-      //     maxPrice: { $max: "$price" },
-      //   },
-      // },
-      // { $sort: { ratingsAverage: 1 } },
+      { $sort: { arrayLength: -1, createdAt: -1 } },
+      { $limit: 15 },
     ]);
 
     res.status(200).json({
       status: "success",
       result: stats.length,
-      data: { stats },
+      nfts: stats,
+    });
+  } catch (error) {
+    res.status(404).json({
+      status: "fail",
+      message: error.message,
+    });
+  }
+};
+
+export const getTopSelledNfts = async (req, res) => {
+  try {
+    const stats = await NFT.aggregate([
+      {
+        $match: {
+          sold: false,
+          isPublished: true,
+        },
+      },
+      { $sort: { totalSold: -1 } },
+      { $limit: 15 },
+    ]);
+
+    res.status(200).json({
+      status: "success",
+      result: stats.length,
+      nfts: stats,
     });
   } catch (error) {
     res.status(404).json({
