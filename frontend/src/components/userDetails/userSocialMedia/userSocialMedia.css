@@ -47,30 +47,27 @@
 .settingItemContainer {
   position: absolute;
   width: 10%;
-  right: 3%;
+  right: 2%;
   margin-top: 10px;
-  border: 1px solid #e8d8d83d;
-
-  background: #0000001c;
+  border-radius: 10px;
 }
 
 .SettingItemBtn {
   width: 100%;
-  justify-content: start;
   display: flex;
+  justify-content: flex-start;
   color: #fff;
-  margin: 0%;
   align-items: center;
   cursor: pointer;
   border: none;
   outline: none;
-  border-bottom: 1px solid #e8d8d83d;
+  padding: 10px 10px;
+  font-size: 1rem;
   background: #b6acac2d;
-  padding: 7px 10px;
 }
 
 .SettingItemBtn:hover {
-  background: #a7a5a56c;
+  background: #65656575;
 }
 
 @media (max-width: 650px) {
@@ -78,7 +75,7 @@
     margin-top: -30px;
   }
   .userSocialMediaContainer {
-    flex-direction: column-reverse;
+    flex-direction: column;
   }
   .userSocialMediaHr {
     display: none;

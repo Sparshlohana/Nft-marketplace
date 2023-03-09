@@ -1,5 +1,6 @@
 .userNftCollectionAndCreationBtnContainer {
   display: flex;
+  flex-wrap: wrap;
   margin-left: 10%;
   margin-top: 40px;
 }
@@ -24,4 +25,10 @@
   border-radius: 20px;
   background: #ffffff14;
   cursor: pointer;
+}
+
+@media (max-width: 730px) {
+  .userNftCollectionAndCreationBtnContainer {
+    margin-left: 0;
+  }
 }

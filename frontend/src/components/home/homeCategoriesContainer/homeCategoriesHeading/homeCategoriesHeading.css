@@ -1,6 +1,7 @@
 .homeCategoriesHeading {
   color: #fff;
-  font-size: 2.3rem;
+  font-size: 2rem;
+  font-weight: 300;
 }
 
 @media (max-width: 630px) {
