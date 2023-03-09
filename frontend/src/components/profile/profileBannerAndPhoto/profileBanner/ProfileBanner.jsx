@@ -2,7 +2,14 @@ import "./profileBanner.css";
 import { MdModeEdit } from "react-icons/md";
 import { useState } from "react";
 
-const ProfileBanner = () => {
+import { useDropzone } from "react-dropzone";
+import { useCallback } from "react";
+
+const ProfileBanner = ({ handleDrop, userDetails }) => {
+  const onDrop = useCallback(async (acceptedFile) => {
+    handleDrop(acceptedFile, "banner");
+  });
+
   const [hovered, setHovered] = useState(false);
 
   const handleMouseOver = () => {
@@ -12,19 +19,6 @@ const ProfileBanner = () => {
   const handleMouseOut = () => {
     setHovered(false);
   };
-  return (
-    <div
-      className="profileBannerContainer"
-      onMouseOver={handleMouseOver}
-      onMouseOut={handleMouseOut}
-    >
-import { useDropzone } from "react-dropzone";
-import { useCallback } from "react";
-
-const ProfileBanner = ({ handleDrop, userDetails }) => {
-  const onDrop = useCallback(async (acceptedFile) => {
-    handleDrop(acceptedFile, "banner");
-  });
 
   const { getRootProps, getInputProps } = useDropzone({
     accept: "image,gif,avif",
@@ -32,7 +26,12 @@ const ProfileBanner = ({ handleDrop, userDetails }) => {
   });
 
   return (
-    <div className="profileBannerContainer" {...getRootProps()}>
+    <div
+      className="profileBannerContainer"
+      {...getRootProps()}
+      onMouseOver={handleMouseOver}
+      onMouseOut={handleMouseOut}
+    >
       <input type={"hidden"} {...getInputProps()}></input>
       <img
         className="profileBanner"
