@@ -1,9 +1,11 @@
 .chooseSearchItemsContainer {
-  background: #fff;
+  background: #1c1c1c;
   padding: 10px;
   border-radius: 10px;
-  color: black;
+  color: #fff;
   width: 100%;
   max-height: 200px;
   overflow: auto;
+  border: 1px solid #fff;
+  margin-top: 10px;
 }

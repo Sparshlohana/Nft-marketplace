@@ -36,3 +36,21 @@
   background: #4b94fa4f;
   border: 1px solid #fff;
 }
+
+@media (max-width: 335px) {
+  .currencyButton {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 960px) {
+  .currencyButton {
+    margin: 5px 5px 5px 0;
+  }
+}
+
+@media (max-width: 1250px) {
+  .currencyButton {
+    font-size: 0.9rem;
+  }
+}

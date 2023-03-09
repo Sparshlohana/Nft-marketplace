@@ -19,3 +19,9 @@
   margin: 10px;
   border-color: #ffffff24;
 }
+
+@media (max-width: 450px) {
+  .filterContainer {
+    width: 90%;
+  }
+}

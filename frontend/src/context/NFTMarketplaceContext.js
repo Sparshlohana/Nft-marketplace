@@ -68,12 +68,12 @@ const NFTMarketplaceProvider = ({ children }) => {
   const checkIfWalletIsConnected = async () => {
     try {
       if (!window.ethereum) {
-        setIsError(true);
-        setError("install metamask");
+        // setIsError(true);
+        // setError("install metamask");
 
-        setTimeout(() => {
-          setIsError(false);
-        }, 3000);
+        // setTimeout(() => {
+        //   setIsError(false);
+        // }, 3000);
       }
       const accounts = await window.ethereum.request({
         method: "eth_accounts",
@@ -82,12 +82,12 @@ const NFTMarketplaceProvider = ({ children }) => {
         setCurrentAccount(accounts[0]);
       }
     } catch (error) {
-      setIsError(true);
-      setError("wallet can't connect");
+      // setIsError(true);
+      // setError("wallet can't connect");
 
-      setTimeout(() => {
-        setIsError(false);
-      }, 5000);
+      // setTimeout(() => {
+      //   setIsError(false);
+      // }, 5000);
     }
   };
 
