@@ -25,8 +25,14 @@ function App() {
   const [collections, setCollections] = useState([]);
   const [nfts, setNfts] = useState([]);
 
-  const { checkIfWalletIsConnected, isSuccess, success, error, isError } =
-    useContext(NFTMarketplaceContext);
+  const {
+    checkIfWalletIsConnected,
+    withdrawn,
+    isSuccess,
+    success,
+    error,
+    isError,
+  } = useContext(NFTMarketplaceContext);
 
   const fetchSearchData = async () => {
     const token = localStorage.getItem("token");
@@ -70,7 +76,7 @@ function App() {
         nfts={nfts}
         collections={collections}
       />
-
+      <button onClick={() => withdrawn()}>withdrawn</button>
       {openSidebar && <NavSideBar />}
       {isError ? <ErrorHandler msg={error} /> : null}
       {isSuccess ? <SuccessHandler msg={success} /> : null}

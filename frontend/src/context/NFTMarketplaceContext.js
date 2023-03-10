@@ -74,7 +74,7 @@ const NFTMarketplaceProvider = ({ children }) => {
         //   setIsError(false);
         // }, 3000);
       }
-      
+
       const accounts = await window.ethereum.request({
         method: "eth_accounts",
       });
@@ -186,7 +186,11 @@ const NFTMarketplaceProvider = ({ children }) => {
 
   const withdrawn = async () => {
     const contract = await connectingWithSmartContract();
-    const res = await contract.withdrawn();
+    const res = await contract.getContractBalance()
+    const balance = ethers.utils.formatUnits(res, "ether")
+    console.log(balance);
+    const result = await contract.withdrawn();
+    console.log(result)
   };
 
   const createSale = async (
