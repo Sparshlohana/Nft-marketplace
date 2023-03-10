@@ -13,6 +13,8 @@ export const NFTMarketplaceContext = createContext();
 const NFTMarketplaceProvider = ({ children }) => {
   const [currentAccount, setCurrentAccount] = useState("");
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const [isError, setIsError] = useState(false);
   const [error, setError] = useState("");
 
@@ -74,7 +76,7 @@ const NFTMarketplaceProvider = ({ children }) => {
         //   setIsError(false);
         // }, 3000);
       }
-      
+
       const accounts = await window.ethereum.request({
         method: "eth_accounts",
       });
@@ -253,15 +255,15 @@ const NFTMarketplaceProvider = ({ children }) => {
               headers: { Authorization: token },
             });
 
-            const nftData = res.data.data.nft;
+            // const nftData = res.data.data.nft;
 
-            await axios.post(
-              "/api/v1/nfts/update/logs",
-              { ...nftData, status: "minted" },
-              {
-                headers: { Authorization: token },
-              }
-            );
+            // await axios.post(
+            //   "/api/v1/nfts/update/logs",
+            //   { ...nftData, status: "minted" },
+            //   {
+            //     headers: { Authorization: token },
+            //   }
+            // );
           }
         );
 
@@ -294,7 +296,7 @@ const NFTMarketplaceProvider = ({ children }) => {
             price: Number(String(ethers.utils.formatUnits(price, "ether"))),
             status: "resell",
           };
-
+          console.log(data);
           const res = await axios.patch(
             `http://localhost:5000/api/v1/nfts/${tokenId}`,
             data,
@@ -304,6 +306,7 @@ const NFTMarketplaceProvider = ({ children }) => {
               },
             }
           );
+          console.log(res);
         });
 
         transaction.wait();
@@ -347,7 +350,7 @@ const NFTMarketplaceProvider = ({ children }) => {
           sold: true,
           status: "buy",
         };
-
+        console.log(data);
         const token = localStorage.getItem("token");
 
         const res = await axios.patch(
@@ -355,16 +358,16 @@ const NFTMarketplaceProvider = ({ children }) => {
           data,
           { headers: { Authorization: token } }
         );
+        console.log(res);
+        // const nftData = res.data?.data?.nft;
 
-        const nftData = res.data?.data?.nft;
-
-        await axios.post(
-          "/api/v1/nfts/update/logs",
-          { ...nftData, status: "buy" },
-          {
-            headers: { Authorization: token },
-          }
-        );
+        // await axios.post(
+        // "/api/v1/nfts/update/logs",
+        // { ...nftData, status: "buy" },
+        // {
+        //   headers: { Authorization: token },
+        // }
+        // );
       });
 
       await transaction.wait();

@@ -246,7 +246,7 @@ export const updateNFT = async (req, res) => {
     const tokenId = req.params.id;
 
     const status = req.body.status;
-
+    console.log(req.body);
     const data = {
       tokenId: req.body?.tokenId,
       seller: req.body?.seller?.toLowerCase(),
@@ -270,12 +270,14 @@ export const updateNFT = async (req, res) => {
           nft: updatedNft,
         },
       });
-    } else {
+    }
+    if (status === "resell") {
+      console.log(req.body);
       const updatedNft = await NFT.findOneAndUpdate({ tokenId }, data, {
         new: true,
         runValidators: true,
       });
-
+      console.log(updatedNft);
       res.status(200).json({
         status: "success",
         data: {
