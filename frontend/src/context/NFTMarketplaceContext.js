@@ -216,8 +216,6 @@ const NFTMarketplaceProvider = ({ children }) => {
           value: listingPrice.toString(),
         });
 
-        await transaction.wait();
-
         let collectionId = "";
 
         if (
@@ -257,6 +255,7 @@ const NFTMarketplaceProvider = ({ children }) => {
               collectionId,
             };
 
+            await transaction.wait();
             const res = await axios.post("/api/v1/nfts", data, {
               headers: { Authorization: token },
             });
@@ -291,8 +290,7 @@ const NFTMarketplaceProvider = ({ children }) => {
           value: listingPrice.toString(),
         });
 
-        await transaction.wait();
-
+        console.log("resell Transaction:", transaction);
         contract.once("resellEvent", async (tokenId, seller, owner, price) => {
           const data = {
             tokenId: Number(String(tokenId)),
@@ -304,6 +302,7 @@ const NFTMarketplaceProvider = ({ children }) => {
           };
           console.log(data);
 
+          await transaction.wait();
           const res = await axios.patch(
             `http://localhost:5000/api/v1/nfts/${tokenId}`,
             data,
@@ -346,8 +345,7 @@ const NFTMarketplaceProvider = ({ children }) => {
         value: price,
       });
 
-      await transaction.wait();
-
+      console.log("buy transaction:", transaction);
       contract.once("buyEvent", async (tokenId, seller, owner) => {
         const data = {
           tokenId: Number(String(tokenId)),
@@ -361,6 +359,7 @@ const NFTMarketplaceProvider = ({ children }) => {
 
         const token = localStorage.getItem("token");
 
+        await transaction.wait();
         const res = await axios.patch(
           `http://localhost:5000/api/v1/nfts/${tokenId}`,
           data,
