@@ -74,6 +74,7 @@ const NFTMarketplaceProvider = ({ children }) => {
         //   setIsError(false);
         // }, 3000);
       }
+      
       const accounts = await window.ethereum.request({
         method: "eth_accounts",
       });

@@ -54,7 +54,8 @@
 .searchColseIcon {
   color: black;
   position: absolute;
-  right: 50px;
+  right: 10%;
+  bottom: 10%;
   cursor: pointer;
 }
 
@@ -166,7 +167,12 @@ input[type="search"]::-webkit-search-results-decoration {
     width: 80%;
   }
 
+  .searchBar {
+    font-size: 0.8rem;
+  }
+
   .searchIcon {
     width: 10%;
+    right: 0%;
   }
 }

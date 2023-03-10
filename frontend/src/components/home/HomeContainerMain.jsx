@@ -9,8 +9,6 @@ const HomeContainerMain = () => {
     <div className="homeContainerMain">
       <HomeCarousel />
       <HomeCategoriesContainer />
-      {/* <HomeTrendingCollection />
-      <hr className="homeContainerHr" /> */}
       <PriceUnderContainer />
     </div>
   );

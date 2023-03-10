@@ -12,22 +12,20 @@ const NavSideBar = () => {
       <div className="navResponsiveListItemContainer">
         <ul className="navResponsiveListItemUl">
           <li className="navResponsiveListItem">
-            <Link href="/" className="navResponsiveListItemAnchor">
-              Home
-            </Link>
-          </li>
-          <li className="navResponsiveListItem">
             <Link to="/shop" className="navResponsiveListItemAnchor">
               Shop
             </Link>
           </li>
           <li className="navResponsiveListItem">
-            <Link href="/" className="navResponsiveListItemAnchor">
-              Contact Us
+            <Link
+              to="/categories/photography"
+              className="navResponsiveListItemAnchor"
+            >
+              Explore
             </Link>
           </li>
           <li className="navResponsiveListItem">
-            <Link href="/" className="navResponsiveListItemAnchor">
+            <Link to="/" className="navResponsiveListItemAnchor">
               About Us
             </Link>
           </li>

@@ -53,3 +53,24 @@
   border-radius: 10px;
   width: 100%;
 }
+
+@media (max-width: 800px) {
+  .SearchSingleItem {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 550px) {
+  .searchItemsContainerHeading {
+    font-size: 0.9rem;
+  }
+  .SearchSingleItem {
+    font-size: 0.8rem;
+  }
+
+  .searchItemImageContainer {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+  }
+}

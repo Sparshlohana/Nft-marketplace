@@ -1,6 +1,5 @@
 import PriceUnderHeading from "./priceUnderHeading/PriceUnderHeading";
 import "./priceUnderContainer.css";
-import PriceUnderCards from "./priceUnderCards/PriceUnderCards";
 import HomeNftsSection from "../homeNftsSectionContainer/HomeNftsSection";
 
 const PriceUnderContainer = () => {
@@ -11,9 +10,6 @@ const PriceUnderContainer = () => {
 
       <PriceUnderHeading title={"Latest Trending Nfts"} />
       <HomeNftsSection url={"/api/v1/nfts/trending-nfts"} />
-
-      <PriceUnderHeading title={"Nfts under 5 ETH"} />
-      <PriceUnderCards minPrice={0} maxPrice={5} />
     </div>
   );
 };
