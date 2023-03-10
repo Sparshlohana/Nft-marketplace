@@ -4,12 +4,13 @@
 /frontend/node_modules
 /frontend/src/smartcontract/build
 /frontend/src/smartcontract/node_modules
+/frontend/src/smartcontract/.env
 
 /.pnp
 .pnp.js
 
 /frontend/src/context/contanst.js
-/frontend/src/smartcontract/.env
+
 
 /backend/api/node_modules
 /backend/api/.env
