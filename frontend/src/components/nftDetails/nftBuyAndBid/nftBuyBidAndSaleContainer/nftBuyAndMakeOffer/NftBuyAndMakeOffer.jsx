@@ -16,7 +16,9 @@ const NftBuyAndMakeOffer = ({ nft, setIsPublished, isPublised }) => {
 
   const { id } = useParams();
 
-  const { buyNft, currentAccount } = useContext(NFTMarketplaceContext);
+  const { buyNft, currentAccount, setIsLoading, isLoading } = useContext(
+    NFTMarketplaceContext
+  );
 
   const token = localStorage.getItem("token");
 
@@ -124,6 +126,7 @@ const NftBuyAndMakeOffer = ({ nft, setIsPublished, isPublised }) => {
                 <button
                   className="addToCartBtn"
                   onClick={() => {
+                    setIsLoading(true);
                     buyNft(nft);
                   }}
                 >

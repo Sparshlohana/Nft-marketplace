@@ -1,8 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import HomeContainerMain from "../../components/home/HomeContainerMain";
+import { NFTMarketplaceContext } from "../../context/NFTMarketplaceContext";
+import Loader from "../../components/loader/Loader";
 
 const HomePage = () => {
-  return (
+  const { isLoading } = useContext(NFTMarketplaceContext);
+  return isLoading ? (
+    <Loader />
+  ) : (
     <>
       <HomeContainerMain />
     </>

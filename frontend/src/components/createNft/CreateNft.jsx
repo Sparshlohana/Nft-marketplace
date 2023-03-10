@@ -4,11 +4,14 @@ import "./createNft.css";
 import CreateCollection from "./createCollection/CreateCollection";
 import { useContext, useState } from "react";
 import { NFTMarketplaceContext } from "../../context/NFTMarketplaceContext";
-
+import Loader from "../loader/Loader";
+window.scrollTo(0, 0);
 const CreateNft = () => {
   const [openCreateCollection, setOpenCreateCollection] = useState(false);
 
-  const { createNFT, setError, setIsError } = useContext(NFTMarketplaceContext);
+  const { createNFT, setError, setIsError, isLoading } = useContext(
+    NFTMarketplaceContext
+  );
 
   const [media, setMedia] = useState(null);
   const [fileType, setFileType] = useState(null);
@@ -25,7 +28,9 @@ const CreateNft = () => {
     created: false,
   });
 
-  return (
+  return isLoading ? (
+    <Loader></Loader>
+  ) : (
     <div className="CreateNftMainContainer">
       <CreateCollectionHeading />
       {openCreateCollection ? (

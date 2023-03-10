@@ -1,12 +1,13 @@
 import axios from "../utils/axios";
 
-export const fetchNFTsFromApi = async (page, limit) => {
+export const fetchNFTsFromApi = async (page, limit, setIsLoading) => {
+  setIsLoading(true)
   const token = localStorage.getItem("token");
 
   const response = await axios.get(`/api/v1/nfts?page=${page}&limit=${limit}`, {
     headers: { Authorization: token },
   });
-
+  setIsLoading(false)
   return response?.data?.data?.nfts;
 };
 
@@ -56,5 +57,5 @@ export const handleSortFilter = async (sort) => {
       const data = response?.data?.data?.nfts;
       return data;
     }
-  } catch (error) {}
+  } catch (error) { }
 };

@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import axios from "../../utils/axios";
 import NftBuyAndBidMainContainer from "./nftBuyAndBid/NftBuyAndBidMainContainer";
 import "./nftDetails.css";
+import Loader from "../../components/loader/Loader";
 import NftPhotoAndDetails from "./NftPhotoAndDetails/NftPhotoAndDetails";
 
 import { NFTMarketplaceContext } from "../../context/NFTMarketplaceContext";
@@ -11,7 +12,9 @@ const NftDetails = () => {
   const { id } = useParams();
   const [nft, setNft] = useState(null);
 
-  const { currentAccount } = useContext(NFTMarketplaceContext);
+  const { currentAccount, setIsLoading, isLoading } = useContext(
+    NFTMarketplaceContext
+  );
 
   const [like, setLike] = useState(false);
   const [likes, setLikes] = useState(0);
@@ -20,6 +23,7 @@ const NftDetails = () => {
 
   const fetchNFTFromApi = async () => {
     try {
+      setIsLoading(true);
       const response = await axios.get(`/api/v1/nfts/${id}`);
       const data = response?.data?.data?.nft;
       setNft(data);
@@ -32,6 +36,8 @@ const NftDetails = () => {
       });
       setIsPublished(data.isPublished);
       setLikes(data.wishlist.length);
+
+      setIsLoading(false);
     } catch (error) {}
   };
   // For toggle the like
@@ -53,7 +59,9 @@ const NftDetails = () => {
     })();
   }, [currentAccount]);
 
-  return (
+  return isLoading ? (
+    <Loader />
+  ) : (
     <div className="NftDetailsMainContainer">
       <NftPhotoAndDetails nft={nft} />
       <NftBuyAndBidMainContainer

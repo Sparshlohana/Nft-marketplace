@@ -3,20 +3,20 @@ import CollectionContainer from "../../components/collectionContainer/Collection
 import FilterContainer from "../../components/filterContainer/FilterContainer";
 import FilterContainerMain from "../../components/filterContainerMain/FilterContainerMain";
 import NftCardsContainerMain from "../../components/nftCardsContainerMain/NftCardsContainerMain";
-import SortByContainer from "../../components/sortByContainer/SortByContainer";
 import PageBtnContainer from "../../components/pageBtnContainer/PageBtnContainer";
+import SortByContainer from "../../components/sortByContainer/SortByContainer";
 // import { NFTMarketplaceContext } from "../../context/NFTMarketplaceContext";
 import "./shop.css";
 
-import axios from "../../utils/axios";
-
+import { useContext } from "react";
 import {
-  handleFilteredNfts,
   fetchNFTsFromApi,
+  handleFilteredNfts,
   handleSortFilter,
 } from "../../apiFunctions/nftsApi";
-import { useContext } from "react";
+import Loader from "../../components/loader/Loader";
 import { NFTMarketplaceContext } from "../../context/NFTMarketplaceContext";
+import axios from "../../utils/axios";
 // import fetch from "axios";
 
 const Shop = ({ search }) => {
@@ -25,7 +25,7 @@ const Shop = ({ search }) => {
   const [nfts, setNfts] = useState([]);
   const [collections, setCollections] = useState([]);
 
-  const { random } = useContext(NFTMarketplaceContext);
+  const { random, isLoading, setIsLoading } = useContext(NFTMarketplaceContext);
 
   const [filter, setFilter] = useState({
     minPrice: 0,
@@ -47,16 +47,11 @@ const Shop = ({ search }) => {
   };
 
   useEffect(() => {
-    fetchNFTsFromApi(page, 30).then((data) => setNfts(data));
+    fetchNFTsFromApi(page, 30, setIsLoading).then((data) => setNfts(data));
     (async () => {
       await fetchCollections();
     })();
   }, [page, random]);
-
-  const handleSearch = () => {
-    const data = nfts?.filter((nft) => nft?.name?.includes(search));
-    setFilteredNfts(data);
-  };
 
   const handleSelectCategoryFilter = async () => {
     let myArrayString = encodeURIComponent(JSON.stringify(filter.category));
@@ -68,7 +63,7 @@ const Shop = ({ search }) => {
   };
 
   useEffect(() => {
-    handleSearch();
+    // handleSearch();
   }, [search]);
 
   useEffect(() => {
@@ -83,7 +78,9 @@ const Shop = ({ search }) => {
     handleSortFilter(sort).then((data) => setFilteredNfts(data));
   }, [sort]);
 
-  return (
+  return isLoading ? (
+    <Loader />
+  ) : (
     <>
       <div className="shop">
         <CollectionContainer collections={collections} />

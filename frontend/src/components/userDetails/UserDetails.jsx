@@ -5,6 +5,7 @@ import UserDetailHeading from "./userDetailHeading/UserDetailHeading";
 import UserDetailJoiningDate from "./userDetailJoiningDate/UserDetailJoiningDate";
 import UserNftCollectionAndCreationBtnContainer from "./userNftCollectionAndCreationBtnContainer/UserNftCollectionAndCreationBtnContainer";
 import UserNftCollectionContainer from "./userNftCollectionContainer/UserNftCollectionContainer";
+import Loader from "../../components/loader/Loader";
 import UserSocialMedia from "./userSocialMedia/UserSocialMedia";
 import { NFTMarketplaceContext } from "../../context/NFTMarketplaceContext";
 
@@ -25,7 +26,9 @@ const UserDetails = ({ search }) => {
 
   const [filteredCollections, setFilteredCollections] = useState([]);
 
-  const { currentAccount, random } = useContext(NFTMarketplaceContext);
+  const { currentAccount, random, isLoading, setIsLoading } = useContext(
+    NFTMarketplaceContext
+  );
 
   const token = localStorage.getItem("token");
 
@@ -39,6 +42,12 @@ const UserDetails = ({ search }) => {
       setCollections(res.data?.collections);
     } catch (error) {}
   };
+  useEffect(() => {
+    (async () => {
+      await fetchUserDetails();
+      await fetchUserCollections();
+    })();
+  }, [random]);
 
   const fetchUserDetails = async () => {
     const res = await axios.get(
@@ -50,12 +59,16 @@ const UserDetails = ({ search }) => {
 
   useEffect(() => {
     (async () => {
-      fetchUserDetails();
-      fetchUserCollections();
+      setIsLoading(true);
+      await fetchUserDetails();
+      await fetchUserCollections();
+      setIsLoading(false);
     })();
-  }, [currentAccount, active, random]);
+  }, [currentAccount, active]);
 
-  return (
+  return isLoading ? (
+    <Loader></Loader>
+  ) : (
     <div className="UserDetailsContainerMain">
       <UserBannerAndProfile userDetails={userDetails} />
       <UserDetailHeading userDetails={userDetails} />

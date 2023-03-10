@@ -10,10 +10,11 @@ import { NFTMarketplaceContext } from "../../../context/NFTMarketplaceContext";
 const HomeNftsSection = ({ url }) => {
   const [nfts, setNfts] = useState([]);
 
-  const { random } = useContext(NFTMarketplaceContext);
+  const { random, setIsLoading } = useContext(NFTMarketplaceContext);
 
   const fetchNfts = async () => {
     try {
+      setIsLoading(true);
       const res = await axios.get(url);
       if (res.data?.data) {
         setNfts(res.data?.data?.nfts);
@@ -21,6 +22,8 @@ const HomeNftsSection = ({ url }) => {
         const data = res.data?.nfts;
         setNfts(data);
       }
+
+      setIsLoading(false);
     } catch (error) {}
   };
 

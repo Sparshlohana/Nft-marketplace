@@ -4,7 +4,8 @@ import ChooseCollection from "../chooseCollection/ChooseCollection";
 import axios from "../../../utils/axios";
 import { BiCloudUpload } from "react-icons/bi";
 import { NFTMarketplaceContext } from "../../../context/NFTMarketplaceContext";
-import { useContext } from "react";
+import { useContext, useState } from "react";
+import Loader from "../../loader/Loader";
 
 const CreateNftDataCollection = ({
   openCreateCollection,
@@ -26,10 +27,15 @@ const CreateNftDataCollection = ({
 }) => {
   const token = localStorage.getItem("token");
 
-  const { createNFT } = useContext(NFTMarketplaceContext);
+  const { createNFT, setIsLoading, isLoading } = useContext(
+    NFTMarketplaceContext
+  );
+
+  const [isImgLoading, setIsImgLoading] = useState(false);
 
   const onDrop = async (acceptedFile) => {
     try {
+      setIsImgLoading(true);
       const formData = new FormData();
       formData.append("media", acceptedFile[0]);
 
@@ -40,6 +46,7 @@ const CreateNftDataCollection = ({
         },
       });
       setMedia(url.data.url);
+      setIsImgLoading(false);
 
       if (
         acceptedFile[0].type.startsWith("image") ||
@@ -63,25 +70,29 @@ const CreateNftDataCollection = ({
 
   return (
     <div className="createNftDataCollection">
-      <div className="NftImgVidDisplayContainer">
-        {fileType === "image" && (
-          <img className="NftImgDisplay" src={media} alt="Uploaded " />
-        )}
-        {fileType === "video" && (
-          <video
-            className="NftImgDisplay"
-            src={media}
-            controls
-            muted
-            autoPlay
-          />
-        )}
-        {fileType === "audio" && (
-          <audio controls muted autoPlay>
-            <source src={media}></source>
-          </audio>
-        )}
-      </div>
+      {isImgLoading ? (
+        <Loader></Loader>
+      ) : (
+        <div className="NftImgVidDisplayContainer">
+          {fileType === "image" && (
+            <img className="NftImgDisplay" src={media} alt="Uploaded " />
+          )}
+          {fileType === "video" && (
+            <video
+              className="NftImgDisplay"
+              src={media}
+              controls
+              muted
+              autoPlay
+            />
+          )}
+          {fileType === "audio" && (
+            <audio controls muted autoPlay>
+              <source src={media}></source>
+            </audio>
+          )}
+        </div>
+      )}
       <form className="createNftDataCollectionForm">
         <div className="createNftDataCollectionFormItemContainer">
           <label className="dropFileHeading">Choose File</label>
@@ -184,6 +195,7 @@ const CreateNftDataCollection = ({
             className="createNftBtn"
             onClick={async (e) => {
               e.preventDefault();
+              setIsLoading(true);
               await createNFT(
                 name,
                 price,

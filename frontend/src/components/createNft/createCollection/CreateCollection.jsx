@@ -1,9 +1,10 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import Dropzone from "react-dropzone";
 
 import { BiCloudUpload } from "react-icons/bi";
 import { NFTMarketplaceContext } from "../../../context/NFTMarketplaceContext";
 import axios from "../../../utils/axios";
+import Loader from "../../loader/Loader";
 import "./createCollection.css";
 
 const CreateCollection = ({
@@ -17,14 +18,18 @@ const CreateCollection = ({
   description,
   createNFT,
 }) => {
-  const { setError, setIsError } = useContext(NFTMarketplaceContext);
-  const token = localStorage.getItem("token");
+  const { setError, setIsError, setIsLoading, isLoading } = useContext(
+    NFTMarketplaceContext
+  );
+  const [isImgLoading, setIsImgLoading] = useState(false);
 
+  const token = localStorage.getItem("token");
+  window.scrollTo(0, 0);
   const handleDrop = async (acceptedFile, type) => {
     try {
+      setIsImgLoading(true);
       const formData = new FormData();
       formData.append("media", acceptedFile[0]);
-
       const postUrl = "/api/v1/nfts/uploadToIPFS";
 
       if (
@@ -58,6 +63,8 @@ const CreateCollection = ({
           setIsError(false);
         }, 3000);
       }
+
+      setIsImgLoading(false);
     } catch (error) {
       setError("Cant'upload  Nft try again ");
       setIsError(true);
@@ -77,7 +84,9 @@ const CreateCollection = ({
               <h1 className="createCollectionHeading">Create Collection</h1>
             </div>
             <div className="createCollectionInputContainer">
-              {collectionData.image !== "" ? (
+              {isImgLoading ? (
+                <Loader></Loader>
+              ) : collectionData.image !== "" ? (
                 <div>
                   <label className="dropFileHeading">Choose Image</label>
                   <Dropzone
@@ -122,7 +131,9 @@ const CreateCollection = ({
                   </Dropzone>
                 </div>
               )}
-              {collectionData.banner !== "" ? (
+              {isImgLoading ? (
+                <Loader></Loader>
+              ) : collectionData.banner !== "" ? (
                 <div>
                   <label className="dropFileHeading">Choose Banner</label>
 
@@ -281,6 +292,7 @@ const CreateCollection = ({
                 className="createNftBtn"
                 onClick={(e) => {
                   e.preventDefault();
+                  setIsLoading(true);
                   createNFT(
                     name,
                     price,

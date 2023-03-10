@@ -11,7 +11,7 @@ import { FaRegHandshake } from "react-icons/fa";
 const NftCard = ({ nft, filter }) => {
   const [price, setPrice] = useState(nft?.price + " ETH ");
 
-  const { buyNft, currentAccount, setRandom } = useContext(
+  const { buyNft, currentAccount, setRandom, setIsLoading } = useContext(
     NFTMarketplaceContext
   );
   const token = localStorage.getItem("token");
@@ -136,6 +136,7 @@ const NftCard = ({ nft, filter }) => {
                   <button
                     className="nftCardBuyBtn"
                     onClick={() => {
+                      setIsLoading(true);
                       buyNft(nft);
                     }}
                   >

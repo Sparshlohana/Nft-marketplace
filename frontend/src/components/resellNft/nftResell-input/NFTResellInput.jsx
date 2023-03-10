@@ -12,7 +12,7 @@ const NFTResellInput = ({ nft }) => {
   const [price, setPrice] = useState(null);
   const { id } = useParams();
 
-  const { createSale } = useContext(NFTMarketplaceContext);
+  const { createSale, setIsLoading } = useContext(NFTMarketplaceContext);
 
   const fetchCurrentPriceOfEth = async () => {
     try {
@@ -64,9 +64,10 @@ const NFTResellInput = ({ nft }) => {
       <div className="resellNftUploadBtnContainer">
         <button
           className="resellNftUploadBtn"
-          onClick={() =>
-            createSale(nft.tokenURI, price, nft.name, true, nft.tokenId)
-          }
+          onClick={() => {
+            setIsLoading(true);
+            createSale(nft.tokenURI, price, nft.name, true, nft.tokenId);
+          }}
         >
           Resell NFT
         </button>

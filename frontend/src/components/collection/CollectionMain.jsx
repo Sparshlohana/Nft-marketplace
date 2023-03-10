@@ -9,6 +9,7 @@ import CollectionOwner from "./collectionOwner/CollectionOwner";
 import CollectionSpecification from "./collectionSpecification/CollectionSpecification";
 import CollectionNftsSectionContainer from "./collectionNftsSectionContainer/CollectionNftsSectionContainer";
 import { NFTMarketplaceContext } from "../../context/NFTMarketplaceContext";
+import Loader from "../loader/Loader";
 
 const CollectionMain = ({ search }) => {
   const { id } = useParams();
@@ -17,7 +18,7 @@ const CollectionMain = ({ search }) => {
 
   const [filteredNfts, setFilteredNfts] = useState([]);
 
-  const { random } = useContext(NFTMarketplaceContext);
+  const { random, setIsLoading, isLoading } = useContext(NFTMarketplaceContext);
 
   const [openSort, setOpenSort] = useState(false);
   const [openFilter, setOpenFilter] = useState(false);
@@ -94,13 +95,13 @@ const CollectionMain = ({ search }) => {
     } catch (error) {}
   };
 
-  const handleSearch = () => {
-    const data = nfts?.filter((nft) => nft?.name?.includes(search));
-    setFilteredNfts(data);
-  };
   useEffect(() => {
-    // handleSearch();
-  }, [search]);
+    (async () => {
+      setIsLoading(true);
+      await fetchSingleCollection();
+      setIsLoading(false);
+    })();
+  }, []);
 
   useEffect(() => {
     (async () => {
@@ -116,7 +117,9 @@ const CollectionMain = ({ search }) => {
     handleSortFilter(sort);
   }, [sort]);
 
-  return (
+  return isLoading ? (
+    <Loader></Loader>
+  ) : (
     <div className="collectionMain">
       <CollectionBannerAndImage collection={collection} />
       <CollectionHeading collection={collection} />

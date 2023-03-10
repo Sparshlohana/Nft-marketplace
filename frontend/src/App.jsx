@@ -1,22 +1,22 @@
 import { useContext, useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
+import ErrorHandler from "./components/Error/ErrorHandler";
 import FooterContainer from "./components/footerContainer/FooterContainer";
 import Navbar from "./components/navbar/Navbar";
 import NavSideBar from "./components/navSidebar/NavSideBar";
-import { NFTMarketplaceContext } from "./context/NFTMarketplaceContext";
-import CreateNftPage from "./Pages/createNftPage/CreateNftPage";
-import Details from "./Pages/nftDetails/Details";
-import Shop from "./Pages/shop/Shop";
-import axios from "./utils/axios";
-import ErrorHandler from "./components/Error/ErrorHandler";
 import SuccessHandler from "./components/Success/SuccessHandler";
+import { NFTMarketplaceContext } from "./context/NFTMarketplaceContext";
 import CategoryPage from "./Pages/categoryPage/CategoryPage";
 import CollectionPage from "./Pages/collectionPage/CollectionPage";
+import CreateNftPage from "./Pages/createNftPage/CreateNftPage";
 import HomePage from "./Pages/homePage/HomePage";
-import ResellNftPage from "./Pages/resellNftPage/ResellNftPage";
-import UserDetailPage from "./Pages/userDetailPage/UserDetailPage";
+import Details from "./Pages/nftDetails/Details";
 import ProfilePage from "./Pages/profilePage/ProfilePage";
+import ResellNftPage from "./Pages/resellNftPage/ResellNftPage";
+import Shop from "./Pages/shop/Shop";
+import UserDetailPage from "./Pages/userDetailPage/UserDetailPage";
+import axios from "./utils/axios";
 import useDebounce from "./utils/debounce";
 
 function App() {
@@ -65,7 +65,7 @@ function App() {
     [search],
     800
   );
-
+  window.scrollTo(0, 0);
   return (
     <div className="App">
       <Navbar
@@ -76,7 +76,6 @@ function App() {
         nfts={nfts}
         collections={collections}
       />
-      <button onClick={() => withdrawn()}>withdrawn</button>
       {openSidebar && <NavSideBar />}
       {isError ? <ErrorHandler msg={error} /> : null}
       {isSuccess ? <SuccessHandler msg={success} /> : null}
