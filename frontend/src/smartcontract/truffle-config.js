@@ -1,5 +1,5 @@
 require("dotenv").config();
-// const { MNEMONIC, PROJECT_ID } = process.env;
+const { MNEMONIC, PROJECT_ID } = process.env;
 
 const HDWalletProvider = require("@truffle/hdwallet-provider");
 
@@ -19,7 +19,7 @@ module.exports = {
       },
       network_id: "5", // eslint-disable-line camelcase
       gas: 4465030,
-      gasPrice: 10000000000,
+      gasPrice: 11029356182,
     },
   },
 

@@ -11,9 +11,10 @@
 }
 
 .logo {
-  width: 40%;
-  height: 10vh;
+  /* width: 40%; */
+  /* height: 10vh; */
   margin-left: 20px;
+  width: 50px;
 }
 
 .searchContainer {
@@ -126,8 +127,16 @@ input[type="search"]::-webkit-search-results-decoration {
 }
 
 @media (max-width: 1000px) {
-  .navResponsiveBtnContainer {
-    flex: 1;
+  .navContainer {
+    justify-content: space-between;
+  }
+
+  .searchContainerMain {
+    padding-left: 10%;
+  }
+
+  .navItemsLink {
+    margin-left: 50%;
   }
 
   .navResponsiveBtn {
@@ -137,11 +146,11 @@ input[type="search"]::-webkit-search-results-decoration {
   }
 
   .logoContainer {
-    flex: 2;
+    /* flex: 2; */
   }
 
   .logo {
-    font-size: 1.2rem;
+    /* font-size: 1.2rem; */
   }
 
   .navUl {
@@ -149,7 +158,11 @@ input[type="search"]::-webkit-search-results-decoration {
   }
 
   .searchContainer {
-    flex: 3;
+    /* flex: 3; */
+  }
+
+  .searchContainerMain {
+    width: 70%;
   }
 
   .searchBar {
@@ -160,6 +173,10 @@ input[type="search"]::-webkit-search-results-decoration {
   .signIn {
     display: none;
   }
+
+  .signInBtn {
+    display: none;
+  }
 }
 
 @media (max-width: 550px) {
@@ -168,11 +185,39 @@ input[type="search"]::-webkit-search-results-decoration {
   }
 
   .searchBar {
+    width: 100%;
     font-size: 0.8rem;
+  }
+
+  .searchContainerMain {
+    width: 100%;
+  }
+
+  .searchContainer {
+    width: 100%;
   }
 
   .searchIcon {
     width: 10%;
     right: 0%;
+  }
+
+  .navItemsLink {
+    margin-left: 30%;
+  }
+}
+
+@media (max-width: 400px) {
+  .signIn {
+    width: 80%;
+  }
+
+  .searchIcon {
+    width: 13%;
+    right: 1%;
+  }
+
+  .navItemsLink {
+    margin-left: 30%;
   }
 }

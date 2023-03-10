@@ -45,7 +45,7 @@ const Navbar = ({
 
       <div className="searchContainerMain">
         <Searchbar
-          title={"Search items and collections"}
+          title={"Search Here.."}
           search={search}
           openCollectionItems={openCollectionItems}
           setOpenCollectionItems={setOpenCollectionItems}
@@ -56,14 +56,14 @@ const Navbar = ({
         )}
       </div>
       <ul className="navUl">
+        <Link to="/" className="navItemsLink">
+          <li className="navItems">Home</li>
+        </Link>
         <Link to="/shop" className="navItemsLink">
           <li className="navItems">Shop</li>
         </Link>
         <Link to="/categories/photography" className="navItemsLink">
           <li className="navItems">Explore</li>
-        </Link>
-        <Link className="navItemsLink">
-          <li className="navItems">About Us</li>
         </Link>
       </ul>
       <div className="signInContainer">
