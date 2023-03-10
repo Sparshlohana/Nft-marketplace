@@ -152,3 +152,91 @@ export const getCollectionsOfUser = async (req, res) => {
     });
   }
 };
+
+export const getCategoryFilteredNfts = async (req, res) => {
+  const categories = req.query.categories;
+
+  try {
+    if (categories) {
+      const collectionCategory = await Collection.find({
+        category: { $in: JSON.parse(categories) },
+      });
+
+      const collectionIds = collectionCategory.map(
+        (collection) => collection._id
+      );
+
+      const nfts = await NFT.find({
+        collectionId: { $in: collectionIds },
+        isPublished: true,
+        sold: false,
+      });
+
+      res
+        .status(200)
+        .json({ status: "success", nfts, collections: collectionCategory });
+    } else {
+      res.status(400).json({
+        status: "success",
+        message: "Must specify a collection category",
+      });
+    }
+  } catch (error) {
+    res.status(200).json({
+      status: "success",
+      message: "Internal Server Error",
+    });
+  }
+};
+
+export const getCategoryFilteredNftsOfUser = async (req, res) => {
+  const account = req.params?.account;
+
+  const categories = req.query.categories;
+
+  try {
+    if (categories && account) {
+      const collectionCategory = await Collection.find({
+        category: { $in: JSON.parse(categories) },
+        creator: account.toLowerCase(),
+      });
+
+      const collectionIds = collectionCategory.map(
+        (collection) => collection._id
+      );
+
+      const createdNfts = await NFT.find({
+        collectionId: { $in: collectionIds },
+        seller: account.toLowerCase(),
+      });
+
+      const collectedNfts = await NFT.find({
+        collectionId: { $in: collectionIds },
+        owner: account,
+      });
+
+      const favoritesNfts = await NFT.find({
+        collectionId: { $in: collectionIds },
+        wishlist: account.toLowerCase(),
+      });
+
+      res.status(200).json({
+        status: "success",
+        created: createdNfts,
+        collected: collectedNfts,
+        favorites: favoritesNfts,
+        collections: collectionCategory,
+      });
+    } else {
+      res.status(400).json({
+        status: "success",
+        message: "Must specify a collection category and account address",
+      });
+    }
+  } catch (error) {
+    res.status(200).json({
+      status: "success",
+      message: "Internal Server Error",
+    });
+  }
+};

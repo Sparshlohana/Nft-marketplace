@@ -1,6 +1,8 @@
 import express from "express";
 import {
   createCollection,
+  getCategoryFilteredNfts,
+  getCategoryFilteredNftsOfUser,
   getCollection,
   getCollectionByCategory,
   getCollectionsOfUser,
@@ -13,6 +15,10 @@ const router = express.Router();
 router.post("/", verify, createCollection);
 
 router.get("/", getCollection);
+
+router.get("/getFilteredNfts", getCategoryFilteredNfts);
+
+router.get("/getFilteredNftsOfUser/:account", getCategoryFilteredNftsOfUser);
 
 router.get("/categories/:category", getCollectionByCategory);
 

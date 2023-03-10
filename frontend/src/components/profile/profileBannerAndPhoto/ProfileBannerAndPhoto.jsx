@@ -7,7 +7,7 @@ import ProfileImage from "./profileImage/ProfileImage";
 const ProfileBannerAndPhoto = ({ userDetails, setUserDetails }) => {
   const { setError, setIsError } = useContext(NFTMarketplaceContext);
 
-  const token = sessionStorage.getItem("token");
+  const token = localStorage.getItem("token");
 
   const handleDrop = async (acceptedFile, type) => {
     try {

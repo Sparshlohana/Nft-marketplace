@@ -1,7 +1,7 @@
 import axios from "../utils/axios";
 
 export const fetchNFTsFromApi = async (page, limit) => {
-  const token = sessionStorage.getItem("token");
+  const token = localStorage.getItem("token");
 
   const response = await axios.get(`/api/v1/nfts?page=${page}&limit=${limit}`, {
     headers: { Authorization: token },
@@ -11,7 +11,7 @@ export const fetchNFTsFromApi = async (page, limit) => {
 };
 
 export const handleFilteredNfts = async (minPrice, maxPrice) => {
-  const token = sessionStorage.getItem("token");
+  const token = localStorage.getItem("token");
   const response = await axios.get(
     `/api/v1/nfts?price[gte]=${minPrice}&price[lte]=${maxPrice}`,
     { headers: { Authorization: token } }
@@ -22,7 +22,7 @@ export const handleFilteredNfts = async (minPrice, maxPrice) => {
 };
 
 export const handleSortFilter = async (sort) => {
-  const token = sessionStorage.getItem("token");
+  const token = localStorage.getItem("token");
   try {
     if (sort === "Price: Lowest") {
       const response = await axios.get(`/api/v1/nfts?sort=price`, {

@@ -14,7 +14,7 @@ const NftCard = ({ nft, filter }) => {
   const { buyNft, currentAccount, setRandom } = useContext(
     NFTMarketplaceContext
   );
-  const token = sessionStorage.getItem("token");
+  const token = localStorage.getItem("token");
 
   const [isPublised, setIsPublished] = useState(nft.isPublised);
 

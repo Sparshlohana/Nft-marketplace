@@ -16,7 +16,7 @@ const ChooseCollection = ({ collectionData, setCollectionData }) => {
   const { currentAccount } = useContext(NFTMarketplaceContext);
 
   const [collections, setCollections] = useState([]);
-  const token = sessionStorage.getItem("token");
+  const token = localStorage.getItem("token");
 
   const fetchUsersSearchCollection = async () => {
     try {

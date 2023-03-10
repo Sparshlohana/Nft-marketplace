@@ -33,11 +33,12 @@
 }
 
 .SearchSingleItem:hover {
-  background: #c9c5c5;
+  background: rgba(100, 100, 100, 0.058);
 }
 
 .searchItemsContainerHeading {
-  color: #36353564;
+  color: #848484;
+  font-weight: 400;
   margin: 10px 0;
   font-size: 14px;
   text-transform: uppercase;

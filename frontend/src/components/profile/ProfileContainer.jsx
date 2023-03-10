@@ -15,7 +15,7 @@ const ProfileContainer = () => {
   });
 
   const { currentAccount } = useContext(NFTMarketplaceContext);
-  const token = sessionStorage.getItem("token");
+  const token = localStorage.getItem("token");
 
   const fetchUserDetails = async () => {
     const res = await axios.get(

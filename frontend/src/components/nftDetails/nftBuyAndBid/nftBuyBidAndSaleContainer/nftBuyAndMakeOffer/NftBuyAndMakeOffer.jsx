@@ -18,7 +18,7 @@ const NftBuyAndMakeOffer = ({ nft, setIsPublished, isPublised }) => {
 
   const { buyNft, currentAccount } = useContext(NFTMarketplaceContext);
 
-  const token = sessionStorage.getItem("token");
+  const token = localStorage.getItem("token");
 
   const fetchCurrentPriceOfEth = async () => {
     try {

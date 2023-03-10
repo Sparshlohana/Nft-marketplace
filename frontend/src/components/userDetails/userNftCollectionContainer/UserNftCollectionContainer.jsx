@@ -12,10 +12,11 @@ const UserNftCollectionContainer = ({
   search,
   created,
   setCollected,
-
+  filteredCollections,
   isPublised,
   setIsPublished,
   setCreated,
+  setFilteredCollections,
   collected,
   favorites,
   setFavorites,
@@ -30,9 +31,24 @@ const UserNftCollectionContainer = ({
     minPrice: 0,
     maxPrice: 0,
     currency: null,
+    category: [],
   });
 
-  const token = sessionStorage.getItem("token");
+  const handleSelectCategoryFilter = async () => {
+    let myArrayString = encodeURIComponent(JSON.stringify(filter.category));
+    const res = await axios.get(
+      `/api/v1/collections/getFilteredNftsOfUser/${currentAccount?.toLowerCase()}?categories=${myArrayString}`,
+      myArrayString
+    );
+    const data = res.data;
+    setCollectedFilteredNfts(data?.collected);
+
+    setFavoriteFilteredNfts(data?.favorites);
+    setCreatedFilteredNfts(data?.created);
+    setFilteredCollections(data?.collections);
+  };
+
+  const token = localStorage.getItem("token");
   const [sort, setSort] = useState(null);
 
   const [collectedFilteredNfts, setCollectedFilteredNfts] = useState([]);
@@ -143,7 +159,10 @@ const UserNftCollectionContainer = ({
   }, [currentAccount, active, random]);
 
   useEffect(() => {
-    handleFilteredNfts(filter);
+    (async () => {
+      await handleFilteredNfts(filter);
+      await handleSelectCategoryFilter();
+    })();
   }, [filter]);
 
   useEffect(() => {
@@ -194,7 +213,13 @@ const UserNftCollectionContainer = ({
           )}
 
           {collections.length > 0 && active === 4 && (
-            <CategoriesCardContainer collections={collections} />
+            <CategoriesCardContainer
+              collections={
+                filteredCollections?.length > 0
+                  ? filteredCollections
+                  : collections
+              }
+            />
           )}
         </div>
       </div>

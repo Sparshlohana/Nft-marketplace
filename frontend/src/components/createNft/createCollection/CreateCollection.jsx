@@ -18,7 +18,7 @@ const CreateCollection = ({
   createNFT,
 }) => {
   const { setError, setIsError } = useContext(NFTMarketplaceContext);
-  const token = sessionStorage.getItem("token");
+  const token = localStorage.getItem("token");
 
   const handleDrop = async (acceptedFile, type) => {
     try {

@@ -9,3 +9,7 @@
   border: 1px solid #fff;
   margin-top: 10px;
 }
+
+.searchChooseSingleItemActive {
+  background-color: rgba(100, 100, 100, 0.327);
+}

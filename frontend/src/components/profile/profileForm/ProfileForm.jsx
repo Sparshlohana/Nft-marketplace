@@ -8,7 +8,7 @@ import "./profileForm.css";
 import { useNavigate } from "react-router-dom";
 
 const ProfileForm = ({ userDetails, setUserDetails }) => {
-  const token = sessionStorage.getItem("token");
+  const token = localStorage.getItem("token");
 
   const { currentAccount, setIsSuccess, setSuccessMsg } = useContext(
     NFTMarketplaceContext

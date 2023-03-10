@@ -10,7 +10,7 @@ const NftRanking = ({ like, likes, toggleLikHandler, setLikeHandler, nft }) => {
   const { currentAccount } = useContext(NFTMarketplaceContext);
   const { id } = useParams();
 
-  const token = sessionStorage.getItem("token");
+  const token = localStorage.getItem("token");
 
   const handleLike = async () => {
     if (currentAccount !== "") {

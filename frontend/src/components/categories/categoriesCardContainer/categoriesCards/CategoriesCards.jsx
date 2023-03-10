@@ -7,7 +7,7 @@ const CategoriesCards = ({ collection }) => {
 
   const [stats, setStats] = useState({ total: 0, avg: 0, owners: 0 });
 
-  const token = sessionStorage.getItem("token");
+  const token = localStorage.getItem("token");
 
   const fetchSingleCollection = async () => {
     try {

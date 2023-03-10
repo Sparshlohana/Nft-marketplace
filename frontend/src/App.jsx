@@ -29,7 +29,7 @@ function App() {
     useContext(NFTMarketplaceContext);
 
   const fetchSearchData = async () => {
-    const token = sessionStorage.getItem("token");
+    const token = localStorage.getItem("token");
 
     try {
       const collectionRes = await axios.get(

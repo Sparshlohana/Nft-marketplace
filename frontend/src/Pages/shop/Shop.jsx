@@ -58,9 +58,13 @@ const Shop = ({ search }) => {
     setFilteredNfts(data);
   };
 
-  const handleSelectCategoryFilter = () => {
-    const data = nfts?.filter((nft) => nft?.category === filter.category);
-    setFilteredNfts(data);
+  const handleSelectCategoryFilter = async () => {
+    let myArrayString = encodeURIComponent(JSON.stringify(filter.category));
+    const res = await axios.get(
+      `/api/v1/collections/getFilteredNfts?categories=${myArrayString}`,
+      myArrayString
+    );
+    return { nfts: res.data?.nfts, collections: res.data?.collections };
   };
 
   useEffect(() => {
@@ -72,7 +76,7 @@ const Shop = ({ search }) => {
       setFilteredNfts(data)
     );
 
-    handleSelectCategoryFilter();
+    handleSelectCategoryFilter().then(({ nfts }) => setFilteredNfts(nfts));
   }, [filter]);
 
   useEffect(() => {

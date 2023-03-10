@@ -70,7 +70,6 @@ const NFTMarketplaceProvider = ({ children }) => {
       if (!window.ethereum) {
         // setIsError(true);
         // setError("install metamask");
-
         // setTimeout(() => {
         //   setIsError(false);
         // }, 3000);
@@ -84,7 +83,6 @@ const NFTMarketplaceProvider = ({ children }) => {
     } catch (error) {
       // setIsError(true);
       // setError("wallet can't connect");
-
       // setTimeout(() => {
       //   setIsError(false);
       // }, 5000);
@@ -123,7 +121,7 @@ const NFTMarketplaceProvider = ({ children }) => {
             },
           }
         );
-        sessionStorage.setItem("token", token);
+        localStorage.setItem("token", token);
       }
 
       setIsSuccess(true);
@@ -162,7 +160,7 @@ const NFTMarketplaceProvider = ({ children }) => {
 
       const data = { name, description, media, fileType };
 
-      const token = sessionStorage.getItem("token");
+      const token = localStorage.getItem("token");
 
       const response = await axios.post("/api/v1/nfts/uploadNFT", data, {
         headers: {
@@ -199,7 +197,7 @@ const NFTMarketplaceProvider = ({ children }) => {
     collectionData
   ) => {
     try {
-      const token = sessionStorage.getItem("token");
+      const token = localStorage.getItem("token");
       if (isReselling === false) {
         const contract = await connectingWithSmartContract();
 
@@ -349,7 +347,7 @@ const NFTMarketplaceProvider = ({ children }) => {
           status: "buy",
         };
 
-        const token = sessionStorage.getItem("token");
+        const token = localStorage.getItem("token");
 
         const res = await axios.patch(
           `http://localhost:5000/api/v1/nfts/${tokenId}`,

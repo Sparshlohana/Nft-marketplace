@@ -24,7 +24,7 @@ const CreateNftDataCollection = ({
   price,
   description,
 }) => {
-  const token = sessionStorage.getItem("token");
+  const token = localStorage.getItem("token");
 
   const { createNFT } = useContext(NFTMarketplaceContext);
 

@@ -23,9 +23,11 @@ const UserDetails = ({ search }) => {
 
   const [collections, setCollections] = useState([]);
 
+  const [filteredCollections, setFilteredCollections] = useState([]);
+
   const { currentAccount, random } = useContext(NFTMarketplaceContext);
 
-  const token = sessionStorage.getItem("token");
+  const token = localStorage.getItem("token");
 
   const fetchUserCollections = async () => {
     try {
@@ -78,6 +80,8 @@ const UserDetails = ({ search }) => {
         setFavorites={setFavorites}
         collections={collections}
         setCollections={setCollections}
+        setFilteredCollections={setFilteredCollections}
+        filteredCollections={filteredCollections}
         search={search}
         active={active}
       />
