@@ -106,3 +106,9 @@
   background: #414141;
   border: 1px solid #fff;
 }
+
+@media (max-width: 850px) {
+  .profileFormContainerMain {
+    width: 90%;
+  }
+}

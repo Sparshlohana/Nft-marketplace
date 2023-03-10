@@ -35,7 +35,6 @@ const SearchItemsContainer = ({ collections, nfts }) => {
             style={{
               color: "gray",
               textAlign: "center",
-              backgroundColor: "#1C1C1C",
             }}
           >
             <p>No Result Found!</p>
