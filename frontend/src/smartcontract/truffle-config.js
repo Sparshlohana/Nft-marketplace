@@ -19,7 +19,7 @@ module.exports = {
       },
       network_id: "5", // eslint-disable-line camelcase
       gas: 4465030,
-      gasPrice: 11029356182,
+      gasPrice: 54745386228,
     },
   },
 
