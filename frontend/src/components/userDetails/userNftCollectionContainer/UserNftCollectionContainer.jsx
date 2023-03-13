@@ -137,10 +137,6 @@ const UserNftCollectionContainer = ({
   };
 
   useEffect(() => {
-    // handleSearch();
-  }, [search]);
-
-  useEffect(() => {
     fetchUsersNFTsFromApi(currentAccount);
   }, [currentAccount, active, random]);
 

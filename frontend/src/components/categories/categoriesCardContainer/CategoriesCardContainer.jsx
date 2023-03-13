@@ -4,7 +4,7 @@ import "./categoriesCardContainer.css";
 import CategoriesCards from "./categoriesCards/CategoriesCards";
 
 const CategoriesCardContainer = ({ collections, currentAccount }) => {
-  return (
+  return collections.length > 0 ? (
     <div className="categoriesCardsContainerMains">
       {collections?.map((collection, i) => (
         <Link
@@ -16,6 +16,10 @@ const CategoriesCardContainer = ({ collections, currentAccount }) => {
           <CategoriesCards key={i} collection={collection} />
         </Link>
       ))}
+    </div>
+  ) : (
+    <div className="nftCardContainerNotFound">
+      <p style={{ color: "#fff" }}>No items found</p>
     </div>
   );
 };

@@ -3,7 +3,7 @@ import NftCard from "./nftCard/NftCard";
 import "./nftCardContainer.css";
 
 const NftCardContainer = ({ openFilter, nfts, filter }) => {
-  return (
+  return nfts.length > 0 ? (
     <div className="nftCardContainer">
       {nfts?.map((nft, i) => {
         return nft?.fileType === "audio" ? (
@@ -12,6 +12,10 @@ const NftCardContainer = ({ openFilter, nfts, filter }) => {
           <NftCard filter={filter} key={i} nft={nft} />
         );
       })}
+    </div>
+  ) : (
+    <div className="nftCardContainerNotFound">
+      <p style={{ color: "#fff" }}>No items found</p>
     </div>
   );
 };
