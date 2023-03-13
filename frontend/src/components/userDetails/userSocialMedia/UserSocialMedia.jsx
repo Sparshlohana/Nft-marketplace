@@ -7,11 +7,20 @@ import { MdEdit } from "react-icons/md";
 import { BiDotsHorizontalRounded } from "react-icons/bi";
 import "./userSocialMedia.css";
 import { useState } from "react";
+
+import { GiCash } from "react-icons/gi";
 import { AiFillFlag, AiFillSetting } from "react-icons/ai";
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { NFTMarketplaceContext } from "../../../context/NFTMarketplaceContext";
 
 const UserSocialMedia = () => {
   const [openSettings, setOpenSettings] = useState(false);
+  const { withdrawn, currentAccount } = useContext(NFTMarketplaceContext);
+  console.log(currentAccount);
+  const handleWithdrwan = async () => {
+    await withdrawn();
+  };
 
   return (
     <div className="socialMediaContainerMain">
@@ -57,12 +66,15 @@ const UserSocialMedia = () => {
               <MdEdit></MdEdit> &nbsp; &nbsp; Edit Profile
             </button>
           </Link>
-          <button className="SettingItemBtn">
-            <AiFillSetting></AiFillSetting> &nbsp; &nbsp; Settings
-          </button>
+          {currentAccount.toLowerCase() ===
+            "0x9c7a05F50C9106538cd8D3C7822629fa63051Be1".toLowerCase() && (
+            <button className="SettingItemBtn" onClick={handleWithdrwan}>
+              <GiCash></GiCash> &nbsp; &nbsp; Withdrawn
+            </button>
+          )}
 
           <button className="SettingItemBtn">
-            <AiFillFlag></AiFillFlag> &nbsp; &nbsp; Report
+            <AiFillSetting></AiFillSetting> &nbsp; &nbsp; Settings
           </button>
         </div>
       )}

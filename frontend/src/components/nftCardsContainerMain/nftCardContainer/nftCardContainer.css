@@ -3,3 +3,12 @@
   flex-wrap: wrap;
   justify-content: center;
 }
+
+.nftCardContainerNotFound {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: 2.4rem;
+  margin-bottom: 20px;
+}
