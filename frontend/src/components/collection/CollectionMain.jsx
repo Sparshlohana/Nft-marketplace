@@ -38,7 +38,7 @@ const CollectionMain = ({ search }) => {
   const fetchSingleCollection = async () => {
     try {
       const res = await axios.get(
-        `/api/v1/collections/${id}${account && "?account=" + account}`
+        `/api/v1/collections/${id}?${account && "account=" + account}`
       );
 
       const total = res?.data?.total[0];
