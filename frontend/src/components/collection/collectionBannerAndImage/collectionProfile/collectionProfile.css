@@ -1,6 +1,6 @@
 .collectionProfileContainer {
   width: 10%;
-  /* height: 20vh; */
+  height: 20vh;
   transform: translateX(100%) translateY(-70%);
 }
 
@@ -9,6 +9,7 @@
   height: 100%;
   border-radius: 50%;
   border: 1px solid #fff;
+  object-fit: cover;
 }
 
 @media (max-width: 700px) {

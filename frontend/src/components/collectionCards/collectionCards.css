@@ -18,10 +18,11 @@
 }
 
 .collectionCardContainer {
-  /* position: relative; */
-  margin: 20px;
+  width: 300px;
+  height: 25vh;
   border-radius: 10px;
   cursor: pointer;
+  margin: 20px;
 }
 
 .collectionCardContainer:hover {
@@ -31,15 +32,15 @@
 }
 
 .collectionCardImageContainer {
+  height: 100%;
   width: 300px;
-  /* height: 200px; */
 }
 
 .collectionCardImage {
-  width: 100%;
-  border: none;
   border-radius: 10px;
-  height: 200px;
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
 }
 
 .collectionCardOwnerLogoAndHeadingContainer {
