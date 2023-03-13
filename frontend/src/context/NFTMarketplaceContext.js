@@ -322,10 +322,15 @@ const NFTMarketplaceProvider = ({ children }) => {
       }
     } catch (error) {
       setIsError(true);
+
       if (isReselling) {
         setError("Something went wrong while Reselling NFT !");
+
+        setIsLoading(false);
       } else {
         setError("Something went wrong while Creating NFT!");
+
+        setIsLoading(false);
       }
 
       setTimeout(() => {
@@ -376,6 +381,7 @@ const NFTMarketplaceProvider = ({ children }) => {
       setIsError(true);
       setIsError("Something went wrong while purchasing NFT!");
 
+      setIsLoading(false);
       setTimeout(() => {
         setIsError(false);
       }, 5000);

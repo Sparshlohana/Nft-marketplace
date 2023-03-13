@@ -38,7 +38,9 @@ const NftDetails = () => {
       setLikes(data.wishlist.length);
 
       setIsLoading(false);
-    } catch (error) {}
+    } catch (error) {
+      setIsLoading(false);
+    }
   };
   // For toggle the like
   const toggleLikHandler = () => {

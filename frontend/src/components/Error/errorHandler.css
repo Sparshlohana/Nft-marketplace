@@ -1,5 +1,5 @@
 .errorContainer {
-  background: linear-gradient(to right, #fe5858, #ee9417);
+  background: linear-gradient(to right, #fe0944, #ff0037);
   color: #fff;
   height: 50px;
   display: flex;
@@ -13,29 +13,6 @@
   width: 60%;
   /* margin: 10px auto; */
   font-size: 1.2rem;
-}
-
-.errorContainer::before {
-  content: "";
-  position: absolute;
-  height: 20px;
-  width: 70px;
-  background: linear-gradient(to right, #fe5858, #ee9417);
-  transform: translateX(-171.4%);
-  z-index: -1;
-}
-.errorContainer::after {
-  content: "";
-  position: absolute;
-  width: 0;
-  height: 0;
-  border-left: 20px solid transparent;
-  border-right: 20px solid transparent;
-  border-top: 20px solid #ee9417;
-  margin: 2rem;
-  background: linear-gradient(to right, #fe58589b, #ee94178a);
-  transform: rotate(270deg) translateY(-460%);
-  z-index: -1;
 }
 
 .errorMessage {

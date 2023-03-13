@@ -17,7 +17,7 @@ import { NFTMarketplaceContext } from "../../../context/NFTMarketplaceContext";
 const UserSocialMedia = () => {
   const [openSettings, setOpenSettings] = useState(false);
   const { withdrawn, currentAccount } = useContext(NFTMarketplaceContext);
-  console.log(currentAccount);
+
   const handleWithdrwan = async () => {
     await withdrawn();
   };

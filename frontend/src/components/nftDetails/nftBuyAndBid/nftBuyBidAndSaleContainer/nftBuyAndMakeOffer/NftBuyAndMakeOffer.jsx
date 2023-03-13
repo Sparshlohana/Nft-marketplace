@@ -16,9 +16,8 @@ const NftBuyAndMakeOffer = ({ nft, setIsPublished, isPublised }) => {
 
   const { id } = useParams();
 
-  const { buyNft, currentAccount, setIsLoading, isLoading } = useContext(
-    NFTMarketplaceContext
-  );
+  const { buyNft, currentAccount, setIsLoading, setIsSuccess, setSuccessMsg } =
+    useContext(NFTMarketplaceContext);
 
   const token = localStorage.getItem("token");
 
@@ -46,6 +45,12 @@ const NftBuyAndMakeOffer = ({ nft, setIsPublished, isPublised }) => {
           { headers: { Authorization: token } }
         );
         setIsPublished(false);
+
+        setIsSuccess(true);
+        setTimeout(() => {
+          setIsSuccess(false);
+        }, 3000);
+        setSuccessMsg("NFT unpublished Successfull!");
       } else {
         await axiosInstance.post(
           `/api/v1/nfts/pusblishOrUnpublish/${id}?publish=true`,
@@ -53,6 +58,12 @@ const NftBuyAndMakeOffer = ({ nft, setIsPublished, isPublised }) => {
           { headers: { Authorization: token } }
         );
         setIsPublished(true);
+
+        setIsSuccess(true);
+        setTimeout(() => {
+          setIsSuccess(false);
+        }, 3000);
+        setSuccessMsg("NFT published Successfull!");
       }
     } catch (error) {}
   };

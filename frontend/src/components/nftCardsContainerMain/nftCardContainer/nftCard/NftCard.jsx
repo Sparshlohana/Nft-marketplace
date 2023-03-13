@@ -11,9 +11,14 @@ import { FaRegHandshake } from "react-icons/fa";
 const NftCard = ({ nft, filter }) => {
   const [price, setPrice] = useState(nft?.price + " ETH ");
 
-  const { buyNft, currentAccount, setRandom, setIsLoading } = useContext(
-    NFTMarketplaceContext
-  );
+  const {
+    buyNft,
+    currentAccount,
+    setRandom,
+    setIsLoading,
+    setIsSuccess,
+    setSuccessMsg,
+  } = useContext(NFTMarketplaceContext);
   const token = localStorage.getItem("token");
 
   const [isPublised, setIsPublished] = useState(nft.isPublised);
@@ -47,6 +52,12 @@ const NftCard = ({ nft, filter }) => {
         );
 
         setIsPublished(false);
+
+        setIsSuccess(true);
+        setTimeout(() => {
+          setIsSuccess(false);
+        }, 3000);
+        setSuccessMsg("NFT unpublished Successfull!");
         setRandom(Math.random() * 600000);
       } else {
         await axiosInstance.post(
@@ -55,6 +66,12 @@ const NftCard = ({ nft, filter }) => {
           { headers: { Authorization: token } }
         );
         setIsPublished(true);
+
+        setIsSuccess(true);
+        setTimeout(() => {
+          setIsSuccess(false);
+        }, 3000);
+        setSuccessMsg("NFT published Successfull!");
         setRandom(Math.random() * 600000);
       }
     } catch (error) {}

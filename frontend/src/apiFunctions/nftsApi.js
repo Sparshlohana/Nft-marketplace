@@ -1,25 +1,34 @@
 import axios from "../utils/axios";
 
 export const fetchNFTsFromApi = async (page, limit, setIsLoading) => {
-  setIsLoading(true)
-  const token = localStorage.getItem("token");
+  try {
+    setIsLoading(true);
+    const token = localStorage.getItem("token");
 
-  const response = await axios.get(`/api/v1/nfts?page=${page}&limit=${limit}`, {
-    headers: { Authorization: token },
-  });
-  setIsLoading(false)
-  return response?.data?.data?.nfts;
+    const response = await axios.get(
+      `/api/v1/nfts?page=${page}&limit=${limit}`,
+      {
+        headers: { Authorization: token },
+      }
+    );
+    setIsLoading(false);
+    return response?.data?.data?.nfts;
+  } catch (error) {
+    setIsLoading(false);
+  }
 };
 
 export const handleFilteredNfts = async (minPrice, maxPrice) => {
-  const token = localStorage.getItem("token");
-  const response = await axios.get(
-    `/api/v1/nfts?price[gte]=${minPrice}&price[lte]=${maxPrice}`,
-    { headers: { Authorization: token } }
-  );
+  try {
+    const token = localStorage.getItem("token");
+    const response = await axios.get(
+      `/api/v1/nfts?price[gte]=${minPrice}&price[lte]=${maxPrice}`,
+      { headers: { Authorization: token } }
+    );
 
-  const data = response?.data?.data?.nfts;
-  return data;
+    const data = response?.data?.data?.nfts;
+    return data;
+  } catch (error) {}
 };
 
 export const handleSortFilter = async (sort) => {
@@ -57,5 +66,5 @@ export const handleSortFilter = async (sort) => {
       const data = response?.data?.data?.nfts;
       return data;
     }
-  } catch (error) { }
+  } catch (error) {}
 };

@@ -40,7 +40,9 @@ const UserDetails = ({ search }) => {
       );
 
       setCollections(res.data?.collections);
-    } catch (error) {}
+    } catch (error) {
+      setIsLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -51,11 +53,15 @@ const UserDetails = ({ search }) => {
   }, [random]);
 
   const fetchUserDetails = async () => {
-    const res = await axios.get(
-      "/api/v1/users/" + currentAccount?.toLowerCase(),
-      { headers: { Authorization: token } }
-    );
-    setUserDetails(res.data?.user);
+    try {
+      const res = await axios.get(
+        "/api/v1/users/" + currentAccount?.toLowerCase(),
+        { headers: { Authorization: token } }
+      );
+      setUserDetails(res.data?.user);
+    } catch (error) {
+      setIsLoading(false);
+    }
   };
 
   useEffect(() => {

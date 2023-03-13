@@ -68,7 +68,7 @@ const CreateCollection = ({
     } catch (error) {
       setError("Cant'upload  Nft try again ");
       setIsError(true);
-
+      setIsImgLoading(false);
       setTimeout(() => {
         setIsError(false);
       }, 5000);

@@ -24,7 +24,9 @@ const HomeNftsSection = ({ url }) => {
       }
 
       setIsLoading(false);
-    } catch (error) {}
+    } catch (error) {
+      setIsLoading(false);
+    }
   };
 
   useEffect(() => {

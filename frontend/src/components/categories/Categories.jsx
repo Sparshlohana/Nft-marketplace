@@ -22,7 +22,9 @@ const Categories = ({ name, img, description, menuData }) => {
       const data = response.data.collections;
 
       setCollections(data);
-    } catch (error) {}
+    } catch (error) {
+      setIsLoading(false);
+    }
   };
 
   useEffect(() => {

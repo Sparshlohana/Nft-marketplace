@@ -21,8 +21,6 @@ const Navbar = ({
     NFTMarketplaceContext
   );
 
-  console.log(currentAccount);
-
   const [openCollectionItems, setOpenCollectionItems] = useState(false);
 
   return (

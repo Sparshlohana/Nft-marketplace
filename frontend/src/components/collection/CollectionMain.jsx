@@ -50,7 +50,9 @@ const CollectionMain = ({ search }) => {
         avg: total?.avg,
         owners: total?.owners,
       });
-    } catch (error) {}
+    } catch (error) {
+      setIsLoading(false);
+    }
   };
 
   const handleFilteredNfts = async (filter) => {
