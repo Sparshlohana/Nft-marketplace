@@ -28,10 +28,12 @@ function App() {
   const {
     checkIfWalletIsConnected,
     withdrawn,
+    currentAccount,
     isSuccess,
     success,
     error,
     isError,
+    setCurrentAccount,
   } = useContext(NFTMarketplaceContext);
 
   const fetchSearchData = async () => {
@@ -53,9 +55,8 @@ function App() {
   };
 
   useEffect(() => {
-    (async () => {
-      await checkIfWalletIsConnected();
-    })();
+    const account = localStorage.getItem("account");
+    setCurrentAccount(account);
   });
 
   useDebounce(

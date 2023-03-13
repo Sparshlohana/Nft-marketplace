@@ -124,6 +124,8 @@ const NFTMarketplaceProvider = ({ children }) => {
             },
           }
         );
+
+        localStorage.setItem("account", accounts[0]);
         localStorage.setItem("token", token);
       }
 
@@ -274,7 +276,7 @@ const NFTMarketplaceProvider = ({ children }) => {
           setIsSuccess(false);
         }, 3000);
         setSuccessMsg("NFT Created Successful!");
-        setIsLoading(false)
+        setIsLoading(false);
         navigate("/user");
       } else {
         const contract = await connectingWithSmartContract();
@@ -390,6 +392,7 @@ const NFTMarketplaceProvider = ({ children }) => {
           currentAccount,
           createNFT,
           createSale,
+          setCurrentAccount,
           buyNft,
           setError,
           error,

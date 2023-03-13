@@ -3,9 +3,12 @@ import "./navSideBar.css";
 import { Link } from "react-router-dom";
 import { NFTMarketplaceContext } from "../../context/NFTMarketplaceContext";
 import { useContext } from "react";
+import { BiLogOut } from "react-icons/bi";
 
 const NavSideBar = () => {
-  const { connectWallet, currentAccount } = useContext(NFTMarketplaceContext);
+  const { connectWallet, currentAccount, setCurrentAccount } = useContext(
+    NFTMarketplaceContext
+  );
 
   return (
     <div className="navSideBarContainer">
@@ -34,9 +37,20 @@ const NavSideBar = () => {
       <hr className="navResponsiveListHr" />
       <div className="responsiveSignInContainer">
         {currentAccount !== "" ? (
-          <Link to="/create">
-            <button className="responsiveSignIn">Create</button>
-          </Link>
+          <>
+            <Link to="/create">
+              <button className="responsiveSignIn">Create</button>
+            </Link>
+            <button
+              className="responsiveLogout"
+              onClick={() => {
+                localStorage.setItem("account", "");
+                window.location.reload();
+              }}
+            >
+              <BiLogOut></BiLogOut>&nbsp;&nbsp;Logout
+            </button>
+          </>
         ) : (
           <button className="responsiveSignIn" onClick={connectWallet}>
             Sign In

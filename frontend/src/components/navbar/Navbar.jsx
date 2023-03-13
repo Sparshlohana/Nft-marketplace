@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import Searchbar from "../searchbar/Searchbar";
 import SearchItemsContainer from "../searchItemsContainer/SearchItemsContainer";
 import { CgProfile } from "react-icons/cg";
+import { BiLogOut } from "react-icons/bi";
 
 const Navbar = ({
   openSidebar,
@@ -16,7 +17,11 @@ const Navbar = ({
   collections,
   nfts,
 }) => {
-  const { connectWallet, currentAccount } = useContext(NFTMarketplaceContext);
+  const { connectWallet, currentAccount, setCurrentAccount } = useContext(
+    NFTMarketplaceContext
+  );
+
+  console.log(currentAccount);
 
   const [openCollectionItems, setOpenCollectionItems] = useState(false);
 
@@ -68,17 +73,34 @@ const Navbar = ({
       </ul>
       <div className="signInContainer">
         {currentAccount !== "" ? (
-          <Link to={"/create"}>
-            <button className="signIn">Create</button>
-          </Link>
+          <>
+            <Link to={"/create"}>
+              <button className="signIn">Create</button>
+            </Link>
+          </>
         ) : (
           <button className="signInBtn" onClick={connectWallet}>
             Sign In
           </button>
         )}
-        <Link to={"/user"} className="navItemsLink">
-          <CgProfile className="navProfileIcon" />
-        </Link>
+        {currentAccount !== "" && (
+          <>
+            <div className="userLogoutBtn">
+              <Link to={"/user"} className="navItemsLink">
+                <CgProfile className="navProfileIcon" />
+              </Link>
+              <div
+                className="logoutBtn"
+                onClick={() => {
+                  localStorage.setItem("account", "");
+                  window.location.reload();
+                }}
+              >
+                <BiLogOut></BiLogOut>
+              </div>
+            </div>
+          </>
+        )}
       </div>
     </nav>
   );

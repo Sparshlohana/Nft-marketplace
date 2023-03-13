@@ -58,7 +58,7 @@ const NftBuyAndMakeOffer = ({ nft, setIsPublished, isPublised }) => {
   };
 
   useEffect(() => {
-    // fetchCurrentPriceOfEth();
+    fetchCurrentPriceOfEth();
   });
 
   return (

@@ -7,7 +7,7 @@ const UserDetailHeading = ({ userDetails }) => {
   return (
     <div className="userDetailHeadingContainer">
       <h3 className="userDetailHeading">
-        {currentAccount?.slice(0, 13) + "...." + currentAccount?.slice(24)}
+        {currentAccount?.slice(0, 7) + "...." + currentAccount?.slice(30)}
       </h3>
       <h4
         className="userDetailHeading"

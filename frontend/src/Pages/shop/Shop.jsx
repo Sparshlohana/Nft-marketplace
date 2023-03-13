@@ -71,7 +71,9 @@ const Shop = ({ search }) => {
       setFilteredNfts(data)
     );
 
-    handleSelectCategoryFilter().then(({ nfts }) => setFilteredNfts(nfts));
+    if (filter.category.length !== 0) {
+      handleSelectCategoryFilter().then(({ nfts }) => setFilteredNfts(nfts));
+    }
   }, [filter]);
 
   useEffect(() => {

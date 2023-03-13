@@ -326,7 +326,7 @@ export const getTopFavoriteNfts = async (req, res) => {
         },
       },
       { $sort: { arrayLength: -1, createdAt: -1 } },
-      { $limit: 15 },
+      { $limit: 10 },
     ]);
 
     res.status(200).json({

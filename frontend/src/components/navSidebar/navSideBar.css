@@ -54,3 +54,25 @@
   margin-top: 15px;
   margin-bottom: 20px;
 }
+
+.responsiveLogout {
+  display: none;
+}
+
+@media (max-width: 553px) {
+  .responsiveLogout {
+    padding: 10px;
+    /* width: 90%; */
+    border-radius: 20px;
+    display: block;
+    font-size: 1.2rem;
+    width: 30%;
+    cursor: pointer;
+    color: #fff;
+    background: hsla(0, 0%, 99%, 0.158);
+    border: 1px solid #ffffff11;
+    display: block;
+    margin-top: 15px;
+    margin-bottom: 20px;
+  }
+}

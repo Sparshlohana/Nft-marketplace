@@ -19,26 +19,33 @@ const categories = [
     name: "Music",
     description: "Get the biggest collection of audio Nfts...",
   },
+
   {
     id: 4,
+    img: "https://pbs.twimg.com/media/FM1JhstWQAA40r-?format=jpg&name=large",
+    name: "Video",
+    description: "Get the biggest collection of audio Nfts...",
+  },
+  {
+    id: 5,
     img: "https://media-cldnry.s-nbcnews.com/image/upload/rockcms/2021-03/210310-beeple-art-work-ac-1116p-0d5168.jpg",
     name: "Collectable",
     description: "Get the biggest collections here...",
   },
   {
-    id: 5,
+    id: 6,
     img: "https://creativereview.imgix.net/content/uploads/2021/10/imaeg.jpg?auto=compress,format&q=60&w=1200&h=675",
     name: "Art",
     description: "Get the biggest collections of art here...",
   },
   {
-    id: 6,
+    id: 7,
     img: "https://www.theinterline.com/wp-content/uploads/2021/10/NFT-article-header.jpg",
     name: "Fashion",
     description: "Get the biggest collections of fashion here...",
   },
   {
-    id: 7,
+    id: 8,
     img: "https://nftnewspro.com/wp-content/uploads/2022/03/Warner-Bros.-to-make-DC-Comics-NFT-Trading-Cards-.jpg",
     name: "Cards",
     description: "Get the biggest collections of trading cards here...",
@@ -46,4 +53,3 @@ const categories = [
 ];
 
 export default categories;
-

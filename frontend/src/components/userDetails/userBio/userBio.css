@@ -1,6 +1,7 @@
 .userBioContainer {
   margin-left: 10%;
   margin-top: 10px;
+  min-height: 70px;
 }
 
 .userBio {

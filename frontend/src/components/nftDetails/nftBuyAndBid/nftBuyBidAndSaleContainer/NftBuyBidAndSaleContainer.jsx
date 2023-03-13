@@ -6,7 +6,7 @@ import NFTResellInput from "../../../resellNft/nftResell-input/NFTResellInput";
 const NftBuyBidAndSaleContainer = ({ nft, setIsPublished, isPublised }) => {
   return (
     <div className="nftBuyBidAndSaleContainer">
-      <NftSaleTime></NftSaleTime>
+      {/* <NftSaleTime></NftSaleTime> */}
       <NftBuyAndMakeOffer
         isPublised={isPublised}
         setIsPublished={setIsPublished}

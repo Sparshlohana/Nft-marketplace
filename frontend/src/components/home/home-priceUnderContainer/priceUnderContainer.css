@@ -13,3 +13,7 @@
   margin: 10px 5px 20px 5px;
   border-color: #ffffffa1;
 }
+
+.priceUnderCardsContainer::-webkit-scrollbar {
+  height: 3px;
+}
