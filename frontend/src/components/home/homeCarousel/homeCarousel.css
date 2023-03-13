@@ -44,3 +44,9 @@
   background-color: #ffffff73;
   color: #fff;
 }
+
+@media (max-width: 800px) {
+  .homeSliderImageContainer {
+    height: 60vh;
+  }
+}
