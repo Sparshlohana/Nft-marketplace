@@ -378,6 +378,7 @@ const NFTMarketplaceProvider = ({ children }) => {
       setSuccessMsg("NFT Purchased Successfully");
       navigate("/user");
     } catch (error) {
+      console.log(error);
       setIsError(true);
       setIsError("Something went wrong while purchasing NFT!");
 
