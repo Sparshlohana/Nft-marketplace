@@ -19,6 +19,10 @@ const CreateNft = () => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
 
+  const [royalty, setRoyalty] = useState(0);
+  const currentAccount = localStorage.getItem("account");
+  const [royaltyRecipient, setRoyaltyRecipient] = useState(currentAccount);
+
   const [collectionData, setCollectionData] = useState({
     collectionName: "",
     collectionDescription: "",
@@ -44,6 +48,10 @@ const CreateNft = () => {
           price={price}
           description={description}
           createNFT={createNFT}
+          royalty={royalty}
+          setRoyalty={setRoyalty}
+          setRoyaltyRecipient={setRoyaltyRecipient}
+          royaltyRecipient={royaltyRecipient}
         />
       ) : (
         <CreateNftDataCollection
@@ -53,6 +61,10 @@ const CreateNft = () => {
           setMedia={setMedia}
           setName={setName}
           setFileType={setFileType}
+          royalty={royalty}
+          setRoyalty={setRoyalty}
+          setRoyaltyRecipient={setRoyaltyRecipient}
+          royaltyRecipient={royaltyRecipient}
           setPrice={setPrice}
           setCollectionData={setCollectionData}
           setDescription={setDescription}

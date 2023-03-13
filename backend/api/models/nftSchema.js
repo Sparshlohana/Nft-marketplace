@@ -16,6 +16,20 @@ const nftSchema = new mongoose.Schema(
       trim: true,
       required: [true, "must provide nft description"],
     },
+    creator: {
+      type: String,
+      trim: true,
+      required: [true, "must provide nft creator"],
+    },
+
+    royaltyRecipient: {
+      type: String,
+      trim: true,
+    },
+    royalty: {
+      type: Number,
+      default: 0,
+    },
     collectionId: {
       type: String,
     },

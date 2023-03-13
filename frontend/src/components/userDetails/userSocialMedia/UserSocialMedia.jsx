@@ -66,13 +66,7 @@ const UserSocialMedia = () => {
               <MdEdit></MdEdit> &nbsp; &nbsp; Edit Profile
             </button>
           </Link>
-          {currentAccount.toLowerCase() ===
-            "0x9c7a05F50C9106538cd8D3C7822629fa63051Be1".toLowerCase() && (
-            <button className="SettingItemBtn" onClick={handleWithdrwan}>
-              <GiCash></GiCash> &nbsp; &nbsp; Withdrawn
-            </button>
-          )}
-
+          
           <button className="SettingItemBtn">
             <AiFillSetting></AiFillSetting> &nbsp; &nbsp; Settings
           </button>

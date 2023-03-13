@@ -163,9 +163,22 @@ export const createNFT = async (req, res) => {
       price,
       sold,
       collectionId,
+      creator,
+      royaltyRecipient,
+      royalty,
     } = req.body;
 
-    if (name && tokenURI && tokenId && seller && owner && price) {
+    if (
+      name &&
+      tokenURI &&
+      tokenId &&
+      seller &&
+      owner &&
+      price &&
+      creator &&
+      royaltyRecipient &&
+      royalty
+    ) {
       const response = await axios.get(tokenURI);
       const description = response?.data?.description;
       const media = response?.data?.media;
@@ -180,6 +193,9 @@ export const createNFT = async (req, res) => {
         owner: owner?.toLowerCase(),
         price,
         description,
+        creator,
+        royaltyRecipient,
+        royalty,
         collectionId,
         category,
         media,

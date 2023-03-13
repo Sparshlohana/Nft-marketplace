@@ -151,6 +151,8 @@ const NFTMarketplaceProvider = ({ children }) => {
     media,
     fileType,
     description,
+    royalty,
+    royaltyRecipient,
     collectionData
   ) => {
     try {
@@ -163,7 +165,12 @@ const NFTMarketplaceProvider = ({ children }) => {
         }, 3000);
       }
 
-      const data = { name, description, media, fileType };
+      const data = {
+        name,
+        description,
+        media,
+        fileType,
+      };
 
       const token = localStorage.getItem("token");
 
@@ -176,7 +183,16 @@ const NFTMarketplaceProvider = ({ children }) => {
       const url = response.data.url;
 
       if (url) {
-        await createSale(url, price, name, false, 0, collectionData);
+        await createSale(
+          url,
+          price,
+          name,
+          royalty,
+          royaltyRecipient,
+          false,
+          0,
+          collectionData
+        );
       }
     } catch (error) {
       setError("Missing required felids");
@@ -199,6 +215,8 @@ const NFTMarketplaceProvider = ({ children }) => {
     url,
     formInputPrice,
     name,
+    royalty,
+    royaltyRecipient,
     isReselling,
     id,
     collectionData
@@ -212,9 +230,15 @@ const NFTMarketplaceProvider = ({ children }) => {
 
         const listingPrice = await contract.getListingPrice();
 
-        const transaction = await contract.createToken(url, price, {
-          value: listingPrice.toString(),
-        });
+        const transaction = await contract.createToken(
+          url,
+          price,
+          royalty,
+          royaltyRecipient,
+          {
+            value: listingPrice.toString(),
+          }
+        );
 
         let collectionId = "";
 
@@ -243,7 +267,18 @@ const NFTMarketplaceProvider = ({ children }) => {
         }
         contract.once(
           "MarketItemCreated",
-          async (tokenId, seller, owner, price, sold) => {
+          async (
+            tokenId,
+            seller,
+            owner,
+            price,
+            sold,
+            creator,
+            royaltyRecipient,
+            royalty
+          ) => {
+            console.log(royalty, royaltyRecipient);
+
             const data = {
               name,
               tokenURI: url,
@@ -253,6 +288,9 @@ const NFTMarketplaceProvider = ({ children }) => {
               price: Number(String(ethers.utils.formatUnits(price, "ether"))),
               sold,
               collectionId,
+              creator,
+              royaltyRecipient,
+              royalty,
             };
 
             const res = await axios.post("/api/v1/nfts", data, {

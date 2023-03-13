@@ -17,6 +17,10 @@ const CreateCollection = ({
   price,
   description,
   createNFT,
+  royalty,
+  setRoyalty,
+  setRoyaltyRecipient,
+  royaltyRecipient,
 }) => {
   const { setError, setIsError, setIsLoading, isLoading } = useContext(
     NFTMarketplaceContext
@@ -299,6 +303,8 @@ const CreateCollection = ({
                     media,
                     fileType,
                     description,
+                    royalty,
+                    royaltyRecipient,
                     collectionData
                   );
                 }}

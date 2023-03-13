@@ -66,7 +66,7 @@ const NFTResellInput = ({ nft }) => {
           className="resellNftUploadBtn"
           onClick={() => {
             setIsLoading(true);
-            createSale(nft.tokenURI, price, nft.name, true, nft.tokenId);
+            createSale(nft.tokenURI, price, nft.name, 0, "", true, nft.tokenId);
           }}
         >
           Resell NFT

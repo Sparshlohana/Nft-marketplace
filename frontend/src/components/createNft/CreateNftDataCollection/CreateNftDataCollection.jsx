@@ -23,6 +23,10 @@ const CreateNftDataCollection = ({
   fileType,
   media,
   price,
+  royalty,
+  setRoyalty,
+  setRoyaltyRecipient,
+  royaltyRecipient,
   description,
 }) => {
   const token = localStorage.getItem("token");
@@ -152,7 +156,10 @@ const CreateNftDataCollection = ({
             <input
               autocomplete="off"
               className="createNftDataCollectionFormInput"
-              type="text"
+              type="number"
+              min={0}
+              value={royalty}
+              onChange={(e) => setRoyalty(e.target.value)}
               placeholder="%"
             />
           </div>
@@ -166,6 +173,8 @@ const CreateNftDataCollection = ({
           </h2>
           <input
             autocomplete="off"
+            value={royaltyRecipient}
+            onChange={(e) => setRoyaltyRecipient(e.target.value)}
             className="createNftDataCollectionFormInput"
             type="text"
             placeholder="Royalty recipient"
@@ -202,6 +211,8 @@ const CreateNftDataCollection = ({
                 media,
                 fileType,
                 description,
+                royalty,
+                royaltyRecipient,
                 collectionData
               );
             }}
