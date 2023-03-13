@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 import CollectionBannerAndImage from "./collectionBannerAndImage/CollectionBannerAndImage";
 import CollectionDescription from "./collectionDescription/CollectionDescription";
 import CollectionHeading from "./collectionHeading/CollectionHeading";
@@ -13,7 +13,7 @@ import Loader from "../loader/Loader";
 
 const CollectionMain = ({ search }) => {
   const { id } = useParams();
-
+  const [searchParams, setSearchParams] = useSearchParams();
   const [sort, setSort] = useState(null);
 
   const [filteredNfts, setFilteredNfts] = useState([]);
@@ -29,13 +29,17 @@ const CollectionMain = ({ search }) => {
     currency: null,
   });
 
+  const account = searchParams.get("account");
+
   const [collection, setCollection] = useState({});
   const [nfts, setNfts] = useState([]);
   const [stats, setStats] = useState({ total: 0, avg: 0, owners: 0 });
 
   const fetchSingleCollection = async () => {
     try {
-      const res = await axios.get(`/api/v1/collections/${id}`);
+      const res = await axios.get(
+        `/api/v1/collections/${id}${account && "?account=" + account}`
+      );
 
       const total = res?.data?.total[0];
 

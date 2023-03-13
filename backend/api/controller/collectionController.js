@@ -80,46 +80,91 @@ export const getCollectionByCategory = async (req, res) => {
 
 export const getNftsFromCollection = async (req, res) => {
   const id = req.params.id;
+  const account = req.query.account;
 
   try {
-    const exist = await Collection.findById(id);
+    if (account && id) {
+      const exist = await Collection.findOne({ _id: id, creator: account });
 
-    if (exist) {
-      const nfts = new APIFeatures(
-        NFT.find({ collectionId: id, sold: false, isPublished: true }),
-        req.query
-      )
-        .filter()
-        .sort()
-        .limitFeilds()
-        .pagination();
+      if (exist) {
+        const nfts = new APIFeatures(
+          NFT.find({ collectionId: id, sold: false }),
+          req.query
+        )
+          .filter()
+          .sort()
+          .limitFeilds()
+          .pagination();
 
-      const allNfts = await nfts.query;
+        const allNfts = await nfts.query;
 
-      const totalVolume = await NFT.aggregate([
-        { $match: { sold: false, isPublished: true, collectionId: id } },
-        {
-          $group: {
-            _id: "",
-            Amount: { $sum: "$price" },
-            avg: { $avg: "$price" },
+        const totalVolume = await NFT.aggregate([
+          { $match: { sold: false, collectionId: id } },
+          {
+            $group: {
+              _id: "",
+              Amount: { $sum: "$price" },
+              avg: { $avg: "$price" },
+            },
           },
-        },
-        {
-          $project: {
-            _id: 0,
-            TotalAmount: "$Amount",
-            avg: "$avg",
+          {
+            $project: {
+              _id: 0,
+              TotalAmount: "$Amount",
+              avg: "$avg",
+            },
           },
-        },
-      ]);
+        ]);
 
-      res.status(200).json({
-        status: "success",
-        nfts: allNfts,
-        collection: exist,
-        total: totalVolume,
+        res.status(200).json({
+          status: "success",
+          nfts: allNfts,
+          collection: exist,
+          total: totalVolume,
+        });
+      }
+    } else {
+      const exist = await Collection.findOne({
+        _id: id,
       });
+
+      if (exist) {
+        const nfts = new APIFeatures(
+          NFT.find({ collectionId: id, sold: false, isPublished: true }),
+          req.query
+        )
+          .filter()
+          .sort()
+          .limitFeilds()
+          .pagination();
+
+        const allNfts = await nfts.query;
+
+        const totalVolume = await NFT.aggregate([
+          { $match: { sold: false, isPublished: true, collectionId: id } },
+          {
+            $group: {
+              _id: "",
+              Amount: { $sum: "$price" },
+              avg: { $avg: "$price" },
+            },
+          },
+          {
+            $project: {
+              _id: 0,
+              TotalAmount: "$Amount",
+              avg: "$avg",
+            },
+          },
+        ]);
+
+        res.status(200).json({
+          status: "success",
+          nfts: allNfts,
+          collection: exist,
+          total: totalVolume,
+        });
+      }
     }
   } catch (error) {
     res.status(500).json({

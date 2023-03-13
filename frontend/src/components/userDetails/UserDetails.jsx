@@ -42,6 +42,7 @@ const UserDetails = ({ search }) => {
       setCollections(res.data?.collections);
     } catch (error) {}
   };
+
   useEffect(() => {
     (async () => {
       await fetchUserDetails();

@@ -136,20 +136,6 @@ const UserNftCollectionContainer = ({
     } catch (error) {}
   };
 
-  const handleSearch = () => {
-    const searchCollected = collected?.filter((nft) =>
-      nft?.name?.includes(search)
-    );
-    const searchCreated = created?.filter((nft) => nft?.name?.includes(search));
-
-    const searchfavorite = favorites?.filter((nft) =>
-      nft?.name?.includes(search)
-    );
-    setCollectedFilteredNfts(searchCollected);
-    setCreatedFilteredNfts(searchCreated);
-    setFavoriteFilteredNfts(searchfavorite);
-  };
-
   useEffect(() => {
     // handleSearch();
   }, [search]);
@@ -219,6 +205,7 @@ const UserNftCollectionContainer = ({
                   ? filteredCollections
                   : collections
               }
+              currentAccount={currentAccount}
             />
           )}
         </div>
