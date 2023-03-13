@@ -277,8 +277,6 @@ const NFTMarketplaceProvider = ({ children }) => {
             royaltyRecipient,
             royalty
           ) => {
-            console.log(royalty, royaltyRecipient);
-
             const data = {
               name,
               tokenURI: url,
@@ -290,7 +288,7 @@ const NFTMarketplaceProvider = ({ children }) => {
               collectionId,
               creator,
               royaltyRecipient,
-              royalty,
+              royalty: Number(royalty.toString()),
             };
 
             const res = await axios.post("/api/v1/nfts", data, {

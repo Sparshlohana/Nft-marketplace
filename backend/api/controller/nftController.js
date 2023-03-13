@@ -167,7 +167,7 @@ export const createNFT = async (req, res) => {
       royaltyRecipient,
       royalty,
     } = req.body;
-
+    console.log(req.body);
     if (
       name &&
       tokenURI &&
