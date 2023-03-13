@@ -22,6 +22,9 @@ contract NFTMarketplace is ERC721URIStorage {
         address payable owner;
         uint256 price;
         bool sold;
+        address payable creator;
+        address payable royaltyRecipient;
+        uint royalty;
     }
 
     event MarketItemCreated(
@@ -29,7 +32,10 @@ contract NFTMarketplace is ERC721URIStorage {
         address seller,
         address owner,
         uint256 price,
-        bool sold
+        bool sold,
+        address payable creator,
+        address payable royaltyRecipient,
+        uint256 royalty
     );
 
     event buyEvent(
@@ -86,7 +92,7 @@ contract NFTMarketplace is ERC721URIStorage {
     }
 
     /* Mints a token and lists it in the marketplace */
-    function createToken(string memory tokenURI, uint256 price)
+    function createToken(string memory tokenURI, uint256 price,uint256 royalty,address payable  royaltyRecipient)
         public
         payable
         returns (uint256)
@@ -96,7 +102,7 @@ contract NFTMarketplace is ERC721URIStorage {
 
         _mint(msg.sender, newTokenId);
         _setTokenURI(newTokenId, tokenURI);
-        createMarketItem(newTokenId, price);
+        createMarketItem(newTokenId, price,royalty,royaltyRecipient);
         return newTokenId;
     }
 
@@ -105,7 +111,7 @@ contract NFTMarketplace is ERC721URIStorage {
         delete idToMarketItem[tokenId];
     }
 
-    function createMarketItem(uint256 tokenId, uint256 price) private {
+    function createMarketItem(uint256 tokenId, uint256 price,uint256 royalty,address payable royaltyRecipient) private {
         require(price > 0, "Price must be at least 1 wei");
         require(
             msg.value == listingPrice,
@@ -117,7 +123,10 @@ contract NFTMarketplace is ERC721URIStorage {
             payable(msg.sender),
             payable(address(this)),
             price,
-            false
+            false,
+            payable(msg.sender),
+            payable(royaltyRecipient),
+            royalty
         );
 
         _transfer(msg.sender, address(this), tokenId);
@@ -126,7 +135,10 @@ contract NFTMarketplace is ERC721URIStorage {
             msg.sender,
             address(this),
             price,
-            false
+            false,
+            payable(msg.sender),
+            payable(royaltyRecipient),
+            royalty
         );
     }
 
@@ -157,35 +169,43 @@ contract NFTMarketplace is ERC721URIStorage {
             msg.value == price,
             "Please submit the asking price in order to complete the purchase"
         );
-        address  to = idToMarketItem[tokenId].seller;
 
+        address  to = idToMarketItem[tokenId].seller;
+        address royaltyRecipient = idToMarketItem[tokenId].royaltyRecipient;
+
+        uint256 royaltyPr = idToMarketItem[tokenId].royalty;
+        uint256 royaltyAmount = (royaltyPr * price)/100  ;
+            
         idToMarketItem[tokenId].owner = payable(msg.sender);
         idToMarketItem[tokenId].sold = true;
         idToMarketItem[tokenId].seller = payable(address(0));
+        
         _itemsSold.increment();
+
         _transfer(address(this), msg.sender, tokenId);
         payable(owner).transfer(listingPrice);
-        payable(to).transfer(price);
+        payable(to).transfer(price - royaltyAmount);
+        payable(royaltyRecipient).transfer(royaltyAmount);
 
         emit buyEvent(tokenId,address(0),msg.sender);
     }
 
-    function fetchMarketItems() public view returns (MarketItem[] memory) {
-        uint256 itemCount = _tokenIds.current();
-        uint256 unsoldItemCount = _tokenIds.current() - _itemsSold.current();
-        uint256 currentIndex = 0;
+    // function fetchMarketItems() public view returns (MarketItem[] memory) {
+    //     uint256 itemCount = _tokenIds.current();
+    //     uint256 unsoldItemCount = _tokenIds.current() - _itemsSold.current();
+    //     uint256 currentIndex = 0;
 
-        MarketItem[] memory items = new MarketItem[](unsoldItemCount);
-        for (uint256 i = 0; i < itemCount; i++) {
-            if (idToMarketItem[i + 1].owner == address(this)) {
-                uint256 currentId = i + 1;
-                MarketItem memory currentItem = idToMarketItem[currentId];
-                items[currentIndex] = currentItem;
-                currentIndex += 1;
-            }
-        }
-        return items;
-    }
+    //     MarketItem[] memory items = new MarketItem[](unsoldItemCount);
+    //     for (uint256 i = 0; i < itemCount; i++) {
+    //         if (idToMarketItem[i + 1].owner == address(this)) {
+    //             uint256 currentId = i + 1;
+    //             MarketItem memory currentItem = idToMarketItem[currentId];
+    //             items[currentIndex] = currentItem;
+    //             currentIndex += 1;
+    //         }
+    //     }
+    //     return items;
+    // }
 
     // function fetchMyNFTs() public view returns (MarketItem[] memory) {
     //     uint256 totalItemCount = _tokenIds.current();
